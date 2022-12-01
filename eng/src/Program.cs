@@ -6,13 +6,13 @@ using PostSharp.Engineering.BuildTools.Build.Solutions;
 using PostSharp.Engineering.BuildTools.Dependencies.Model;
 using Spectre.Console.Cli;
 
-var product = new Product( Dependencies.MyProduct )
+var product = new Product( Dependencies.MetalamaCommunity )
 {
     Solutions = new Solution[]
     {
-        new DotNetSolution( "src\\My.Product.sln" )
+        new DotNetSolution( "Metalama.Community.sln" )
     },
-    PublicArtifacts = Pattern.Create( "My.Product.$(PackageVersion).nupkg" ),
+    //PublicArtifacts = Pattern.Create( "My.Product.$(PackageVersion).nupkg" ),
     Dependencies = new[] { Dependencies.PostSharpEngineering, Dependencies.Metalama }
 };
 
