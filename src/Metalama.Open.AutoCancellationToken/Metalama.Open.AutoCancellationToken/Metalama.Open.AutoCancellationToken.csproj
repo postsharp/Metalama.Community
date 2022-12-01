@@ -1,0 +1,14 @@
+<Project Sdk="Microsoft.NET.Sdk">
+
+    <PropertyGroup>
+        <TargetFramework>netstandard2.0</TargetFramework>
+        <!-- dotnet restore requires unique package names for all projects -->
+        <PackageId>Metalama.Open.AutoCancellationToken.Redist</PackageId>
+		<NoWarn>SA0001</NoWarn>
+    </PropertyGroup>
+
+    <ItemGroup>
+        <PackageReference Include="Metalama.Framework" Version="$(MetalamaVersion)" />
+    </ItemGroup>
+
+</Project>

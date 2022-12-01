@@ -1,0 +1,19 @@
+<Project Sdk="Microsoft.NET.Sdk">
+
+  <PropertyGroup>
+    <TargetFramework>netstandard2.0</TargetFramework>
+    <LangVersion>9.0</LangVersion>
+    <PackageId>Metalama.Open.AutoCancellationToken</PackageId>
+	  <PackageTags>$(PackageTags) PostSharp Metalama AOP</PackageTags>
+	  <PackageDescription>A Metalama weaver that automatically adds CancellationToken to your method definitions and your method calls.</PackageDescription>
+	</PropertyGroup>
+
+  <ItemGroup>
+    <PackageReference Include="Metalama.Framework.Sdk" Version="$(MetalamaVersion)" />
+  </ItemGroup>
+
+  <ItemGroup>
+    <ProjectReference Include="..\Metalama.Open.AutoCancellationToken\Metalama.Open.AutoCancellationToken.csproj" />
+  </ItemGroup>
+
+</Project>

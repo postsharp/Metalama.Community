@@ -1,0 +1,13 @@
+﻿<Project Sdk="Microsoft.NET.Sdk">
+
+  <PropertyGroup>
+    <TargetFramework>netstandard2.0</TargetFramework>
+    <!-- dotnet restore requires unique package names for all projects -->
+    <PackageId>Metalama.Open.Virtuosity.Redist</PackageId>
+  </PropertyGroup>
+
+  <ItemGroup>
+    <PackageReference Include="Metalama.Framework" Version="$(MetalamaVersion)" />
+  </ItemGroup>
+
+</Project>

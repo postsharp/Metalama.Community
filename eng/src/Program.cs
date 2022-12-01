@@ -12,7 +12,14 @@ var product = new Product( Dependencies.MetalamaCommunity )
     {
         new DotNetSolution( "Metalama.Community.sln" )
     },
-    //PublicArtifacts = Pattern.Create( "My.Product.$(PackageVersion).nupkg" ),
+    PublicArtifacts = Pattern.Create(
+        "Metalama.Open.AutoCancellationToken.$(PackageVersion).nupkg",
+        "Metalama.Open.AutoCancellationToken.Redist.$(PackageVersion).nupkg",
+        "Metalama.Open.Costura.$(PackageVersion).nupkg",
+        "Metalama.Open.Costura.Redist.$(PackageVersion).nupkg",
+        "Metalama.Open.Virtuosity.$(PackageVersion).nupkg",
+        "Metalama.Open.Virtuosity.Redist.$(PackageVersion).nupkg"
+         ),
     Dependencies = new[] { Dependencies.PostSharpEngineering, Dependencies.Metalama }
 };
 

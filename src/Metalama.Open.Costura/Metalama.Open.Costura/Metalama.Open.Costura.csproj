@@ -1,0 +1,17 @@
+﻿<Project Sdk="Microsoft.NET.Sdk">
+
+    <PropertyGroup>
+        <TargetFramework>netstandard2.0</TargetFramework>
+        <!-- dotnet restore requires unique package names for all projects -->
+        <PackageId>Metalama.Open.Costura.Redist</PackageId>
+    </PropertyGroup>
+
+    <ItemGroup>
+        <PackageReference Include="Metalama.Framework.Redist" Version="$(MetalamaVersion)" PrivateAssets="all"/>
+        <InternalsVisibleTo Include="Metalama.Open.Costura.Weaver"/>
+
+        <!-- Means that the assembly must be added as a reference to compile-time compilations even if does not have a manifest. -->
+        <AssemblyAttribute Include="Metalama.Framework.Aspects.CompileTimeAttribute"/>
+    </ItemGroup>
+
+</Project>
