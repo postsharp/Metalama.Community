@@ -3,43 +3,43 @@ Microsoft Visual Studio Solution File, Format Version 12.00
 # Visual Studio Version 17
 VisualStudioVersion = 17.4.33103.184
 MinimumVisualStudioVersion = 10.0.40219.1
-Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "Metalama.Open.AutoCancellationToken", "Metalama.Open.AutoCancellationToken", "{96EE3146-2058-4CFC-8994-57CA1C38728F}"
+Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "Metalama.Community.AutoCancellationToken", "Metalama.Community.AutoCancellationToken", "{96EE3146-2058-4CFC-8994-57CA1C38728F}"
 EndProject
-Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "Metalama.Open.Costura", "Metalama.Open.Costura", "{1F055572-A1A5-4004-9BA5-4182BD32B916}"
+Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "Metalama.Community.Costura", "Metalama.Community.Costura", "{1F055572-A1A5-4004-9BA5-4182BD32B916}"
 EndProject
-Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "Metalama.Open.Virtuosity", "Metalama.Open.Virtuosity", "{06618868-B7D1-432C-A6DB-51C68B522479}"
+Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "Metalama.Community.Virtuosity", "Metalama.Community.Virtuosity", "{06618868-B7D1-432C-A6DB-51C68B522479}"
 EndProject
-Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Metalama.Open.AutoCancellationToken", "src\Metalama.Open.AutoCancellationToken\Metalama.Open.AutoCancellationToken\Metalama.Open.AutoCancellationToken.csproj", "{CD2992C4-2571-4059-B19C-7842B04371A5}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Metalama.Community.AutoCancellationToken", "src\Metalama.Community.AutoCancellationToken\Metalama.Community.AutoCancellationToken\Metalama.Community.AutoCancellationToken.csproj", "{CD2992C4-2571-4059-B19C-7842B04371A5}"
 EndProject
-Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Metalama.Open.AutoCancellationToken.TestApp", "src\Metalama.Open.AutoCancellationToken\Metalama.Open.AutoCancellationToken.TestApp\Metalama.Open.AutoCancellationToken.TestApp.csproj", "{B9DCB45D-5A34-4022-9C6A-11C6A77AFF07}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Metalama.Community.AutoCancellationToken.TestApp", "src\Metalama.Community.AutoCancellationToken\Metalama.Community.AutoCancellationToken.TestApp\Metalama.Community.AutoCancellationToken.TestApp.csproj", "{B9DCB45D-5A34-4022-9C6A-11C6A77AFF07}"
 EndProject
-Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Metalama.Open.AutoCancellationToken.UnitTests", "src\Metalama.Open.AutoCancellationToken\Metalama.Open.AutoCancellationToken.UnitTests\Metalama.Open.AutoCancellationToken.UnitTests.csproj", "{3D16CBC8-5309-49D1-BEA6-B4BC4A4E833F}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Metalama.Community.AutoCancellationToken.UnitTests", "src\Metalama.Community.AutoCancellationToken\Metalama.Community.AutoCancellationToken.UnitTests\Metalama.Community.AutoCancellationToken.UnitTests.csproj", "{3D16CBC8-5309-49D1-BEA6-B4BC4A4E833F}"
 EndProject
-Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Metalama.Open.AutoCancellationToken.Weaver", "src\Metalama.Open.AutoCancellationToken\Metalama.Open.AutoCancellationToken.Weaver\Metalama.Open.AutoCancellationToken.Weaver.csproj", "{1461F15C-0C70-45EB-90DF-0DEF741A5168}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Metalama.Community.AutoCancellationToken.Weaver", "src\Metalama.Community.AutoCancellationToken\Metalama.Community.AutoCancellationToken.Weaver\Metalama.Community.AutoCancellationToken.Weaver.csproj", "{1461F15C-0C70-45EB-90DF-0DEF741A5168}"
 EndProject
-Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Metalama.Open.Costura", "src\Metalama.Open.Costura\Metalama.Open.Costura\Metalama.Open.Costura.csproj", "{10BD5FAE-A34F-405E-9D7B-2DF4BFFDD872}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Metalama.Community.Costura", "src\Metalama.Community.Costura\Metalama.Community.Costura\Metalama.Community.Costura.csproj", "{10BD5FAE-A34F-405E-9D7B-2DF4BFFDD872}"
 EndProject
-Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Metalama.Open.Costura.TestApp", "src\Metalama.Open.Costura\Metalama.Open.Costura.TestApp\Metalama.Open.Costura.TestApp.csproj", "{92CA657F-EF53-4ACA-A1AC-B421619CA136}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Metalama.Community.Costura.TestApp", "src\Metalama.Community.Costura\Metalama.Community.Costura.TestApp\Metalama.Community.Costura.TestApp.csproj", "{92CA657F-EF53-4ACA-A1AC-B421619CA136}"
 EndProject
-Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Metalama.Open.Costura.Tests", "src\Metalama.Open.Costura\Metalama.Open.Costura.Tests\Metalama.Open.Costura.Tests.csproj", "{37C19557-78C7-4AD8-A584-180413D26FA0}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Metalama.Community.Costura.Tests", "src\Metalama.Community.Costura\Metalama.Community.Costura.Tests\Metalama.Community.Costura.Tests.csproj", "{37C19557-78C7-4AD8-A584-180413D26FA0}"
 EndProject
-Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Metalama.Open.Costura.Weaver", "src\Metalama.Open.Costura\Metalama.Open.Costura.Weaver\Metalama.Open.Costura.Weaver.csproj", "{ADA404B0-22C3-4547-80C2-55654290D8D4}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Metalama.Community.Costura.Weaver", "src\Metalama.Community.Costura\Metalama.Community.Costura.Weaver\Metalama.Community.Costura.Weaver.csproj", "{ADA404B0-22C3-4547-80C2-55654290D8D4}"
 EndProject
-Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Metalama.Open.Costura.WpfApp", "src\Metalama.Open.Costura\Metalama.Open.Costura.WpfApp\Metalama.Open.Costura.WpfApp.csproj", "{33854C18-CE6A-4353-8D04-F02FAB517878}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Metalama.Community.Costura.WpfApp", "src\Metalama.Community.Costura\Metalama.Community.Costura.WpfApp\Metalama.Community.Costura.WpfApp.csproj", "{33854C18-CE6A-4353-8D04-F02FAB517878}"
 EndProject
-Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Metalama.Open.Virtuosity", "src\Metalama.Open.Virtuosity\Metalama.Open.Virtuosity\Metalama.Open.Virtuosity.csproj", "{4ED6BE2C-AF70-4FDE-95C8-77D666E227BF}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Metalama.Community.Virtuosity", "src\Metalama.Community.Virtuosity\Metalama.Community.Virtuosity\Metalama.Community.Virtuosity.csproj", "{4ED6BE2C-AF70-4FDE-95C8-77D666E227BF}"
 EndProject
-Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Metalama.Open.Virtuosity.Demo", "src\Metalama.Open.Virtuosity\Metalama.Open.Virtuosity.Demo\Metalama.Open.Virtuosity.Demo.csproj", "{3ED44E31-6ED5-4AF8-98CF-572AFD0091B7}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Metalama.Community.Virtuosity.Demo", "src\Metalama.Community.Virtuosity\Metalama.Community.Virtuosity.Demo\Metalama.Community.Virtuosity.Demo.csproj", "{3ED44E31-6ED5-4AF8-98CF-572AFD0091B7}"
 EndProject
-Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Metalama.Open.Virtuosity.UnitTests", "src\Metalama.Open.Virtuosity\Metalama.Open.Virtuosity.UnitTests\Metalama.Open.Virtuosity.UnitTests.csproj", "{F71CBC7E-C5F8-4B21-8EF5-4A7A70CEEB0D}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Metalama.Community.Virtuosity.UnitTests", "src\Metalama.Community.Virtuosity\Metalama.Community.Virtuosity.UnitTests\Metalama.Community.Virtuosity.UnitTests.csproj", "{F71CBC7E-C5F8-4B21-8EF5-4A7A70CEEB0D}"
 EndProject
 Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "Tests", "Tests", "{890F145E-5345-41E3-A381-406DE496693A}"
 EndProject
-Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Metalama.Open.Virtuosity.TestApp", "src\Metalama.Open.Virtuosity\Metalama.Open.Virtuosity.TestApp\Metalama.Open.Virtuosity.TestApp\Metalama.Open.Virtuosity.TestApp.csproj", "{FF4D6A4A-051B-41D9-8A9F-6E549550D6FC}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Metalama.Community.Virtuosity.TestApp", "src\Metalama.Community.Virtuosity\Metalama.Community.Virtuosity.TestApp\Metalama.Community.Virtuosity.TestApp\Metalama.Community.Virtuosity.TestApp.csproj", "{FF4D6A4A-051B-41D9-8A9F-6E549550D6FC}"
 EndProject
-Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Metalama.Open.Virtuosity.TestRunner", "src\Metalama.Open.Virtuosity\Metalama.Open.Virtuosity.TestApp\Metalama.Open.Virtuosity.TestRunner\Metalama.Open.Virtuosity.TestRunner.csproj", "{5EC37989-1BF4-479F-97AA-6D600558496C}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Metalama.Community.Virtuosity.TestRunner", "src\Metalama.Community.Virtuosity\Metalama.Community.Virtuosity.TestApp\Metalama.Community.Virtuosity.TestRunner\Metalama.Community.Virtuosity.TestRunner.csproj", "{5EC37989-1BF4-479F-97AA-6D600558496C}"
 EndProject
-Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Metalama.Open.Virtuosity.Weaver", "src\Metalama.Open.Virtuosity\Metalama.Open.Virtuosity.Weaver\Metalama.Open.Virtuosity.Weaver.csproj", "{0E06FE66-DF44-4604-B8A6-2FD84D9A393F}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Metalama.Community.Virtuosity.Weaver", "src\Metalama.Community.Virtuosity\Metalama.Community.Virtuosity.Weaver\Metalama.Community.Virtuosity.Weaver.csproj", "{0E06FE66-DF44-4604-B8A6-2FD84D9A393F}"
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution

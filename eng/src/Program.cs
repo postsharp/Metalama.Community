@@ -6,19 +6,22 @@ using PostSharp.Engineering.BuildTools.Build.Solutions;
 using PostSharp.Engineering.BuildTools.Dependencies.Model;
 using Spectre.Console.Cli;
 
-var product = new Product( Dependencies.MetalamaCommunity )
+// TODO: Remove when Engineering contains the dependency.
+var dependncy = new DependencyDefinition( "Metalama.Community", VcsProvider.GitHub, "postSharp" );
+
+var product = new Product( dependncy )
 {
     Solutions = new Solution[]
     {
         new DotNetSolution( "Metalama.Community.sln" )
     },
     PublicArtifacts = Pattern.Create(
-        "Metalama.Open.AutoCancellationToken.$(PackageVersion).nupkg",
-        "Metalama.Open.AutoCancellationToken.Redist.$(PackageVersion).nupkg",
-        "Metalama.Open.Costura.$(PackageVersion).nupkg",
-        "Metalama.Open.Costura.Redist.$(PackageVersion).nupkg",
-        "Metalama.Open.Virtuosity.$(PackageVersion).nupkg",
-        "Metalama.Open.Virtuosity.Redist.$(PackageVersion).nupkg" ),
+        "Metalama.Community.AutoCancellationToken.$(PackageVersion).nupkg",
+        "Metalama.Community.AutoCancellationToken.Redist.$(PackageVersion).nupkg",
+        "Metalama.Community.Costura.$(PackageVersion).nupkg",
+        "Metalama.Community.Costura.Redist.$(PackageVersion).nupkg",
+        "Metalama.Community.Virtuosity.$(PackageVersion).nupkg",
+        "Metalama.Community.Virtuosity.Redist.$(PackageVersion).nupkg" ),
     Dependencies = new[] { Dependencies.PostSharpEngineering, Dependencies.Metalama }
 };
 
