@@ -1,0 +1,21 @@
+﻿<Project Sdk="Microsoft.NET.Sdk">
+
+    <PropertyGroup>
+        <OutputType>Library</OutputType>
+        <TargetFramework>net6.0</TargetFramework>
+        <NoWarn>$(NoWarn),1591,1572,1573,SA1649</NoWarn>
+    </PropertyGroup>
+
+    <!-- to reference the weaver as a project, we need to add these three references separately -->
+    <!-- OutputItemType="Analyzer" on the two ProjectReferences is needed so that Metalama can execute the weaver at build time -->
+    <!-- ReferenceOutputAssembly="false" ensures that this project does not have access to libraries that it shouldn't: Metalama SDK and Roslyn -->
+    <ItemGroup>
+        <ProjectReference Include="..\Metalama.Community.Virtuosity.Weaver\Metalama.Community.Virtuosity.Weaver.csproj" OutputItemType="Analyzer" ReferenceOutputAssembly="false"/>
+        <ProjectReference Include="..\Metalama.Community.Virtuosity\Metalama.Community.Virtuosity.csproj" OutputItemType="Analyzer"/>
+        <PackageReference Include="Metalama.Testing.AspectTesting" Version="$(MetalamaVersion)"/>
+        <PackageReference Include="Microsoft.NET.Test.Sdk" Version="17.2.0"/>
+        <PackageReference Include="xunit" Version="2.4.1"/>
+        <PackageReference Include="xunit.runner.visualstudio" Version="2.4.5"/>
+    </ItemGroup>
+
+</Project>

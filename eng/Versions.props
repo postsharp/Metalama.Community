@@ -4,8 +4,8 @@
     <Import Project="MainVersion.props" />
     
     <PropertyGroup>
-        <MyProductVersion>$(MainVersion)$(PackageVersionSuffix)</MyProductVersion>
-        <MyProductAssemblyVersion>$(MainVersion)</MyProductAssemblyVersion>
+        <MetalamaCommunityVersion>$(MainVersion)$(PackageVersionSuffix)</MetalamaCommunityVersion>
+        <MetalamaCommunityAssemblyVersion>$(MainVersion)</MetalamaCommunityAssemblyVersion>
     </PropertyGroup>
 
     
@@ -13,14 +13,22 @@
     <PropertyGroup>
         <PostSharpEngineeringVersion>1.0.99-preview</PostSharpEngineeringVersion>
 		<MetalamaVersion>branch:master</MetalamaVersion>
+        <MetalamaVersion Condition="$(VcsBranch.StartsWith('master'))">0.5.66-preview</MetalamaVersion>
+
+		<MetalamaOpenVirtuosityVersion>0.5.31-preview</MetalamaOpenVirtuosityVersion>
+
+		<MicrosoftNETTestSdkVersion>17.0.0</MicrosoftNETTestSdkVersion>
+		<NewtonsoftJsonVersion>13.0.1</NewtonsoftJsonVersion>
+        <SoothsilverRandomVersion>1.1.0</SoothsilverRandomVersion>
+        <xUnitVersion>2.4.1</xUnitVersion>
     </PropertyGroup>
 
     <!-- Override versions (both this product and dependencies) for the local build -->
     <Import Project="Versions.g.props" Condition="Exists('Versions.g.props')" />
 
     <PropertyGroup>
-        <AssemblyVersion>$(MyProductAssemblyVersion)</AssemblyVersion>
-        <Version>$(MyProductVersion)</Version>
+        <AssemblyVersion>$(MetalamaCommunityAssemblyVersion)</AssemblyVersion>
+        <Version>$(MetalamaCommunityVersion)</Version>
     </PropertyGroup>
 
 </Project>

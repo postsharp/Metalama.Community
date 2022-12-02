@@ -8,14 +8,12 @@
         <PackageProjectUrl>https://github.com/postsharp/Caravela</PackageProjectUrl>
         <PackageTags></PackageTags>
         <PackageRequireLicenseAcceptance>false</PackageRequireLicenseAcceptance>
-        <PackageIcon>postsharp.png</PackageIcon>
-        <PackageLicenseFile>LICENSE.md</PackageLicenseFile>
+        <PackageIcon>metalama.png</PackageIcon>
     </PropertyGroup>
 
     <!-- Additional content of NuGet packages -->
     <ItemGroup>
-        <None Include="$(AssetsDirectory)\postsharp.png" Visible="false" Pack="true" PackagePath="" />
-        <None Include="$(MSBuildThisFileDirectory)..\LICENSE.md" Visible="false" Pack="true" PackagePath="" />
+        <None Include="$(AssetsDirectory)\metalama.png" Visible="false" Pack="true" PackagePath="" />
         <None Include="$(MSBuildThisFileDirectory)..\THIRD-PARTY-NOTICES.TXT" Visible="false" Pack="true" PackagePath="" />
     </ItemGroup>
 
