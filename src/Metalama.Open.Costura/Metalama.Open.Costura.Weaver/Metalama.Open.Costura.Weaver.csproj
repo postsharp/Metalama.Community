@@ -5,6 +5,7 @@
     <PackageId>Metalama.Open.Costura</PackageId>
     <PackageDescription>A Metalama weaver that embeds dependent assemblies as managed resources. A fork of Costura.Fody.</PackageDescription>
     <PackageReadmeFile>README.md</PackageReadmeFile>
+	<PackageLicenseFile>LICENSE.md</PackageLicenseFile>
   </PropertyGroup>
 
   <ItemGroup>
@@ -34,6 +35,7 @@
   <!-- Packaging -->
   <ItemGroup>
       <None Include="README.md" Pack="true" PackagePath="\" />
+	  <None Include="$(MSBuildThisFileDirectory)..\LICENSE.md" Visible="false" Pack="true" PackagePath="" />
   </ItemGroup>
 
 </Project>

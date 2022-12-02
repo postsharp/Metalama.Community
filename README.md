@@ -1,17 +1,9 @@
-# PostSharp.Engineering.ProductTemplate
+## Metalama.Community
 
-This repo is a template for new repos that are built using `PostSharp.Engineering`.
+This repository contains open-source Metalama aspects created by community.
 
-This repo assumes it builds a product named `My.Product`. A _product_, in the context of PostSharp.Engineering, is essentially synonym to a repo, and it can produce several deployable artifacts, typically several NuGet packages. All artifacts in the same product have the same version and build number.
+### Community projects
 
-After cloning the repo, you should do this:
-
-* Use `Build.ps1 tools git rename` to rename `My.Product` into your product name, _with_ dots.
-* Use Visual Studio Code find-and-replace all to rename:
-  * `My.Product` into your product name _with_ dots,
-  * `MyProduct` into your product name _without_ dots.
-
-The build entry point is `Build.ps1`.
-
-For more instructions, see https://github.com/postsharp/PostSharp.Engineering.
-
+* `Metalama.Open.AutoCancellationToken` - A Metalama weaver that automatically adds CancellationToken to your method definitions and your method calls.
+* `Metalama.Open.Costura` - A Metalama weaver that embeds dependent assemblies as managed resources. A fork of Costura.Fody.
+* `Metalama.Open.Virtuosity` - A Metalama weaver that makes all methods virtual.

@@ -6,6 +6,7 @@
     <PackageId>Metalama.Open.Costura.Redist</PackageId>
     <PackageDescription>Redistributable components for package 'Metalama.Open.Costura'. This package should only be installed as a dependency. (This is not the package you are looking for if you want to use Metalama.Open.Costura). </PackageDescription>
     <PackageReadmeFile>README.md</PackageReadmeFile>
+	<PackageLicenseFile>LICENSE.md</PackageLicenseFile>
   </PropertyGroup>
 
   <ItemGroup>
@@ -18,7 +19,8 @@
 
   <!-- Packaging -->
   <ItemGroup>
-      <None Include="README.md" Pack="true" PackagePath="\" />
+    <None Include="README.md" Pack="true" PackagePath="\" />
+	<None Include="$(MSBuildThisFileDirectory)..\LICENSE.md" Visible="false" Pack="true" PackagePath="" />
   </ItemGroup>
 
 </Project>

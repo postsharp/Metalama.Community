@@ -5,6 +5,7 @@
     <PackageId>Metalama.Open.Virtuosity</PackageId>
     <PackageDescription>A Metalama weaver that makes all methods virtual.</PackageDescription>
     <PackageReadmeFile>README.md</PackageReadmeFile>
+	<PackageLicenseFile>LICENSE.md</PackageLicenseFile>
   </PropertyGroup>
 
   <ItemGroup>
@@ -14,7 +15,8 @@
 
   <!-- Packaging -->
   <ItemGroup>
-      <None Include="README.md" Pack="true" PackagePath="\" />
+    <None Include="README.md" Pack="true" PackagePath="\" />
+	<None Include="$(MSBuildThisFileDirectory)..\LICENSE.md" Visible="false" Pack="true" PackagePath="" />
   </ItemGroup>
 
 </Project>

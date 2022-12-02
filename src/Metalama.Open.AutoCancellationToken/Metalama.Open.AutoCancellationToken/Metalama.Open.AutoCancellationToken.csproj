@@ -1,4 +1,4 @@
-<Project Sdk="Microsoft.NET.Sdk">
+﻿<Project Sdk="Microsoft.NET.Sdk">
 
   <PropertyGroup>
     <TargetFramework>netstandard2.0</TargetFramework>
@@ -6,6 +6,7 @@
     <PackageId>Metalama.Open.AutoCancellationToken.Redist</PackageId>
     <PackageDescription>Redistributable components for package 'Metalama.Open.AutoCancellationToken'. This package should only be installed as a dependency. (This is not the package you are looking for if you want to use Metalama.Open.AutoCancellationToken). </PackageDescription>
     <PackageReadmeFile>README.md</PackageReadmeFile>
+    <PackageLicenseFile>LICENSE.md</PackageLicenseFile>
   </PropertyGroup>
 
   <ItemGroup>
@@ -15,6 +16,7 @@
   <!-- Packaging -->
   <ItemGroup>
       <None Include="README.md" Pack="true" PackagePath="\" />
+      <None Include="$(MSBuildThisFileDirectory)..\LICENSE.md" Visible="false" Pack="true" PackagePath="" />
   </ItemGroup>
 
 </Project>
