@@ -6,10 +6,7 @@ using PostSharp.Engineering.BuildTools.Build.Solutions;
 using PostSharp.Engineering.BuildTools.Dependencies.Model;
 using Spectre.Console.Cli;
 
-// TODO: Remove when Engineering contains the dependency.
-var dependncy = new DependencyDefinition( "Metalama.Community", VcsProvider.GitHub, "postSharp" );
-
-var product = new Product( dependncy )
+var product = new Product( Dependencies.MetalamaCommunity )
 {
     Solutions = new Solution[]
     {
