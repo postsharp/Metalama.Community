@@ -18,8 +18,7 @@ var product = new Product( Dependencies.MetalamaCommunity )
         "Metalama.Open.Costura.$(PackageVersion).nupkg",
         "Metalama.Open.Costura.Redist.$(PackageVersion).nupkg",
         "Metalama.Open.Virtuosity.$(PackageVersion).nupkg",
-        "Metalama.Open.Virtuosity.Redist.$(PackageVersion).nupkg"
-         ),
+        "Metalama.Open.Virtuosity.Redist.$(PackageVersion).nupkg" ),
     Dependencies = new[] { Dependencies.PostSharpEngineering, Dependencies.Metalama }
 };
 

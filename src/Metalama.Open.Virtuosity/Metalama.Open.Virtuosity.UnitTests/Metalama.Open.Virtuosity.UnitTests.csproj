@@ -3,7 +3,7 @@
     <PropertyGroup>
         <OutputType>Library</OutputType>
         <TargetFramework>net6.0</TargetFramework>
-        <NoWarn>1591,1572,1573,SA1649</NoWarn>
+        <NoWarn>$(NoWarn),1591,1572,1573,SA1649</NoWarn>
     </PropertyGroup>
 
     <!-- to reference the weaver as a project, we need to add these three references separately -->

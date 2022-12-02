@@ -1,17 +1,24 @@
 ﻿<Project Sdk="Microsoft.NET.Sdk">
 
-    <PropertyGroup>
-        <TargetFramework>netstandard2.0</TargetFramework>
-        <!-- dotnet restore requires unique package names for all projects -->
-        <PackageId>Metalama.Open.Costura.Redist</PackageId>
-    </PropertyGroup>
+  <PropertyGroup>
+    <TargetFramework>netstandard2.0</TargetFramework>
+    <!-- dotnet restore requires unique package names for all projects -->
+    <PackageId>Metalama.Open.Costura.Redist</PackageId>
+    <PackageDescription>Redistributable components for package 'Metalama.Open.Costura'. This package should only be installed as a dependency. (This is not the package you are looking for if you want to use Metalama.Open.Costura). </PackageDescription>
+    <PackageReadmeFile>README.md</PackageReadmeFile>
+  </PropertyGroup>
 
-    <ItemGroup>
-        <PackageReference Include="Metalama.Framework.Redist" Version="$(MetalamaVersion)" PrivateAssets="all"/>
-        <InternalsVisibleTo Include="Metalama.Open.Costura.Weaver"/>
+  <ItemGroup>
+    <PackageReference Include="Metalama.Framework.Redist" Version="$(MetalamaVersion)" PrivateAssets="all"/>
+    <InternalsVisibleTo Include="Metalama.Open.Costura.Weaver"/>
 
-        <!-- Means that the assembly must be added as a reference to compile-time compilations even if does not have a manifest. -->
-        <AssemblyAttribute Include="Metalama.Framework.Aspects.CompileTimeAttribute"/>
-    </ItemGroup>
+    <!-- Means that the assembly must be added as a reference to compile-time compilations even if does not have a manifest. -->
+    <AssemblyAttribute Include="Metalama.Framework.Aspects.CompileTimeAttribute"/>
+  </ItemGroup>
+
+  <!-- Packaging -->
+  <ItemGroup>
+      <None Include="README.md" Pack="true" PackagePath="\" />
+  </ItemGroup>
 
 </Project>

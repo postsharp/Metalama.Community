@@ -6,6 +6,7 @@
     <PackageId>Metalama.Open.AutoCancellationToken</PackageId>
 	  <PackageTags>$(PackageTags) PostSharp Metalama AOP</PackageTags>
 	  <PackageDescription>A Metalama weaver that automatically adds CancellationToken to your method definitions and your method calls.</PackageDescription>
+    <PackageReadmeFile>README.md</PackageReadmeFile>
 	</PropertyGroup>
 
   <ItemGroup>
@@ -14,6 +15,11 @@
 
   <ItemGroup>
     <ProjectReference Include="..\Metalama.Open.AutoCancellationToken\Metalama.Open.AutoCancellationToken.csproj" />
+  </ItemGroup>
+
+  <!-- Packaging -->
+  <ItemGroup>
+      <None Include="README.md" Pack="true" PackagePath="\" />
   </ItemGroup>
 
 </Project>
