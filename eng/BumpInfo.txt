@@ -1,0 +1,1 @@
+{"Dependencies":{"PostSharp.Engineering":"1.0.104","Metalama":"0.5.69"}}
