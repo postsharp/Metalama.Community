@@ -17,10 +17,11 @@
 
 		<MetalamaOpenVirtuosityVersion>0.5.31-preview</MetalamaOpenVirtuosityVersion>
 
-		<MicrosoftNETTestSdkVersion>17.0.0</MicrosoftNETTestSdkVersion>
-		<NewtonsoftJsonVersion>13.0.1</NewtonsoftJsonVersion>
+		<MicrosoftNETTestSdkVersion>17.4.0</MicrosoftNETTestSdkVersion>
+		<NewtonsoftJsonVersion>13.0.2</NewtonsoftJsonVersion>
         <SoothsilverRandomVersion>1.1.0</SoothsilverRandomVersion>
-        <xUnitVersion>2.4.1</xUnitVersion>
+        <xUnitVersion>2.4.2</xUnitVersion>
+        <xUnitRunnerVisualStudioVersion>2.4.5</xUnitRunnerVisualStudioVersion>
     </PropertyGroup>
 
     <!-- Override versions (both this product and dependencies) for the local build -->
