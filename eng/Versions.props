@@ -13,7 +13,7 @@
     <PropertyGroup>
         <PostSharpEngineeringVersion>1.0.103-preview</PostSharpEngineeringVersion>
 		<MetalamaVersion>branch:master</MetalamaVersion>
-        <MetalamaVersion Condition="$(VcsBranch.StartsWith('master'))">0.5.73-preview</MetalamaVersion>
+        <MetalamaVersion Condition="$(VcsBranch.StartsWith('master'))">0.5.74-preview</MetalamaVersion>
 
 		<MetalamaOpenVirtuosityVersion>0.5.31-preview</MetalamaOpenVirtuosityVersion>
 
