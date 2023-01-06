@@ -11,11 +11,11 @@
     
     <!-- Set the default versions of dependencies -->
     <PropertyGroup>
-        <PostSharpEngineeringVersion>1.0.103-preview</PostSharpEngineeringVersion>
+        <PostSharpEngineeringVersion>1.0.111-preview</PostSharpEngineeringVersion>
 		<MetalamaVersion>branch:master</MetalamaVersion>
         <MetalamaVersion Condition="$(VcsBranch.StartsWith('master'))">0.5.75-preview</MetalamaVersion>
 
-		<MetalamaOpenVirtuosityVersion>0.5.31-preview</MetalamaOpenVirtuosityVersion>
+		<MetalamaCommunityVirtuosityVersion>0.5.44-preview</MetalamaCommunityVirtuosityVersion>
 
 		<MicrosoftNETTestSdkVersion>17.0.0</MicrosoftNETTestSdkVersion>
 		<NewtonsoftJsonVersion>13.0.1</NewtonsoftJsonVersion>
