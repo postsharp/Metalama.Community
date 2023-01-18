@@ -7,6 +7,4 @@ namespace Metalama.Community.AutoCancellationToken;
 
 [AttributeUsage( AttributeTargets.Class | AttributeTargets.Struct | AttributeTargets.Interface )]
 [RequireAspectWeaver( "Metalama.Community.AutoCancellationToken.Weaver.AutoCancellationTokenWeaver" )]
-public class AutoCancellationTokenAttribute : TypeAspect
-{
-}
+public class AutoCancellationTokenAttribute : TypeAspect { }

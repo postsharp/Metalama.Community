@@ -13,7 +13,7 @@ using static Microsoft.CodeAnalysis.CSharp.SyntaxKind;
 namespace Metalama.Community.Virtuosity
 {
     [MetalamaPlugIn]
-    public class VirtuosityWeaver : IAspectWeaver
+    public sealed class VirtuosityWeaver : IAspectWeaver
     {
         public Task TransformAsync( AspectWeaverContext context )
         {
@@ -57,8 +57,9 @@ namespace Metalama.Community.Virtuosity
                     if ( !_forbiddenModifiers.Any( modifier => modifiers.Any( modifier ) )
                          && _requiredModifiers.Any( modifier => modifiers.Any( modifier ) ) )
                     {
-                        modifiers = modifiers.Add( SyntaxFactory.Token( VirtualKeyword )
-                            .WithTrailingTrivia( SyntaxFactory.ElasticSpace ) );
+                        modifiers = modifiers.Add(
+                            SyntaxFactory.Token( VirtualKeyword )
+                                .WithTrailingTrivia( SyntaxFactory.ElasticSpace ) );
                     }
                 }
 
@@ -67,16 +68,14 @@ namespace Metalama.Community.Virtuosity
 
             public override SyntaxNode? VisitClassDeclaration( ClassDeclarationSyntax node )
             {
-                return ((ClassDeclarationSyntax) base.VisitClassDeclaration( node )!).WithModifiers(
-                    ModifierModifiers( node.Modifiers, false ) );
+                return ((ClassDeclarationSyntax) base.VisitClassDeclaration( node )!).WithModifiers( ModifierModifiers( node.Modifiers, false ) );
             }
 
             public override SyntaxNode? VisitRecordDeclaration( RecordDeclarationSyntax node )
             {
                 if ( CanTransformType( node ) )
                 {
-                    return ((RecordDeclarationSyntax) base.VisitRecordDeclaration( node )!).WithModifiers(
-                        ModifierModifiers( node.Modifiers, false ) );
+                    return ((RecordDeclarationSyntax) base.VisitRecordDeclaration( node )!).WithModifiers( ModifierModifiers( node.Modifiers, false ) );
                 }
                 else
                 {

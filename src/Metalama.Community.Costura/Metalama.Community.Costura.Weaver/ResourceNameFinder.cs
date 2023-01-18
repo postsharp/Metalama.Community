@@ -137,7 +137,6 @@ internal class ResourceNameFinder
                             SyntaxKind.SimpleMemberAccessExpression,
                             IdentifierName( field ),
                             IdentifierName( "Add" ) ) )
-                    .AddArgumentListArguments(
-                        Argument( LiteralExpression( SyntaxKind.StringLiteralExpression, Literal( name ) ) ) ) ) );
+                    .AddArgumentListArguments( Argument( LiteralExpression( SyntaxKind.StringLiteralExpression, Literal( name ) ) ) ) ) );
     }
 }

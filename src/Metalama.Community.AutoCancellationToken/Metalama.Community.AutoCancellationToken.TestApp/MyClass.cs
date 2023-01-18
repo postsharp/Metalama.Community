@@ -19,6 +19,5 @@ internal class MyClass
         Console.WriteLine( "request 2 succeeded" );
     }
 
-    private static async Task MakeRequest( HttpClient client ) =>
-        await client.GetAsync( "https://httpbin.org/delay/5" );
+    private static async Task MakeRequest( HttpClient client ) => await client.GetAsync( "https://httpbin.org/delay/5" );
 }

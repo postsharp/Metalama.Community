@@ -15,7 +15,8 @@ namespace Metalama.Community.AutoCancellationToken.Weaver
             private readonly Compilation _compilation;
             private readonly SyntaxAnnotation _generatedCodeAnnotation;
 
-            public AddCancellationTokenParameterRewriter( Compilation compilation,
+            public AddCancellationTokenParameterRewriter(
+                Compilation compilation,
                 SyntaxAnnotation generatedCodeAnnotation )
             {
                 this._compilation = compilation;
@@ -38,7 +39,7 @@ namespace Metalama.Community.AutoCancellationToken.Weaver
 
                 var methodSymbol = semanticModel.GetDeclaredSymbol( node );
 
-                if ( methodSymbol == null || !methodSymbol.IsAsync ||
+                if ( methodSymbol is not { IsAsync: true } ||
                      methodSymbol.Parameters.Any( IsCancellationToken ) )
                 {
                     return node;
@@ -74,8 +75,7 @@ namespace Metalama.Community.AutoCancellationToken.Weaver
                         .WithAdditionalAnnotations( this._generatedCodeAnnotation ) );
 
                 node = node.WithParameterList(
-                    SyntaxFactory.ParameterList(
-                        SyntaxFactory.SeparatedList<ParameterSyntax>( new SyntaxNodeOrTokenList( parameters ) ) ) );
+                    SyntaxFactory.ParameterList( SyntaxFactory.SeparatedList<ParameterSyntax>( new SyntaxNodeOrTokenList( parameters ) ) ) );
 
                 return node;
             }

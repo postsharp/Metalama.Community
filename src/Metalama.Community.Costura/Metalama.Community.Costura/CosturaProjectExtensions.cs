@@ -17,6 +17,6 @@ public static class CosturaProjectExtensions
 
         configure?.Invoke( options );
 
-        projectAmender.With( c => c ).AddAspect<CosturaAspect>();
+        projectAmender.Outbound.AddAspect<CosturaAspect>();
     }
 }

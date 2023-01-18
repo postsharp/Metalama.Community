@@ -10,6 +10,4 @@ namespace Metalama.Community.Costura;
 ///     your main output assembly.
 /// </summary>
 [RequireAspectWeaver( "Metalama.Community.Costura.Weaver.CosturaWeaver" )]
-internal class CosturaAspect : CompilationAspect
-{
-}
+internal class CosturaAspect : CompilationAspect { }

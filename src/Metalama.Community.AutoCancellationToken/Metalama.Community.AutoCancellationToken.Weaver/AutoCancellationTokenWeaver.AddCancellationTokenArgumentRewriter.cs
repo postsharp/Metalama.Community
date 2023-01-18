@@ -16,7 +16,8 @@ namespace Metalama.Community.AutoCancellationToken.Weaver
             private readonly SyntaxAnnotation _generatedCodeAnnotation;
             private string? _cancellationTokenParameterName;
 
-            public AddCancellationTokenArgumentRewriter( Compilation compilation,
+            public AddCancellationTokenArgumentRewriter(
+                Compilation compilation,
                 SyntaxAnnotation generatedCodeAnnotation )
             {
                 this._compilation = compilation;
@@ -39,7 +40,7 @@ namespace Metalama.Community.AutoCancellationToken.Weaver
 
                 var methodSymbol = semanticModel.GetDeclaredSymbol( node );
 
-                if ( methodSymbol == null || !methodSymbol.IsAsync )
+                if ( methodSymbol is not { IsAsync: true } )
                 {
                     return node;
                 }
@@ -63,19 +64,25 @@ namespace Metalama.Community.AutoCancellationToken.Weaver
                 }
             }
 
-            public override SyntaxNode? VisitAnonymousMethodExpression( AnonymousMethodExpressionSyntax node )
+            public override SyntaxNode VisitAnonymousMethodExpression( AnonymousMethodExpressionSyntax node )
                 => VisitFunction( node, false, base.VisitAnonymousMethodExpression );
 
-            public override SyntaxNode? VisitParenthesizedLambdaExpression( ParenthesizedLambdaExpressionSyntax node )
-                => VisitFunction( node, node.Modifiers.Any( SyntaxKind.StaticKeyword ),
+            public override SyntaxNode VisitParenthesizedLambdaExpression( ParenthesizedLambdaExpressionSyntax node )
+                => VisitFunction(
+                    node,
+                    node.Modifiers.Any( SyntaxKind.StaticKeyword ),
                     base.VisitParenthesizedLambdaExpression );
 
-            public override SyntaxNode? VisitSimpleLambdaExpression( SimpleLambdaExpressionSyntax node )
-                => VisitFunction( node, node.Modifiers.Any( SyntaxKind.StaticKeyword ),
+            public override SyntaxNode VisitSimpleLambdaExpression( SimpleLambdaExpressionSyntax node )
+                => VisitFunction(
+                    node,
+                    node.Modifiers.Any( SyntaxKind.StaticKeyword ),
                     base.VisitSimpleLambdaExpression );
 
-            public override SyntaxNode? VisitLocalFunctionStatement( LocalFunctionStatementSyntax node )
-                => VisitFunction( node, node.Modifiers.Any( SyntaxKind.StaticKeyword ),
+            public override SyntaxNode VisitLocalFunctionStatement( LocalFunctionStatementSyntax node )
+                => VisitFunction(
+                    node,
+                    node.Modifiers.Any( SyntaxKind.StaticKeyword ),
                     base.VisitLocalFunctionStatement );
 
             private static T VisitFunction<T>( T node, bool isStatic, Func<T, SyntaxNode?> baseVisit )
@@ -96,11 +103,12 @@ namespace Metalama.Community.AutoCancellationToken.Weaver
                 var semanticModel = this._compilation.GetSemanticModel( node.SyntaxTree );
 
                 var invocationWithCt =
-                    node.AddArgumentListArguments(
-                        SyntaxFactory.Argument( SyntaxFactory.DefaultExpression( CancellationTokenType ) ) );
+                    node.AddArgumentListArguments( SyntaxFactory.Argument( SyntaxFactory.DefaultExpression( CancellationTokenType ) ) );
+
                 var newInvocationArgumentsCount = invocationWithCt.ArgumentList.Arguments.Count;
 
                 if (
+
                     // the code compiles
                     semanticModel.GetSpeculativeSymbolInfo( node.SpanStart, invocationWithCt, default ).Symbol is
                         IMethodSymbol speculativeSymbol &&
@@ -138,8 +146,7 @@ namespace Metalama.Community.AutoCancellationToken.Weaver
                             .WithTrailingTrivia( SyntaxFactory.ElasticSpace ) );
 
                     node = node.WithArgumentList(
-                        SyntaxFactory.ArgumentList(
-                            SyntaxFactory.SeparatedList<ArgumentSyntax>( new SyntaxNodeOrTokenList( arguments ) ) ) );
+                        SyntaxFactory.ArgumentList( SyntaxFactory.SeparatedList<ArgumentSyntax>( new SyntaxNodeOrTokenList( arguments ) ) ) );
                 }
 
                 return node;

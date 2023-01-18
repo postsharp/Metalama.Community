@@ -15,14 +15,21 @@ namespace Metalama.Community.AutoCancellationToken.Weaver
         public async Task TransformAsync( AspectWeaverContext context )
         {
             var compilation = context.Compilation;
+
             var instancesNodes = context.AspectInstances.SelectMany( a => a.Key.DeclaringSyntaxReferences )
                 .Select( x => x.GetSyntax() );
 
             await RunRewriterAsync( new AnnotateNodesRewriter( instancesNodes ) );
-            await RunRewriterAsync( new AddCancellationTokenParameterRewriter( compilation.Compilation,
-                context.GeneratedCodeAnnotation ) );
-            await RunRewriterAsync( new AddCancellationTokenArgumentRewriter( compilation.Compilation,
-                context.GeneratedCodeAnnotation ) );
+
+            await RunRewriterAsync(
+                new AddCancellationTokenParameterRewriter(
+                    compilation.Compilation,
+                    context.GeneratedCodeAnnotation ) );
+
+            await RunRewriterAsync(
+                new AddCancellationTokenArgumentRewriter(
+                    compilation.Compilation,
+                    context.GeneratedCodeAnnotation ) );
 
             context.Compilation = compilation;
 

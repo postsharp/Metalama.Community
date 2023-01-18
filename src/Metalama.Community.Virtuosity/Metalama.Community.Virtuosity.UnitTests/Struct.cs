@@ -4,7 +4,7 @@
 
 namespace Metalama.Community.Virtuosity.Tests.Struct
 {
-    [VirtualizeAttribute]
+    [Virtualize]
     internal struct S
     {
         public void M() { }

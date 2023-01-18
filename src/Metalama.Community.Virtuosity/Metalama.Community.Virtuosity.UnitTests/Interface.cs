@@ -2,7 +2,7 @@
 
 namespace Metalama.Community.Virtuosity.Tests.Interface
 {
-    [VirtualizeAttribute]
+    [Virtualize]
     internal interface I
     {
         public void M() { }

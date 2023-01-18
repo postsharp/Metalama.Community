@@ -67,6 +67,7 @@ public class CosturaWeaver : IAspectWeaver
 
         // Generate code.
         var resourcesHash = ResourceHash.CalculateHash( resourceEmbedder.Resources );
+
         var moduleInitializerCode =
             Resources.ModuleInitializer.Replace( "TEMPLATE", assemblyLoaderInfo.SourceTypeName );
 
@@ -80,11 +81,17 @@ public class CosturaWeaver : IAspectWeaver
 
         // Add syntax trees.
         context.Compilation = context.Compilation.AddSyntaxTrees(
-                SyntaxFactory.ParseSyntaxTree( moduleInitializerCode, parseOptions, "__Costura.ModuleInitializer.cs",
+                SyntaxFactory.ParseSyntaxTree(
+                    moduleInitializerCode,
+                    parseOptions,
+                    "__Costura.ModuleInitializer.cs",
                     Encoding.UTF8 ),
                 SyntaxFactory.ParseSyntaxTree( Resources.Common, parseOptions, "__Costura.Common.cs", Encoding.UTF8 ),
-                SyntaxFactory.SyntaxTree( sourceTypeSyntax, parseOptions,
-                    $"__Costura.{assemblyLoaderInfo.SourceTypeName}.cs", Encoding.UTF8 ) )
+                SyntaxFactory.SyntaxTree(
+                    sourceTypeSyntax,
+                    parseOptions,
+                    $"__Costura.{assemblyLoaderInfo.SourceTypeName}.cs",
+                    Encoding.UTF8 ) )
             .WithAdditionalResources( resourceEmbedder.Resources.ToArray() );
 
         return Task.CompletedTask;

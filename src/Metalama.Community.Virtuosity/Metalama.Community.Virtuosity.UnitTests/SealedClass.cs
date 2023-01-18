@@ -5,7 +5,7 @@
 namespace Metalama.Community.Virtuosity.Tests.Struct
 {
     // Transformed (sealed removed).
-    [VirtualizeAttribute]
+    [Virtualize]
     internal sealed class SealedClass
     {
         // Transformed.
