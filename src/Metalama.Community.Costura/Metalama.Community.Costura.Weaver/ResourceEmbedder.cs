@@ -154,7 +154,8 @@ internal class ResourceEmbedder
                 if ( options.IncludedAssemblies.Any( x => CompareAssemblyName( x, assemblyName ) ) &&
                      options.UnmanagedAssemblies.All( x => !CompareAssemblyName( x.Name, assemblyName ) ) )
                 {
-                    skippedAssemblies.Remove( options.IncludedAssemblies.First( x => CompareAssemblyName( x, assemblyName ) ) );
+                    skippedAssemblies.Remove(
+                        options.IncludedAssemblies.First( x => CompareAssemblyName( x, assemblyName ) ) );
 
                     yield return file;
                 }
@@ -169,11 +170,11 @@ internal class ResourceEmbedder
                 foreach ( var skippedAssembly in skippedAssemblies )
                 {
                     var fileName = (from splitReference in splitReferences
-                                    where string.Equals(
-                                        Path.GetFileNameWithoutExtension( splitReference ),
-                                        skippedAssembly,
-                                        StringComparison.Ordinal )
-                                    select splitReference).FirstOrDefault();
+                        where string.Equals(
+                            Path.GetFileNameWithoutExtension( splitReference ),
+                            skippedAssembly,
+                            StringComparison.Ordinal )
+                        select splitReference).FirstOrDefault();
 
                     if ( string.IsNullOrEmpty( fileName ) )
                     {

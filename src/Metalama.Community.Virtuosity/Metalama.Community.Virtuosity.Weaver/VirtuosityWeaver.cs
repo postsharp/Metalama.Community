@@ -22,8 +22,11 @@ namespace Metalama.Community.Virtuosity
 
         private class Rewriter : CSharpSyntaxRewriter
         {
-            private static readonly SyntaxKind[]? _forbiddenModifiers = new[] { StaticKeyword, SealedKeyword, VirtualKeyword, OverrideKeyword };
-            private static readonly SyntaxKind[]? _requiredModifiers = new[] { PublicKeyword, ProtectedKeyword, InternalKeyword };
+            private static readonly SyntaxKind[]? _forbiddenModifiers =
+                new[] { StaticKeyword, SealedKeyword, VirtualKeyword, OverrideKeyword };
+
+            private static readonly SyntaxKind[]? _requiredModifiers =
+                new[] { PublicKeyword, ProtectedKeyword, InternalKeyword };
 
             private static bool CanTransformType( MemberDeclarationSyntax node )
             {
@@ -54,7 +57,8 @@ namespace Metalama.Community.Virtuosity
                     if ( !_forbiddenModifiers.Any( modifier => modifiers.Any( modifier ) )
                          && _requiredModifiers.Any( modifier => modifiers.Any( modifier ) ) )
                     {
-                        modifiers = modifiers.Add( SyntaxFactory.Token( VirtualKeyword ).WithTrailingTrivia( SyntaxFactory.ElasticSpace ) );
+                        modifiers = modifiers.Add( SyntaxFactory.Token( VirtualKeyword )
+                            .WithTrailingTrivia( SyntaxFactory.ElasticSpace ) );
                     }
                 }
 
@@ -63,14 +67,16 @@ namespace Metalama.Community.Virtuosity
 
             public override SyntaxNode? VisitClassDeclaration( ClassDeclarationSyntax node )
             {
-                return ((ClassDeclarationSyntax) base.VisitClassDeclaration( node )!).WithModifiers( ModifierModifiers( node.Modifiers, false ) );
+                return ((ClassDeclarationSyntax) base.VisitClassDeclaration( node )!).WithModifiers(
+                    ModifierModifiers( node.Modifiers, false ) );
             }
 
             public override SyntaxNode? VisitRecordDeclaration( RecordDeclarationSyntax node )
             {
                 if ( CanTransformType( node ) )
                 {
-                    return ((RecordDeclarationSyntax) base.VisitRecordDeclaration( node )!).WithModifiers( ModifierModifiers( node.Modifiers, false ) );
+                    return ((RecordDeclarationSyntax) base.VisitRecordDeclaration( node )!).WithModifiers(
+                        ModifierModifiers( node.Modifiers, false ) );
                 }
                 else
                 {

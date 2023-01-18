@@ -3,7 +3,7 @@
 using System;
 using System.Threading.Tasks;
 
-#pragma warning disable CA1822  // Mark members as static
+#pragma warning disable CA1822 // Mark members as static
 #pragma warning disable IDE0051 // Remove unused private members
 
 namespace Metalama.Community.Virtuosity.TestApp

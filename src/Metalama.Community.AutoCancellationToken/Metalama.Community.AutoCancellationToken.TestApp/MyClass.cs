@@ -1,4 +1,6 @@
-﻿using System;
+﻿// Copyright (c) SharpCrafters s.r.o. See the LICENSE.md file in the root directory of this repository root for details.
+
+using System;
 using System.Net.Http;
 using System.Threading;
 using System.Threading.Tasks;
@@ -17,5 +19,6 @@ internal class MyClass
         Console.WriteLine( "request 2 succeeded" );
     }
 
-    private static async Task MakeRequest( HttpClient client ) => await client.GetAsync( "https://httpbin.org/delay/5" );
+    private static async Task MakeRequest( HttpClient client ) =>
+        await client.GetAsync( "https://httpbin.org/delay/5" );
 }

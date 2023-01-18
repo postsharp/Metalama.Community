@@ -16,16 +16,20 @@ namespace Metalama.Community.AutoCancellationToken.Weaver
             public override SyntaxNode VisitInterfaceDeclaration( InterfaceDeclarationSyntax node )
                 => this.VisitTypeDeclaration( node, base.VisitInterfaceDeclaration );
 
-            public override SyntaxNode VisitClassDeclaration( ClassDeclarationSyntax node ) => this.VisitTypeDeclaration( node, base.VisitClassDeclaration );
+            public override SyntaxNode VisitClassDeclaration( ClassDeclarationSyntax node ) =>
+                this.VisitTypeDeclaration( node, base.VisitClassDeclaration );
 
-            public override SyntaxNode VisitStructDeclaration( StructDeclarationSyntax node ) => this.VisitTypeDeclaration( node, base.VisitStructDeclaration );
+            public override SyntaxNode VisitStructDeclaration( StructDeclarationSyntax node ) =>
+                this.VisitTypeDeclaration( node, base.VisitStructDeclaration );
 
-            public override SyntaxNode VisitRecordDeclaration( RecordDeclarationSyntax node ) => this.VisitTypeDeclaration( node, base.VisitRecordDeclaration );
+            public override SyntaxNode VisitRecordDeclaration( RecordDeclarationSyntax node ) =>
+                this.VisitTypeDeclaration( node, base.VisitRecordDeclaration );
 
             protected abstract T VisitTypeDeclaration<T>( T node, Func<T, SyntaxNode?> baseVisit )
                 where T : TypeDeclarationSyntax;
 
-            protected static readonly TypeSyntax CancellationTokenType = SyntaxFactory.ParseTypeName( typeof(CancellationToken).FullName )
+            protected static readonly TypeSyntax CancellationTokenType = SyntaxFactory
+                .ParseTypeName( typeof(CancellationToken).FullName )
                 .WithAdditionalAnnotations( FormattingAnnotations.SimplifyAnnotation );
 
             protected static bool IsCancellationToken( IParameterSymbol parameter )
