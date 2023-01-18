@@ -9,8 +9,7 @@
 
   <ItemGroup>
 	<PackageReference Include="Moq" Version="4.18.1" />
-  <!-- TODO: Rename to Metalama.Community.Virtuosity after first relase of the package. -->
-	<PackageReference Include="Metalama.Open.Virtuosity" Version="$(MetalamaOpenVirtuosityVersion)" />
+	<PackageReference Include="Metalama.Community.Virtuosity" Version="$(MetalamaCommunityVersion)" />
   </ItemGroup>
 
 </Project>

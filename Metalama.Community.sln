@@ -33,12 +33,6 @@ Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Metalama.Community.Virtuosi
 EndProject
 Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Metalama.Community.Virtuosity.UnitTests", "src\Metalama.Community.Virtuosity\Metalama.Community.Virtuosity.UnitTests\Metalama.Community.Virtuosity.UnitTests.csproj", "{F71CBC7E-C5F8-4B21-8EF5-4A7A70CEEB0D}"
 EndProject
-Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "Tests", "Tests", "{890F145E-5345-41E3-A381-406DE496693A}"
-EndProject
-Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Metalama.Community.Virtuosity.TestApp", "src\Metalama.Community.Virtuosity\Metalama.Community.Virtuosity.TestApp\Metalama.Community.Virtuosity.TestApp\Metalama.Community.Virtuosity.TestApp.csproj", "{FF4D6A4A-051B-41D9-8A9F-6E549550D6FC}"
-EndProject
-Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Metalama.Community.Virtuosity.TestRunner", "src\Metalama.Community.Virtuosity\Metalama.Community.Virtuosity.TestApp\Metalama.Community.Virtuosity.TestRunner\Metalama.Community.Virtuosity.TestRunner.csproj", "{5EC37989-1BF4-479F-97AA-6D600558496C}"
-EndProject
 Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Metalama.Community.Virtuosity.Weaver", "src\Metalama.Community.Virtuosity\Metalama.Community.Virtuosity.Weaver\Metalama.Community.Virtuosity.Weaver.csproj", "{0E06FE66-DF44-4604-B8A6-2FD84D9A393F}"
 EndProject
 Global
@@ -120,18 +114,6 @@ Global
 		{F71CBC7E-C5F8-4B21-8EF5-4A7A70CEEB0D}.LamaDebug|Any CPU.Build.0 = Debug|Any CPU
 		{F71CBC7E-C5F8-4B21-8EF5-4A7A70CEEB0D}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{F71CBC7E-C5F8-4B21-8EF5-4A7A70CEEB0D}.Release|Any CPU.Build.0 = Release|Any CPU
-		{FF4D6A4A-051B-41D9-8A9F-6E549550D6FC}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
-		{FF4D6A4A-051B-41D9-8A9F-6E549550D6FC}.Debug|Any CPU.Build.0 = Debug|Any CPU
-		{FF4D6A4A-051B-41D9-8A9F-6E549550D6FC}.LamaDebug|Any CPU.ActiveCfg = Debug|Any CPU
-		{FF4D6A4A-051B-41D9-8A9F-6E549550D6FC}.LamaDebug|Any CPU.Build.0 = Debug|Any CPU
-		{FF4D6A4A-051B-41D9-8A9F-6E549550D6FC}.Release|Any CPU.ActiveCfg = Release|Any CPU
-		{FF4D6A4A-051B-41D9-8A9F-6E549550D6FC}.Release|Any CPU.Build.0 = Release|Any CPU
-		{5EC37989-1BF4-479F-97AA-6D600558496C}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
-		{5EC37989-1BF4-479F-97AA-6D600558496C}.Debug|Any CPU.Build.0 = Debug|Any CPU
-		{5EC37989-1BF4-479F-97AA-6D600558496C}.LamaDebug|Any CPU.ActiveCfg = Debug|Any CPU
-		{5EC37989-1BF4-479F-97AA-6D600558496C}.LamaDebug|Any CPU.Build.0 = Debug|Any CPU
-		{5EC37989-1BF4-479F-97AA-6D600558496C}.Release|Any CPU.ActiveCfg = Release|Any CPU
-		{5EC37989-1BF4-479F-97AA-6D600558496C}.Release|Any CPU.Build.0 = Release|Any CPU
 		{0E06FE66-DF44-4604-B8A6-2FD84D9A393F}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
 		{0E06FE66-DF44-4604-B8A6-2FD84D9A393F}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{0E06FE66-DF44-4604-B8A6-2FD84D9A393F}.LamaDebug|Any CPU.ActiveCfg = Debug|Any CPU
@@ -155,9 +137,6 @@ Global
 		{4ED6BE2C-AF70-4FDE-95C8-77D666E227BF} = {06618868-B7D1-432C-A6DB-51C68B522479}
 		{3ED44E31-6ED5-4AF8-98CF-572AFD0091B7} = {06618868-B7D1-432C-A6DB-51C68B522479}
 		{F71CBC7E-C5F8-4B21-8EF5-4A7A70CEEB0D} = {06618868-B7D1-432C-A6DB-51C68B522479}
-		{890F145E-5345-41E3-A381-406DE496693A} = {06618868-B7D1-432C-A6DB-51C68B522479}
-		{FF4D6A4A-051B-41D9-8A9F-6E549550D6FC} = {890F145E-5345-41E3-A381-406DE496693A}
-		{5EC37989-1BF4-479F-97AA-6D600558496C} = {890F145E-5345-41E3-A381-406DE496693A}
 		{0E06FE66-DF44-4604-B8A6-2FD84D9A393F} = {06618868-B7D1-432C-A6DB-51C68B522479}
 	EndGlobalSection
 	GlobalSection(ExtensibilityGlobals) = postSolution
