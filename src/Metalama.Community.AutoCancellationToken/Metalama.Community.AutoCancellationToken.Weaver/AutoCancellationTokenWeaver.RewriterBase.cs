@@ -27,7 +27,7 @@ namespace Metalama.Community.AutoCancellationToken.Weaver
 
             protected static readonly TypeSyntax CancellationTokenType = SyntaxFactory
                 .ParseTypeName( typeof(CancellationToken).FullName )
-                .WithAdditionalAnnotations( FormattingAnnotations.SimplifyAnnotation );
+                .WithSimplifierAnnotation();
 
             protected static bool IsCancellationToken( IParameterSymbol parameter )
                 => parameter.OriginalDefinition.Type.ToString() == typeof(CancellationToken).FullName;
