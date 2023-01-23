@@ -13,7 +13,7 @@ using static Microsoft.CodeAnalysis.CSharp.SyntaxKind;
 namespace Metalama.Community.Virtuosity
 {
     [MetalamaPlugIn]
-    public class VirtuosityWeaver : IAspectWeaver
+    public sealed class VirtuosityWeaver : IAspectWeaver
     {
         public Task TransformAsync( AspectWeaverContext context )
         {
@@ -22,8 +22,11 @@ namespace Metalama.Community.Virtuosity
 
         private class Rewriter : CSharpSyntaxRewriter
         {
-            private static readonly SyntaxKind[]? _forbiddenModifiers = new[] { StaticKeyword, SealedKeyword, VirtualKeyword, OverrideKeyword };
-            private static readonly SyntaxKind[]? _requiredModifiers = new[] { PublicKeyword, ProtectedKeyword, InternalKeyword };
+            private static readonly SyntaxKind[]? _forbiddenModifiers =
+                new[] { StaticKeyword, SealedKeyword, VirtualKeyword, OverrideKeyword };
+
+            private static readonly SyntaxKind[]? _requiredModifiers =
+                new[] { PublicKeyword, ProtectedKeyword, InternalKeyword };
 
             private static bool CanTransformType( MemberDeclarationSyntax node )
             {
@@ -54,7 +57,9 @@ namespace Metalama.Community.Virtuosity
                     if ( !_forbiddenModifiers.Any( modifier => modifiers.Any( modifier ) )
                          && _requiredModifiers.Any( modifier => modifiers.Any( modifier ) ) )
                     {
-                        modifiers = modifiers.Add( SyntaxFactory.Token( VirtualKeyword ).WithTrailingTrivia( SyntaxFactory.ElasticSpace ) );
+                        modifiers = modifiers.Add(
+                            SyntaxFactory.Token( VirtualKeyword )
+                                .WithTrailingTrivia( SyntaxFactory.ElasticSpace ) );
                     }
                 }
 

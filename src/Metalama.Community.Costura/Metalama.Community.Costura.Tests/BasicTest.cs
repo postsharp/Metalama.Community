@@ -21,7 +21,9 @@ public class BasicTest
     [Fact]
     public void TestTestAssemblyWithReferences()
     {
-        var filename = $@"..\..\..\..\Metalama.Community.Costura.TestApp\bin\{_configuration}\net48\Metalama.Community.Costura.TestApp.exe";
+        var filename =
+            $@"..\..\..\..\Metalama.Community.Costura.TestApp\bin\{_configuration}\net48\Metalama.Community.Costura.TestApp.exe";
+
         DeleteAllButExes( filename );
         var p = Process.Start( Path.Combine( this._folder, filename ) );
         Assert.True( p.WaitForExit( 5000 ) );
@@ -31,7 +33,9 @@ public class BasicTest
     [Fact]
     public void TestWpf()
     {
-        var filename = $@"..\..\..\..\Metalama.Community.Costura.WpfApp\bin\{_configuration}\net48\Metalama.Community.Costura.WpfApp.exe";
+        var filename =
+            $@"..\..\..\..\Metalama.Community.Costura.WpfApp\bin\{_configuration}\net48\Metalama.Community.Costura.WpfApp.exe";
+
         DeleteAllButExes( filename );
         var p = Process.Start( Path.Combine( this._folder, filename ) );
         Assert.True( p.WaitForExit( 35000 ) );

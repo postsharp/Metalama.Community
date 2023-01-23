@@ -62,23 +62,36 @@ public class CosturaWeaver : IAspectWeaver
         var unmanagedFromEmbedder = resourceEmbedder.HasUnmanaged;
 
         // Load references.
-        var assemblyLoaderInfo = AssemblyLoaderInfo.LoadAssemblyLoader( options.CreateTemporaryAssemblies, unmanagedFromEmbedder );
+        var assemblyLoaderInfo =
+            AssemblyLoaderInfo.LoadAssemblyLoader( options.CreateTemporaryAssemblies, unmanagedFromEmbedder );
 
         // Generate code.
         var resourcesHash = ResourceHash.CalculateHash( resourceEmbedder.Resources );
-        var moduleInitializerCode = Resources.ModuleInitializer.Replace( "TEMPLATE", assemblyLoaderInfo.SourceTypeName );
 
-        var sourceTypeSyntax = new ResourceNameFinder( assemblyLoaderInfo, resourceEmbedder.Resources.Select( r => r.Name ) ).FillInStaticConstructor(
-            options.CreateTemporaryAssemblies,
-            options.PreloadOrder,
-            resourcesHash,
-            checksums );
+        var moduleInitializerCode =
+            Resources.ModuleInitializer.Replace( "TEMPLATE", assemblyLoaderInfo.SourceTypeName );
+
+        var sourceTypeSyntax =
+            new ResourceNameFinder( assemblyLoaderInfo, resourceEmbedder.Resources.Select( r => r.Name ) )
+                .FillInStaticConstructor(
+                    options.CreateTemporaryAssemblies,
+                    options.PreloadOrder,
+                    resourcesHash,
+                    checksums );
 
         // Add syntax trees.
         context.Compilation = context.Compilation.AddSyntaxTrees(
-                SyntaxFactory.ParseSyntaxTree( moduleInitializerCode, parseOptions, "__Costura.ModuleInitializer.cs", Encoding.UTF8 ),
+                SyntaxFactory.ParseSyntaxTree(
+                    moduleInitializerCode,
+                    parseOptions,
+                    "__Costura.ModuleInitializer.cs",
+                    Encoding.UTF8 ),
                 SyntaxFactory.ParseSyntaxTree( Resources.Common, parseOptions, "__Costura.Common.cs", Encoding.UTF8 ),
-                SyntaxFactory.SyntaxTree( sourceTypeSyntax, parseOptions, $"__Costura.{assemblyLoaderInfo.SourceTypeName}.cs", Encoding.UTF8 ) )
+                SyntaxFactory.SyntaxTree(
+                    sourceTypeSyntax,
+                    parseOptions,
+                    $"__Costura.{assemblyLoaderInfo.SourceTypeName}.cs",
+                    Encoding.UTF8 ) )
             .WithAdditionalResources( resourceEmbedder.Resources.ToArray() );
 
         return Task.CompletedTask;

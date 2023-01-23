@@ -15,7 +15,9 @@ namespace Metalama.Community.AutoCancellationToken.Weaver
             private readonly Compilation _compilation;
             private readonly SyntaxAnnotation _generatedCodeAnnotation;
 
-            public AddCancellationTokenParameterRewriter( Compilation compilation, SyntaxAnnotation generatedCodeAnnotation )
+            public AddCancellationTokenParameterRewriter(
+                Compilation compilation,
+                SyntaxAnnotation generatedCodeAnnotation )
             {
                 this._compilation = compilation;
                 this._generatedCodeAnnotation = generatedCodeAnnotation;
@@ -37,7 +39,8 @@ namespace Metalama.Community.AutoCancellationToken.Weaver
 
                 var methodSymbol = semanticModel.GetDeclaredSymbol( node );
 
-                if ( methodSymbol == null || !methodSymbol.IsAsync || methodSymbol.Parameters.Any( IsCancellationToken ) )
+                if ( methodSymbol is not { IsAsync: true } ||
+                     methodSymbol.Parameters.Any( IsCancellationToken ) )
                 {
                     return node;
                 }
@@ -47,7 +50,8 @@ namespace Metalama.Community.AutoCancellationToken.Weaver
                 if ( parameters.Count > 0 )
                 {
                     // Remove the trivia after the last argument.
-                    parameters[parameters.Count - 1] = parameters[parameters.Count - 1].AsNode()!.WithoutTrailingTrivia();
+                    parameters[parameters.Count - 1] =
+                        parameters[parameters.Count - 1].AsNode()!.WithoutTrailingTrivia();
 
                     parameters.Add(
                         SyntaxFactory.Token( SyntaxKind.CommaToken )
@@ -60,9 +64,11 @@ namespace Metalama.Community.AutoCancellationToken.Weaver
                             default,
                             default,
                             CancellationTokenType.WithTrailingTrivia( SyntaxFactory.ElasticSpace ),
-                            SyntaxFactory.Identifier( "cancellationToken" ).WithTrailingTrivia( SyntaxFactory.ElasticSpace ),
+                            SyntaxFactory.Identifier( "cancellationToken" )
+                                .WithTrailingTrivia( SyntaxFactory.ElasticSpace ),
                             SyntaxFactory.EqualsValueClause(
-                                    SyntaxFactory.Token( SyntaxKind.EqualsToken ).WithTrailingTrivia( SyntaxFactory.ElasticSpace ),
+                                    SyntaxFactory.Token( SyntaxKind.EqualsToken )
+                                        .WithTrailingTrivia( SyntaxFactory.ElasticSpace ),
                                     SyntaxFactory.LiteralExpression( SyntaxKind.DefaultLiteralExpression ) )
                                 .WithTrailingTrivia( SyntaxFactory.ElasticSpace ) )
                         .WithTrailingTrivia( SyntaxFactory.ElasticSpace )

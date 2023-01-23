@@ -26,7 +26,11 @@ internal class AssemblyLoaderInfo
 
     public string SourceTypeName { get; }
 
-    public AssemblyLoaderInfo( string? checksumsField, string? md5HashField, CompilationUnitSyntax sourceTypeSyntax, string sourceTypeName )
+    public AssemblyLoaderInfo(
+        string? checksumsField,
+        string? md5HashField,
+        CompilationUnitSyntax sourceTypeSyntax,
+        string sourceTypeName )
     {
         this.ChecksumsField = checksumsField;
         this.Md5HashField = md5HashField;
@@ -57,7 +61,11 @@ internal class AssemblyLoaderInfo
 
         var sourceTypeSyntax = SyntaxFactory.ParseCompilationUnit( sourceTypeCode );
 
-        return new AssemblyLoaderInfo( Optional( "checksums" ), Optional( "md5Hash" ), sourceTypeSyntax, sourceTypeName );
+        return new AssemblyLoaderInfo(
+            Optional( "checksums" ),
+            Optional( "md5Hash" ),
+            sourceTypeSyntax,
+            sourceTypeName );
 
         string? Optional( string field )
         {
