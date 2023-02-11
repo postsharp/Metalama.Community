@@ -1,1 +1,1 @@
-{"Dependencies":{"Metalama":"2023.0.101"}}
+{"Dependencies":{"Metalama":"2023.0.103"}}
