@@ -5,15 +5,12 @@
     <PackageId>Metalama.Community.Costura</PackageId>
     <PackageDescription>A Metalama weaver that embeds dependent assemblies as managed resources. A fork of Costura.Fody.</PackageDescription>
     <PackageReadmeFile>README.md</PackageReadmeFile>
-	<PackageLicenseFile>LICENSE.md</PackageLicenseFile>
+    <PackageLicenseFile>LICENSE.md</PackageLicenseFile>
   </PropertyGroup>
 
   <ItemGroup>
     <PackageReference Include="Metalama.Framework.Sdk" Version="$(MetalamaVersion)" />
-
-    <!-- PrivateAssets="all" ensures that the NuGet package for this project does not have a dependency on the other project;
-            'Metalama.Framework.Sdk' takes care of including it directly in the package -->
-    <ProjectReference Include="..\Metalama.Community.Costura\Metalama.Community.Costura.csproj" PrivateAssets="all" />
+    <ProjectReference Include="..\Metalama.Community.Costura\Metalama.Community.Costura.csproj" />
   </ItemGroup>
 
   <ItemGroup>
@@ -34,8 +31,8 @@
 
   <!-- Packaging -->
   <ItemGroup>
-      <None Include="README.md" Pack="true" PackagePath="\" />
-	  <None Include="$(MSBuildThisFileDirectory)..\LICENSE.md" Visible="false" Pack="true" PackagePath="" />
+      <None Include="..\README.md" Pack="true" PackagePath="" />
+      <None Include="..\LICENSE.md" Visible="false" Pack="true" PackagePath="" />
   </ItemGroup>
 
 </Project>
