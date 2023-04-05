@@ -1,1 +1,1 @@
-// Error LAMA0037 on `Virtualize`: `The aspect 'Virtualize' cannot be applied to 'I' because 'I' must be class or a record class.`
+// Error LAMA0037 on `Virtualize`: `The aspect 'Virtualize' cannot be applied to the type 'I' because 'I' must be class or a record class.`
