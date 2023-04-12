@@ -1,0 +1,1 @@
+The `Metalama.Community.ConfigureAwaitWarning.Redist` package contains the redistributable components for the `Metalama.Community.ConfigureAwaitWarning` package. You can add a reference to this package if your project is built with Metalama.Community.ConfigureAwaitWarning but code that consumes your project does not need to be built with Metalama.Community.ConfigureAwaitWarning.

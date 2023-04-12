@@ -1,0 +1,1 @@
+// Error LAMA0041 on `Test`: `'ConfigureAwaitWarningAttribute.BuildAspect' threw 'InvalidOperationException' when applied to 'Test': Cannot get the service IConfigureAwaitWarningService. Exception details are in '(none)'. To attach a debugger to the compiler, use the  '-p:MetalamaDebugCompiler=True' command-line option.`

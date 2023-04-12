@@ -1,0 +1,23 @@
+﻿<Project Sdk="Microsoft.NET.Sdk">
+
+  <PropertyGroup>
+    <TargetFramework>netstandard2.0</TargetFramework>
+    <PackageId>Metalama.Community.ConfigureAwaitWarning.Redist</PackageId>
+    <PackageDescription>Redistributable components for package 'Metalama.Community.ConfigureAwaitWarning'. This package should only be installed as a dependency. (This is not the package you are looking for if you want to use Metalama.Community.ConfigureAwaitWarning).</PackageDescription>
+    <PackageReadmeFile>README.md</PackageReadmeFile>
+    <PackageLicenseFile>LICENSE.md</PackageLicenseFile>
+    <ImplicitUsings>True</ImplicitUsings>
+  </PropertyGroup>
+
+  <ItemGroup>
+    <!--<PackageReference Include="Metalama.Framework.Sdk" Version="$(MetalamaVersion)" />-->
+    <PackageReference Include="Metalama.Framework" Version="$(MetalamaVersion)" />
+    <!--<InternalsVisibleTo Include="Metalama.Community.ConfigureAwaitWarning.Service"/>-->
+  </ItemGroup>
+
+  <ItemGroup>
+    <None Include="README.md" Pack="true" PackagePath="" />
+    <None Include="..\LICENSE.md" Visible="false" Pack="true" PackagePath="" />
+  </ItemGroup>
+
+</Project>

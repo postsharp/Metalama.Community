@@ -35,6 +35,14 @@ Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Metalama.Community.Virtuosi
 EndProject
 Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Metalama.Community.Virtuosity.Weaver", "src\Metalama.Community.Virtuosity\Metalama.Community.Virtuosity.Weaver\Metalama.Community.Virtuosity.Weaver.csproj", "{0E06FE66-DF44-4604-B8A6-2FD84D9A393F}"
 EndProject
+Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "Metalama.Community.ConfigureAwaitWarning", "Metalama.Community.ConfigureAwaitWarning", "{E1CF87B1-D0A6-4BA5-914C-DDACA262AE25}"
+EndProject
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Metalama.Community.ConfigureAwaitWarning", "src\Metalama.Community.ConfigureAwaitWarning\Metalama.Community.ConfigureAwaitWarning\Metalama.Community.ConfigureAwaitWarning.csproj", "{AA118DBB-A124-4439-A56D-D1BA54F80BF7}"
+EndProject
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Metalama.Community.ConfigureAwaitWarning.Service", "src\Metalama.Community.ConfigureAwaitWarning\Metalama.Community.ConfigureAwaitWarning.Service\Metalama.Community.ConfigureAwaitWarning.Service.csproj", "{1811EAD6-0E04-492C-8102-1F873F60EF53}"
+EndProject
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Metalama.Community.ConfigureAwaitWarning.UnitTests", "src\Metalama.Community.ConfigureAwaitWarning\Metalama.Community.ConfigureAwaitWarning.UnitTests\Metalama.Community.ConfigureAwaitWarning.UnitTests.csproj", "{E7A5DFBB-C7F5-4136-9363-C4FE4C6A737E}"
+EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
 		Debug|Any CPU = Debug|Any CPU
@@ -120,6 +128,24 @@ Global
 		{0E06FE66-DF44-4604-B8A6-2FD84D9A393F}.LamaDebug|Any CPU.Build.0 = Debug|Any CPU
 		{0E06FE66-DF44-4604-B8A6-2FD84D9A393F}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{0E06FE66-DF44-4604-B8A6-2FD84D9A393F}.Release|Any CPU.Build.0 = Release|Any CPU
+		{AA118DBB-A124-4439-A56D-D1BA54F80BF7}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{AA118DBB-A124-4439-A56D-D1BA54F80BF7}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{AA118DBB-A124-4439-A56D-D1BA54F80BF7}.LamaDebug|Any CPU.ActiveCfg = Debug|Any CPU
+		{AA118DBB-A124-4439-A56D-D1BA54F80BF7}.LamaDebug|Any CPU.Build.0 = Debug|Any CPU
+		{AA118DBB-A124-4439-A56D-D1BA54F80BF7}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{AA118DBB-A124-4439-A56D-D1BA54F80BF7}.Release|Any CPU.Build.0 = Release|Any CPU
+		{1811EAD6-0E04-492C-8102-1F873F60EF53}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{1811EAD6-0E04-492C-8102-1F873F60EF53}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{1811EAD6-0E04-492C-8102-1F873F60EF53}.LamaDebug|Any CPU.ActiveCfg = Debug|Any CPU
+		{1811EAD6-0E04-492C-8102-1F873F60EF53}.LamaDebug|Any CPU.Build.0 = Debug|Any CPU
+		{1811EAD6-0E04-492C-8102-1F873F60EF53}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{1811EAD6-0E04-492C-8102-1F873F60EF53}.Release|Any CPU.Build.0 = Release|Any CPU
+		{E7A5DFBB-C7F5-4136-9363-C4FE4C6A737E}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{E7A5DFBB-C7F5-4136-9363-C4FE4C6A737E}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{E7A5DFBB-C7F5-4136-9363-C4FE4C6A737E}.LamaDebug|Any CPU.ActiveCfg = Debug|Any CPU
+		{E7A5DFBB-C7F5-4136-9363-C4FE4C6A737E}.LamaDebug|Any CPU.Build.0 = Debug|Any CPU
+		{E7A5DFBB-C7F5-4136-9363-C4FE4C6A737E}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{E7A5DFBB-C7F5-4136-9363-C4FE4C6A737E}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE
@@ -138,6 +164,9 @@ Global
 		{3ED44E31-6ED5-4AF8-98CF-572AFD0091B7} = {06618868-B7D1-432C-A6DB-51C68B522479}
 		{F71CBC7E-C5F8-4B21-8EF5-4A7A70CEEB0D} = {06618868-B7D1-432C-A6DB-51C68B522479}
 		{0E06FE66-DF44-4604-B8A6-2FD84D9A393F} = {06618868-B7D1-432C-A6DB-51C68B522479}
+		{AA118DBB-A124-4439-A56D-D1BA54F80BF7} = {E1CF87B1-D0A6-4BA5-914C-DDACA262AE25}
+		{1811EAD6-0E04-492C-8102-1F873F60EF53} = {E1CF87B1-D0A6-4BA5-914C-DDACA262AE25}
+		{E7A5DFBB-C7F5-4136-9363-C4FE4C6A737E} = {E1CF87B1-D0A6-4BA5-914C-DDACA262AE25}
 	EndGlobalSection
 	GlobalSection(ExtensibilityGlobals) = postSolution
 		SolutionGuid = {BE08B6D3-0B12-42E9-B375-8295E0E3301C}

@@ -1,0 +1,23 @@
+﻿<Project Sdk="Microsoft.NET.Sdk">
+
+  <PropertyGroup>
+    <TargetFramework>netstandard2.0</TargetFramework>
+    <PackageId>Metalama.Community.ConfigureAwaitWarning</PackageId>
+    <PackageDescription>A Metalama aspect that warns on usage of await without ConfigureAwait.</PackageDescription>
+    <PackageReadmeFile>README.md</PackageReadmeFile>
+    <PackageLicenseFile>LICENSE.md</PackageLicenseFile>
+    <ImplicitUsings>True</ImplicitUsings>
+  </PropertyGroup>
+
+  <ItemGroup>
+    <PackageReference Include="Metalama.Framework" Version="$(MetalamaVersion)" />
+    <PackageReference Include="Metalama.Framework.Sdk" Version="$(MetalamaVersion)" />
+    <ProjectReference Include="..\Metalama.Community.ConfigureAwaitWarning\Metalama.Community.ConfigureAwaitWarning.csproj" />
+  </ItemGroup>
+
+  <ItemGroup>
+    <None Include="..\README.md" Pack="true" PackagePath="" />
+    <None Include="..\LICENSE.md" Visible="false" Pack="true" PackagePath="" />
+  </ItemGroup>
+
+</Project>
