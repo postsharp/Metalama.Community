@@ -4,7 +4,10 @@ using System;
 using System.Threading.Tasks;
 
 #pragma warning disable CA1822  // Mark members as static
+#pragma warning disable CS0649  // Field is never assigned to
 #pragma warning disable IDE0051 // Remove unused private members
+#pragma warning disable SA1306  // Field should begin with lower-case letter
+#pragma warning disable SA1401  // Field should be private
 
 namespace Metalama.Community.Virtuosity.TestApp
 {
@@ -52,5 +55,8 @@ namespace Metalama.Community.Virtuosity.TestApp
 
         // Transformed.
         public int Property { get; }
+
+        // Not transformed.
+        protected int Field;
     }
 }

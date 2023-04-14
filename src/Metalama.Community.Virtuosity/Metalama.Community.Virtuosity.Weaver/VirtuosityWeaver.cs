@@ -10,27 +10,24 @@ using System.Linq;
 using System.Threading.Tasks;
 using static Microsoft.CodeAnalysis.CSharp.SyntaxKind;
 
-namespace Metalama.Community.Virtuosity
+namespace Metalama.Community.Virtuosity.Weaver
 {
     [MetalamaPlugIn]
     public sealed class VirtuosityWeaver : IAspectWeaver
     {
         public Task TransformAsync( AspectWeaverContext context )
-        {
-            return context.RewriteAspectTargetsAsync( new Rewriter() );
-        }
+            => context.RewriteAspectTargetsAsync( new Rewriter() );
 
-        private class Rewriter : CSharpSyntaxRewriter
+        private sealed class Rewriter : CSharpSyntaxRewriter
         {
-            private static readonly SyntaxKind[]? _forbiddenModifiers =
+            private static readonly SyntaxKind[] _forbiddenModifiers =
                 new[] { StaticKeyword, SealedKeyword, VirtualKeyword, OverrideKeyword };
 
-            private static readonly SyntaxKind[]? _requiredModifiers =
+            private static readonly SyntaxKind[] _requiredModifiers =
                 new[] { PublicKeyword, ProtectedKeyword, InternalKeyword };
 
             private static bool CanTransformType( MemberDeclarationSyntax node )
-            {
-                return node switch
+                => node switch
                 {
                     InterfaceDeclarationSyntax => false,
                     ClassDeclarationSyntax => true,
@@ -39,17 +36,13 @@ namespace Metalama.Community.Virtuosity
                     RecordDeclarationSyntax => true,
                     _ => throw new ArgumentOutOfRangeException()
                 };
-            }
 
-            private static SyntaxTokenList ModifierModifiers( SyntaxTokenList modifiers, bool addVirtual = true )
+            private static SyntaxTokenList ModifyModifiers( SyntaxTokenList modifiers, bool addVirtual = true )
             {
                 // Remove the sealed modifier.
                 var sealedToken = modifiers.FirstOrDefault( modifier => modifier.IsKind( SealedKeyword ) );
 
-                if ( !sealedToken.IsKind( None ) )
-                {
-                    modifiers = modifiers.Remove( sealedToken );
-                }
+                modifiers = modifiers.Remove( sealedToken );
 
                 // Add the virtual modifier.
                 if ( addVirtual )
@@ -68,14 +61,14 @@ namespace Metalama.Community.Virtuosity
 
             public override SyntaxNode? VisitClassDeclaration( ClassDeclarationSyntax node )
             {
-                return ((ClassDeclarationSyntax) base.VisitClassDeclaration( node )!).WithModifiers( ModifierModifiers( node.Modifiers, false ) );
+                return ((ClassDeclarationSyntax) base.VisitClassDeclaration( node )!).WithModifiers( ModifyModifiers( node.Modifiers, false ) );
             }
 
             public override SyntaxNode? VisitRecordDeclaration( RecordDeclarationSyntax node )
             {
                 if ( CanTransformType( node ) )
                 {
-                    return ((RecordDeclarationSyntax) base.VisitRecordDeclaration( node )!).WithModifiers( ModifierModifiers( node.Modifiers, false ) );
+                    return ((RecordDeclarationSyntax) base.VisitRecordDeclaration( node )!).WithModifiers( ModifyModifiers( node.Modifiers, false ) );
                 }
                 else
                 {
@@ -89,7 +82,7 @@ namespace Metalama.Community.Virtuosity
 
                 if ( CanTransformType( parent ) )
                 {
-                    return node.WithModifiers( ModifierModifiers( node.Modifiers ) );
+                    return node.WithModifiers( ModifyModifiers( node.Modifiers ) );
                 }
                 else
                 {
@@ -103,21 +96,7 @@ namespace Metalama.Community.Virtuosity
 
                 if ( CanTransformType( parent ) )
                 {
-                    return node.WithModifiers( ModifierModifiers( node.Modifiers ) );
-                }
-                else
-                {
-                    return node;
-                }
-            }
-
-            public override SyntaxNode? VisitFieldDeclaration( FieldDeclarationSyntax node )
-            {
-                var parent = (MemberDeclarationSyntax) node.Parent!;
-
-                if ( CanTransformType( parent ) )
-                {
-                    return node.WithModifiers( ModifierModifiers( node.Modifiers ) );
+                    return node.WithModifiers( ModifyModifiers( node.Modifiers ) );
                 }
                 else
                 {

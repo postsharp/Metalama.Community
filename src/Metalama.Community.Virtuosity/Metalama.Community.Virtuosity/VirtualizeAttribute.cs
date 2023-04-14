@@ -6,7 +6,7 @@ using Metalama.Framework.Eligibility;
 
 namespace Metalama.Community.Virtuosity
 {
-    [RequireAspectWeaver( "Metalama.Community.Virtuosity.VirtuosityWeaver" )]
+    [RequireAspectWeaver( "Metalama.Community.Virtuosity.Weaver.VirtuosityWeaver" )]
     public class VirtualizeAttribute : TypeAspect
     {
         public override void BuildEligibility( IEligibilityBuilder<INamedType> builder )

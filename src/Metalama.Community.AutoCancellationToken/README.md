@@ -3,9 +3,9 @@ Automatically propagates `CancellationToken` parameter to `async` methods and me
 
 *This is a [Metalama](https://github.com/postsharp/Metalama) aspect. It modifies your code during compilation by using source weaving.*
 
-You can also [try this aspect on try.metalama.net](https://try.metalama.net/#autocancellationtoken).
+<!-- You can also [try this aspect on try.metalama.net](https://try.metalama.net/#autocancellationtoken). -->
 
-[![CI badge](https://github.com/postsharp/Metalama.Community.AutoCancellationToken/workflows/Full%20Pipeline/badge.svg)](https://github.com/postsharp/Metalama.Community.AutoCancellationToken/actions?query=workflow%3A%22Full+Pipeline%22)
+<!-- [![CI badge](https://github.com/postsharp/Metalama.Community.AutoCancellationToken/workflows/Full%20Pipeline/badge.svg)](https://github.com/postsharp/Metalama.Community.AutoCancellationToken/actions?query=workflow%3A%22Full+Pipeline%22) -->
 
 #### Example
 

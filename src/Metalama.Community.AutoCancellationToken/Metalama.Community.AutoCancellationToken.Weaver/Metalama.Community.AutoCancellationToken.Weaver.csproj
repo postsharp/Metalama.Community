@@ -4,10 +4,10 @@
     <TargetFramework>netstandard2.0</TargetFramework>
     <LangVersion>9.0</LangVersion>
     <PackageId>Metalama.Community.AutoCancellationToken</PackageId>
-	<PackageTags>$(PackageTags) PostSharp Metalama AOP</PackageTags>
-	<PackageDescription>A Metalama weaver that automatically adds CancellationToken to your method definitions and your method calls.</PackageDescription>
+    <PackageTags>$(PackageTags) PostSharp Metalama AOP</PackageTags>
+    <PackageDescription>A Metalama weaver that automatically adds CancellationToken to your method definitions and your method calls.</PackageDescription>
     <PackageReadmeFile>README.md</PackageReadmeFile>
-	<PackageLicenseFile>LICENSE.md</PackageLicenseFile>
+    <PackageLicenseFile>LICENSE.md</PackageLicenseFile>
   </PropertyGroup>
 
   <ItemGroup>
@@ -20,8 +20,8 @@
 
   <!-- Packaging -->
   <ItemGroup>
-      <None Include="README.md" Pack="true" PackagePath="\" />
-      <None Include="$(MSBuildThisFileDirectory)..\LICENSE.md" Visible="false" Pack="true" PackagePath="" />
+    <None Include="..\README.md" Pack="true" PackagePath="" />
+    <None Include="..\LICENSE.md" Visible="false" Pack="true" PackagePath="" />
   </ItemGroup>
 
 </Project>
