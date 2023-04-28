@@ -83,7 +83,7 @@ internal class MyClass
     {
         await client.GetAsync( "https://httpbin.org/delay/5", cancellationToken2 );
     }
-}}
+}
 #pragma warning disable SA1402 // FileMayOnlyContainASingleType
 // Not transformed
 internal static class Helper1
