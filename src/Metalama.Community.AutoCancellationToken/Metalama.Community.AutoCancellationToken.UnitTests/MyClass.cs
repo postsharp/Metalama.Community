@@ -100,6 +100,13 @@ internal class MyClass
         await Helper2.MakeRequest( client );
         Console.WriteLine( "request 2 succeeded" );
     }
+
+    // After transformation, MakeRequest should contain a CancellationToken parameter, and the call to client.GetAsync
+    // should include this argument. The weaver must choose a name other than "cancellationToken" for the added parameter.
+    public static async Task MakeRequest_ParameterNameCollision( HttpClient client, int cancellationToken )
+    {
+        await client.GetAsync( "https://httpbin.org/delay/5" );
+    }
 }
 
 #pragma warning disable SA1402 // FileMayOnlyContainASingleType
