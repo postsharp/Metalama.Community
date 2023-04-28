@@ -40,7 +40,8 @@ namespace Metalama.Community.AutoCancellationToken.Weaver
                 var methodSymbol = semanticModel.GetDeclaredSymbol( node );
 
                 if ( methodSymbol is not { IsAsync: true } ||
-                     methodSymbol.Parameters.Any( IsCancellationToken ) )
+                     methodSymbol.Parameters.Any( IsCancellationToken ) ||
+                     methodSymbol.Parameters.LastOrDefault() is { IsParams: true } )
                 {
                     return node;
                 }
