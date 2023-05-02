@@ -1,6 +1,7 @@
-MIT License
+# MIT License
 
-Copyright (c) 2021 SharpCrafters s.r.o.
+Copyright (c) 2023 Simon Cropp and contributors.
+Copyright (c) 2023 SharpCrafters s.r.o and contributors.
 
 Permission is hereby granted, free of charge, to any person obtaining a copy of this software and associated
 documentation files (the "Software"), to deal in the Software without restriction, including without limitation the
@@ -15,4 +16,7 @@ WARRANTIES OF MERCHANTABILITY, FITNESS FOR A PARTICULAR PURPOSE AND NONINFRINGEM
 COPYRIGHT HOLDERS BE LIABLE FOR ANY CLAIM, DAMAGES OR OTHER LIABILITY, WHETHER IN AN ACTION OF CONTRACT, TORT OR
 OTHERWISE, ARISING FROM, OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE SOFTWARE.
 
-(This is the license of the current template. The license of private repos is generally our commercial license).
+
+## Contributors:
+
+* Simon Cropp and others for `Metatalama.Community.Virtuosity` (stems from [Fody Costura](https://github.com/Fody/Costura/blob/develop/LICENSE)).
