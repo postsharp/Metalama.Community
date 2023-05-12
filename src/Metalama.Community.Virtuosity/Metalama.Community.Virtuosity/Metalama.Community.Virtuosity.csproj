@@ -5,7 +5,6 @@
     <PackageId>Metalama.Community.Virtuosity.Redist</PackageId>
     <PackageDescription>Redistributable components for package 'Metalama.Community.Virtuosity'. This package should only be installed as a dependency. (This is not the package you are looking for if you want to use Metalama.Community.Virtuosity).</PackageDescription>
     <PackageReadmeFile>README.md</PackageReadmeFile>
-    <PackageLicenseFile>LICENSE.md</PackageLicenseFile>
   </PropertyGroup>
 
   <ItemGroup>
@@ -14,7 +13,7 @@
 
   <ItemGroup>
     <None Include="README.md" Pack="true" PackagePath="" />
-    <None Include="..\LICENSE.md" Visible="false" Pack="true" PackagePath="" />
+    <None Include="$(PackageLicenseFilePath)" Visible="false" Pack="true" PackagePath="" />
   </ItemGroup>
 
 </Project>

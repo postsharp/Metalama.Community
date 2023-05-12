@@ -11,10 +11,7 @@ using System.Linq;
 
 var product = new Product( Dependencies.MetalamaCommunity )
 {
-    Solutions = new Solution[]
-    {
-        new DotNetSolution( "Metalama.Community.sln" )
-    },
+    Solutions = new Solution[] { new DotNetSolution( "Metalama.Community.sln" ) { CanFormatCode = true } },
     PublicArtifacts = Pattern.Create(
         "Metalama.Community.AutoCancellationToken.$(PackageVersion).nupkg",
         "Metalama.Community.AutoCancellationToken.Redist.$(PackageVersion).nupkg",
@@ -25,8 +22,8 @@ var product = new Product( Dependencies.MetalamaCommunity )
     Dependencies = new[] { Dependencies.PostSharpEngineering, Dependencies.Metalama },
     Configurations = Product.DefaultConfigurations
         .WithValue( BuildConfiguration.Public, new BuildConfigurationInfo(
-            MSBuildName: "Release",
-            RequiresSigning: true,
+            "Release",
+            true,
             PublicPublishers: Product.DefaultPublicPublishers.Add( new MergePublisher() ).ToArray() ) )
 };
 
