@@ -1,16 +1,20 @@
 # Metalama.Community
 
-This repository contains open-source Metalama aspects created and/or maintained by the community.
+This repository contains open-source Metalama aspects created or maintained by the community.
 
 ## Cloning this repo
 
-:warning: This repo uses _symlinks_. 
+:warning: This repo uses _symlinks_.
 
 To clone this repo, use:
 
-```
-git clone https://github.com/postsharp/Metalama.Community.git -c core.symlinks=true
-```
+1. If you are using Windows, enable Developer Mode to enable symlinks.
+2. Execute this command:
+
+    
+    ```
+    git clone https://github.com/postsharp/Metalama.Community.git -c core.symlinks=true
+    ```
 
 ## Community projects
 
