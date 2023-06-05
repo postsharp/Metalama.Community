@@ -21,6 +21,6 @@ namespace Metalama.Community.Virtuosity.TestApp
         {
             // Not transformed.
             public void M() { }
-        }        
+        }
     }
 }

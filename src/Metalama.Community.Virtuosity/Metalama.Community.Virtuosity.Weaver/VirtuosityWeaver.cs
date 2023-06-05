@@ -15,8 +15,7 @@ namespace Metalama.Community.Virtuosity.Weaver
     [MetalamaPlugIn]
     public sealed class VirtuosityWeaver : IAspectWeaver
     {
-        public Task TransformAsync( AspectWeaverContext context )
-            => context.RewriteAspectTargetsAsync( new Rewriter() );
+        public Task TransformAsync( AspectWeaverContext context ) => context.RewriteAspectTargetsAsync( new Rewriter() );
 
         private sealed class Rewriter : CSharpSyntaxRewriter
         {

@@ -10,7 +10,7 @@ var product = new Product( Dependencies.MetalamaCommunity )
 {
     Solutions = new Solution[]
     {
-        new DotNetSolution( "Metalama.Community.sln" )
+        new DotNetSolution( "Metalama.Community.sln" ) { CanFormatCode = true }
     },
     PublicArtifacts = Pattern.Create(
         "Metalama.Community.AutoCancellationToken.$(PackageVersion).nupkg",
