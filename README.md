@@ -1,6 +1,6 @@
 ## Metalama.Community
 
-This repository contains open-source Metalama aspects maintained created by the community.
+This repository contains open-source Metalama aspects created by community.
 
 ### Community projects
 

@@ -1,4 +1,4 @@
-﻿// Released under the MIT license. See the LICENSE.md file in the root directory of this repository root for details.
+﻿// Copyright (c) SharpCrafters s.r.o. See the LICENSE.md file in the root directory of this repository root for details.
 
 namespace Metalama.Community.Virtuosity.TestApp
 {
@@ -21,6 +21,6 @@ namespace Metalama.Community.Virtuosity.TestApp
         {
             // Not transformed.
             public void M() { }
-        }
+        }        
     }
 }

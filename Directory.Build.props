@@ -6,11 +6,6 @@
         <NoWarn>SA0001</NoWarn>
     </PropertyGroup>
 
-    <PropertyGroup>
-        <PackageLicenseFile>LICENSE.md</PackageLicenseFile>
-        <PackageLicenseFilePath>$(MSBuildThisFileDirectory)LICENSE.md</PackageLicenseFilePath>
-    </PropertyGroup>
-
     <Import Project="eng\Versions.props"/>
     <Import Project="eng\Packaging.props"/>
     <Import Sdk="PostSharp.Engineering.Sdk" Project="BuildOptions.props"/>

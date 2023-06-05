@@ -1,4 +1,4 @@
-﻿// Released under the MIT license. See the LICENSE.md file in the root directory of this repository root for details.
+﻿// Copyright (c) SharpCrafters s.r.o. See the LICENSE.md file in the root directory of this repository root for details.
 
 using Metalama.Compiler;
 using Metalama.Framework.Engine.AspectWeavers;
@@ -15,7 +15,8 @@ namespace Metalama.Community.Virtuosity.Weaver
     [MetalamaPlugIn]
     public sealed class VirtuosityWeaver : IAspectWeaver
     {
-        public Task TransformAsync( AspectWeaverContext context ) => context.RewriteAspectTargetsAsync( new Rewriter() );
+        public Task TransformAsync( AspectWeaverContext context )
+            => context.RewriteAspectTargetsAsync( new Rewriter() );
 
         private sealed class Rewriter : CSharpSyntaxRewriter
         {

@@ -1,6 +1,5 @@
 # If you need any customization of .editorconfig for the current repo only, this is the right place to add them.
 # The .editorconfig in the repo root is a symlink to a file that is common to all repos.
 
-[*.cs]
+[*.{cs,vb}]
 dotnet_diagnostic.CA1822.severity=silent
-file_header_template = Released under the MIT license. See the LICENSE.md file in the root directory of this repository root for details.
