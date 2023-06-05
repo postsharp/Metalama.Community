@@ -47,7 +47,8 @@ namespace Metalama.Community.AutoCancellationToken.Weaver
 
                 var cancellationTokenParameter = methodSymbol.Parameters.Where( IsCancellationToken ).LastOrDefault();
 
-                if ( cancellationTokenParameter == null )
+                if ( cancellationTokenParameter == null ||
+                     methodSymbol.Parameters.Where( IsCancellationToken ).Count() > 1 )
                 {
                     return node;
                 }
