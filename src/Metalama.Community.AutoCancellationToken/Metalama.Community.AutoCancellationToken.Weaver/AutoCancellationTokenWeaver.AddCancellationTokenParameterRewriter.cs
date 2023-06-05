@@ -40,9 +40,29 @@ namespace Metalama.Community.AutoCancellationToken.Weaver
                 var methodSymbol = semanticModel.GetDeclaredSymbol( node );
 
                 if ( methodSymbol is not { IsAsync: true } ||
-                     methodSymbol.Parameters.Any( IsCancellationToken ) )
+                     methodSymbol.Parameters.Any( IsCancellationToken ) ||
+                     methodSymbol.Parameters.LastOrDefault() is { IsParams: true } )
                 {
                     return node;
+                }
+
+                // TODO: Review: finding a unique name is a common pattern. Is there a common library implementation?
+                const string defaultParameterName = "cancellationToken";
+                var useParameterName = defaultParameterName;
+
+                if ( methodSymbol.Parameters.Length > 0 )
+                {
+                    for ( var i = 2; ; ++i )
+                    {
+                        if ( methodSymbol.Parameters.Any( p => p.Name == useParameterName ) )
+                        {
+                            useParameterName = $"{defaultParameterName}{i}";
+                        }
+                        else
+                        {
+                            break;
+                        }
+                    }
                 }
 
                 var parameters = node.ParameterList.Parameters.GetWithSeparators().ToList();
@@ -64,7 +84,7 @@ namespace Metalama.Community.AutoCancellationToken.Weaver
                             default,
                             default,
                             CancellationTokenType.WithTrailingTrivia( SyntaxFactory.ElasticSpace ),
-                            SyntaxFactory.Identifier( "cancellationToken" )
+                            SyntaxFactory.Identifier( useParameterName )
                                 .WithTrailingTrivia( SyntaxFactory.ElasticSpace ),
                             SyntaxFactory.EqualsValueClause(
                                     SyntaxFactory.Token( SyntaxKind.EqualsToken )
