@@ -52,7 +52,7 @@ namespace Metalama.Community.AutoCancellationToken.Weaver
 
                 if ( methodSymbol.Parameters.Length > 0 )
                 {
-                    for ( var i = 2;; ++i )
+                    for ( var i = 2; /* Intentionally empty*/; ++i )
                     {
                         if ( methodSymbol.Parameters.Any( p => p.Name == useParameterName ) )
                         {
