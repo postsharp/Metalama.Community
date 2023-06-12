@@ -12,8 +12,8 @@
     
     <!-- Set the default versions of dependencies -->
     <PropertyGroup>
-        <PostSharpEngineeringVersion>2023.1.13-preview</PostSharpEngineeringVersion>
-		<MetalamaVersion>2023.1.0-preview</MetalamaVersion>
+        <PostSharpEngineeringVersion>2023.2.8</PostSharpEngineeringVersion>
+		<MetalamaVersion></MetalamaVersion>
 		<MicrosoftNETTestSdkVersion>17.0.0</MicrosoftNETTestSdkVersion>
 		<NewtonsoftJsonVersion>13.0.1</NewtonsoftJsonVersion>
         <SoothsilverRandomVersion>1.1.0</SoothsilverRandomVersion>
