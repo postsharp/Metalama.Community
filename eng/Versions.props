@@ -1,4 +1,4 @@
-﻿<?xml version="1.0" encoding="utf-8"?>
+
 <Project>
 
     <!-- Set the default version of the current product -->
@@ -13,7 +13,7 @@
     <!-- Set the default versions of dependencies -->
     <PropertyGroup>
         <PostSharpEngineeringVersion>2023.2.24</PostSharpEngineeringVersion>
-		<MetalamaVersion></MetalamaVersion>
+		<MetalamaVersion>2023.2.1-preview</MetalamaVersion>
 		<MicrosoftNETTestSdkVersion>17.0.0</MicrosoftNETTestSdkVersion>
 		<NewtonsoftJsonVersion>13.0.1</NewtonsoftJsonVersion>
         <SoothsilverRandomVersion>1.1.0</SoothsilverRandomVersion>
