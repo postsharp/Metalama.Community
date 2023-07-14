@@ -1,4 +1,4 @@
-
+﻿
 <Project>
 
     <!-- Set the default version of the current product -->
@@ -17,7 +17,7 @@
 		<MicrosoftNETTestSdkVersion>17.0.0</MicrosoftNETTestSdkVersion>
 		<NewtonsoftJsonVersion>13.0.1</NewtonsoftJsonVersion>
         <SoothsilverRandomVersion>1.1.0</SoothsilverRandomVersion>
-        <xUnitVersion>2.4.1</xUnitVersion>
+        <xUnitVersion>2.5.0</xUnitVersion>
     </PropertyGroup>
 
     <!-- Override versions (both this product and dependencies) for the local build -->
