@@ -2,21 +2,21 @@
 
   <PropertyGroup>
     <TargetFramework>netstandard2.0</TargetFramework>
-    <!-- dotnet restore requires unique package names for all projects -->
-    <PackageId>Metalama.Community.AutoCancellationToken.Redist</PackageId>
-    <PackageDescription>Redistributable components for package 'Metalama.Community.AutoCancellationToken'. This package should only be installed as a dependency. (This is not the package you are looking for if you want to use Metalama.Community.AutoCancellationToken). </PackageDescription>
-    <PackageReadmeFile>README.md</PackageReadmeFile>
-    <PackageLicenseFile>LICENSE.md</PackageLicenseFile>
+      <PackageTags>$(PackageTags) PostSharp Metalama AOP</PackageTags>
+      <PackageDescription>A Metalama weaver that automatically adds CancellationToken to your method definitions and your method calls.</PackageDescription>
+      <PackageReadmeFile>README.md</PackageReadmeFile>
+      <PackageLicenseFile>LICENSE.md</PackageLicenseFile>
   </PropertyGroup>
 
   <ItemGroup>
     <PackageReference Include="Metalama.Framework" Version="$(MetalamaVersion)" />
+    <PackageReference Include="Metalama.Framework.Sdk" Version="$(MetalamaVersion)" PrivateAssets="all" />
   </ItemGroup>
 
   <!-- Packaging -->
   <ItemGroup>
-      <None Include="$(MSBuildThisFileDirectory)\README.md" Pack="true" PackagePath="\" />
-      <None Include="$(MSBuildThisFileDirectory)..\LICENSE.md" Visible="false" Pack="true" PackagePath="" />
+    <None Include="..\README.md" Pack="true" PackagePath="" />
+    <None Include="..\LICENSE.md" Visible="false" Pack="true" PackagePath="" />
   </ItemGroup>
 
 </Project>

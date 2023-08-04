@@ -1,5 +1,6 @@
 // Copyright (c) SharpCrafters s.r.o. See the LICENSE.md file in the root directory of this repository root for details.
 
+using Metalama.Framework.Aspects;
 using System;
 using System.Collections.Generic;
 using System.IO;
@@ -9,6 +10,7 @@ namespace Metalama.Community.Costura.Weaver;
 /// <summary>
 ///     Multiple streams rolled into one. Read-only. Comes from https://stackoverflow.com/a/3879231/1580088.
 /// </summary>
+[RunTimeOrCompileTime]
 internal class ConcatenatedStream : Stream
 {
     private readonly Stream[] _allStreams;

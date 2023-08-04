@@ -1,12 +1,11 @@
 ﻿// Copyright (c) SharpCrafters s.r.o. See the LICENSE.md file in the root directory of this repository root for details.
 
-using Metalama.Compiler;
+using Metalama.Framework.Engine;
 using Metalama.Framework.Engine.AspectWeavers;
 using Metalama.Framework.Engine.CodeModel;
 using Microsoft.CodeAnalysis;
 using Microsoft.CodeAnalysis.CSharp;
 using System;
-using System.IO;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
@@ -14,7 +13,7 @@ using System.Threading.Tasks;
 namespace Metalama.Community.Costura.Weaver;
 
 [MetalamaPlugIn]
-public class CosturaWeaver : IAspectWeaver
+internal class CosturaWeaver : IAspectWeaver
 {
     public Task TransformAsync( AspectWeaverContext context )
     {
@@ -40,9 +39,7 @@ public class CosturaWeaver : IAspectWeaver
 
         var options = context.Project.Extension<CosturaOptions>();
 
-        var excludedPath = Path.Combine(
-            Environment.GetFolderPath( Environment.SpecialFolder.ProgramFilesX86 ),
-            @"Reference Assemblies\Microsoft\Framework\.NETFramework" );
+        var excludedPath = @"Reference Assemblies\Microsoft\Framework\.NETFramework";
 
         var paths = compilation.References.Select(
                 r => r switch
@@ -50,10 +47,10 @@ public class CosturaWeaver : IAspectWeaver
                     PortableExecutableReference peReference => peReference.FilePath,
                     _ => throw new NotSupportedException()
                 } )
-            .Where( path => path != null && !path.StartsWith( excludedPath, StringComparison.OrdinalIgnoreCase ) )
+            .Where( path => path != null && !path.Contains( excludedPath ) )
             .ToArray();
 
-        var parseOptions = new CSharpParseOptions( compilation.LanguageVersion );
+        var parseOptions = context.Compilation.GetParseOptions();
 
         // Embed resources.
         var checksums = new Checksums();

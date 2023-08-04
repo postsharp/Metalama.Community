@@ -1,11 +1,13 @@
 // Copyright (c) SharpCrafters s.r.o. See the LICENSE.md file in the root directory of this repository root for details.
 
+using Metalama.Framework.Aspects;
 using Microsoft.CodeAnalysis.CSharp;
 using Microsoft.CodeAnalysis.CSharp.Syntax;
 using System.Linq;
 
 namespace Metalama.Community.Costura.Weaver;
 
+[CompileTime]
 internal class AssemblyLoaderInfo
 {
     public const string AssemblyNamesField = "assemblyNames";
