@@ -1,13 +1,15 @@
 // Copyright (c) SharpCrafters s.r.o. See the LICENSE.md file in the root directory of this repository root for details.
 
+using Metalama.Framework.Aspects;
 using Microsoft.CodeAnalysis;
 using System;
 using System.Collections.Generic;
 
-namespace Metalama.Community.AutoCancellationToken.Weaver
+namespace Metalama.Community.AutoCancellationToken
 {
-    public partial class AutoCancellationTokenWeaver
+    internal partial class AutoCancellationTokenWeaver
     {
+        [CompileTime]
         private sealed class AnnotateNodesRewriter : RewriterBase
         {
             private readonly HashSet<SyntaxNode> _instancesNodes;

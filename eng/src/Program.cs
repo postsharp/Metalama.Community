@@ -15,11 +15,9 @@ var product = new Product( MetalamaDependencies.MetalamaCommunity )
     },
     PublicArtifacts = Pattern.Create(
         "Metalama.Community.AutoCancellationToken.$(PackageVersion).nupkg",
-        "Metalama.Community.AutoCancellationToken.Redist.$(PackageVersion).nupkg",
         "Metalama.Community.Costura.$(PackageVersion).nupkg",
         "Metalama.Community.Costura.Redist.$(PackageVersion).nupkg",
-        "Metalama.Community.Virtuosity.$(PackageVersion).nupkg",
-        "Metalama.Community.Virtuosity.Redist.$(PackageVersion).nupkg" ),
+        "Metalama.Community.Virtuosity.$(PackageVersion).nupkg" ),
     Dependencies = new[] { DevelopmentDependencies.PostSharpEngineering, MetalamaDependencies.Metalama }
 };
 

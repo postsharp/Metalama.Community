@@ -1,1 +1,0 @@
-The `Metalama.Community.AutoCancellationToken.Redist` package contains the redistributable components for the `Metalama.Community.AutoCancellationToken` package. You can add a reference to this package if your project is built with Metalama.Community.AutoCancellationToken but code that consume your project do not need to be built with Metalama.Community.AutoCancellationToken.
