@@ -9,7 +9,8 @@
   </PropertyGroup>
 
   <ItemGroup>
-    <PackageReference Include="Metalama.Framework.Sdk" Version="$(MetalamaVersion)" />
+    <PackageReference Include="Metalama.Framework" Version="$(MetalamaVersion)" />
+    <PackageReference Include="Metalama.Framework.Sdk" Version="$(MetalamaVersion)" PrivateAssets="all" />
     <ProjectReference Include="..\Metalama.Community.Costura\Metalama.Community.Costura.csproj" />
   </ItemGroup>
 
@@ -17,16 +18,16 @@
     <Compile Remove="Resources\*.cs" />
     <None Include="Resources\*.cs" />
 
-    <Compile Update="Resources.Designer.cs">
-        <DesignTime>True</DesignTime>
-        <AutoGen>True</AutoGen>
-        <DependentUpon>Resources.resx</DependentUpon>
+    <Service Include="{508349b6-6b84-4df5-91f0-309beebad82d}" />
+    <Compile Update="Resources.cs">
+      <DesignTime>True</DesignTime>
+      <AutoGen>True</AutoGen>
+      <DependentUpon>Resources.tt</DependentUpon>
     </Compile>
-
-    <EmbeddedResource Update="Resources.resx">
-        <Generator>ResXFileCodeGenerator</Generator>
-        <LastGenOutput>Resources.Designer.cs</LastGenOutput>
-    </EmbeddedResource>
+    <None Update="Resources.tt">
+      <Generator>TextTemplatingFileGenerator</Generator>
+      <LastGenOutput>Resources.cs</LastGenOutput>
+    </None>
   </ItemGroup>
 
   <!-- Packaging -->

@@ -7,8 +7,7 @@
     </PropertyGroup>
 
     <ItemGroup>
-        <ProjectReference Include="..\Metalama.Community.Costura.Weaver\Metalama.Community.Costura.Weaver.csproj" OutputItemType="Analyzer" ReferenceOutputAssembly="false"/>
-        <ProjectReference Include="..\Metalama.Community.Costura\Metalama.Community.Costura.csproj" OutputItemType="Analyzer"/>
+        <ProjectReference Include="..\Metalama.Community.Costura.Weaver\Metalama.Community.Costura.Weaver.csproj"/>
         <PackageReference Include="Metalama.Framework" Version="$(MetalamaVersion)" PrivateAssets="all"/>
     </ItemGroup>
 

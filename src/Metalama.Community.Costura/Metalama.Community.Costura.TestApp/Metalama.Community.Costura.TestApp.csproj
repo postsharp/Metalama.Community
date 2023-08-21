@@ -12,8 +12,7 @@
         <PackageReference Include="Newtonsoft.Json" Version="$(NewtonsoftJsonVersion)" />
         <PackageReference Include="Soothsilver.Random" Version="$(SoothsilverRandomVersion)"/>
         <PackageReference Include="xunit.assert" Version="$(xUnitVersion)"/>
-        <ProjectReference Include="..\Metalama.Community.Costura.Weaver\Metalama.Community.Costura.Weaver.csproj" OutputItemType="Analyzer" ReferenceOutputAssembly="false"/>
-        <ProjectReference Include="..\Metalama.Community.Costura\Metalama.Community.Costura.csproj" OutputItemType="Analyzer"/>
+        <ProjectReference Include="..\Metalama.Community.Costura.Weaver\Metalama.Community.Costura.Weaver.csproj"/>
         <PackageReference Include="Metalama.Framework" Version="$(MetalamaVersion)" PrivateAssets="all"/>
     </ItemGroup>
     

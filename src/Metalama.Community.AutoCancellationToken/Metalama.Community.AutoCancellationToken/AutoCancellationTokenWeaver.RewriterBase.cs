@@ -1,5 +1,6 @@
 // Copyright (c) SharpCrafters s.r.o. See the LICENSE.md file in the root directory of this repository root for details.
 
+using Metalama.Framework.Aspects;
 using Metalama.Framework.Engine.Formatting;
 using Microsoft.CodeAnalysis;
 using Microsoft.CodeAnalysis.CSharp;
@@ -7,10 +8,11 @@ using Microsoft.CodeAnalysis.CSharp.Syntax;
 using System;
 using System.Threading;
 
-namespace Metalama.Community.AutoCancellationToken.Weaver
+namespace Metalama.Community.AutoCancellationToken
 {
-    public partial class AutoCancellationTokenWeaver
+    internal partial class AutoCancellationTokenWeaver
     {
+        [CompileTime]
         private abstract class RewriterBase : CSharpSyntaxRewriter
         {
             public override SyntaxNode VisitInterfaceDeclaration( InterfaceDeclarationSyntax node )

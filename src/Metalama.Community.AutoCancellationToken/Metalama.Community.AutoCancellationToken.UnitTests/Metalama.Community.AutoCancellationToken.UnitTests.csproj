@@ -7,7 +7,6 @@
     </PropertyGroup>
 
     <ItemGroup>
-        <ProjectReference Include="..\Metalama.Community.AutoCancellationToken.Weaver\Metalama.Community.AutoCancellationToken.Weaver.csproj" OutputItemType="Analyzer" ReferenceOutputAssembly="false" />
         <ProjectReference Include="..\Metalama.Community.AutoCancellationToken\Metalama.Community.AutoCancellationToken.csproj" OutputItemType="Analyzer" />
         <PackageReference Include="Metalama.Testing.AspectTesting" Version="$(MetalamaVersion)" />
         <PackageReference Include="Microsoft.NET.Test.Sdk" Version="17.2.0" />
