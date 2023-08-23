@@ -10,11 +10,8 @@
   </PropertyGroup>
 
   <ItemGroup>
-    <PackageReference Include="Metalama.Framework.Redist" Version="$(MetalamaVersion)" PrivateAssets="all"/>
+    <PackageReference Include="Metalama.Framework" Version="$(MetalamaVersion)"/>
     <InternalsVisibleTo Include="Metalama.Community.Costura.Weaver"/>
-
-    <!-- Means that the assembly must be added as a reference to compile-time compilations even if does not have a manifest. -->
-    <AssemblyAttribute Include="Metalama.Framework.Aspects.CompileTimeAttribute"/>
   </ItemGroup>
 
   <!-- Packaging -->

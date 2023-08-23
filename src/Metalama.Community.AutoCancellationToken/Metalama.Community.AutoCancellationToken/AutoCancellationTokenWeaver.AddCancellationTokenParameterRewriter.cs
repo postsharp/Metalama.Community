@@ -1,15 +1,17 @@
 // Copyright (c) SharpCrafters s.r.o. See the LICENSE.md file in the root directory of this repository root for details.
 
+using Metalama.Framework.Aspects;
 using Microsoft.CodeAnalysis;
 using Microsoft.CodeAnalysis.CSharp;
 using Microsoft.CodeAnalysis.CSharp.Syntax;
 using System;
 using System.Linq;
 
-namespace Metalama.Community.AutoCancellationToken.Weaver
+namespace Metalama.Community.AutoCancellationToken
 {
-    public partial class AutoCancellationTokenWeaver
+    internal partial class AutoCancellationTokenWeaver
     {
+        [CompileTime]
         private sealed class AddCancellationTokenParameterRewriter : RewriterBase
         {
             private readonly Compilation _compilation;

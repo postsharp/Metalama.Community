@@ -15,8 +15,6 @@ Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Metalama.Community.AutoCanc
 EndProject
 Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Metalama.Community.AutoCancellationToken.UnitTests", "src\Metalama.Community.AutoCancellationToken\Metalama.Community.AutoCancellationToken.UnitTests\Metalama.Community.AutoCancellationToken.UnitTests.csproj", "{3D16CBC8-5309-49D1-BEA6-B4BC4A4E833F}"
 EndProject
-Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Metalama.Community.AutoCancellationToken.Weaver", "src\Metalama.Community.AutoCancellationToken\Metalama.Community.AutoCancellationToken.Weaver\Metalama.Community.AutoCancellationToken.Weaver.csproj", "{1461F15C-0C70-45EB-90DF-0DEF741A5168}"
-EndProject
 Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Metalama.Community.Costura", "src\Metalama.Community.Costura\Metalama.Community.Costura\Metalama.Community.Costura.csproj", "{10BD5FAE-A34F-405E-9D7B-2DF4BFFDD872}"
 EndProject
 Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Metalama.Community.Costura.TestApp", "src\Metalama.Community.Costura\Metalama.Community.Costura.TestApp\Metalama.Community.Costura.TestApp.csproj", "{92CA657F-EF53-4ACA-A1AC-B421619CA136}"
@@ -32,8 +30,6 @@ EndProject
 Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Metalama.Community.Virtuosity.Demo", "src\Metalama.Community.Virtuosity\Metalama.Community.Virtuosity.Demo\Metalama.Community.Virtuosity.Demo.csproj", "{3ED44E31-6ED5-4AF8-98CF-572AFD0091B7}"
 EndProject
 Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Metalama.Community.Virtuosity.UnitTests", "src\Metalama.Community.Virtuosity\Metalama.Community.Virtuosity.UnitTests\Metalama.Community.Virtuosity.UnitTests.csproj", "{F71CBC7E-C5F8-4B21-8EF5-4A7A70CEEB0D}"
-EndProject
-Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Metalama.Community.Virtuosity.Weaver", "src\Metalama.Community.Virtuosity\Metalama.Community.Virtuosity.Weaver\Metalama.Community.Virtuosity.Weaver.csproj", "{0E06FE66-DF44-4604-B8A6-2FD84D9A393F}"
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
@@ -60,12 +56,6 @@ Global
 		{3D16CBC8-5309-49D1-BEA6-B4BC4A4E833F}.LamaDebug|Any CPU.Build.0 = Debug|Any CPU
 		{3D16CBC8-5309-49D1-BEA6-B4BC4A4E833F}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{3D16CBC8-5309-49D1-BEA6-B4BC4A4E833F}.Release|Any CPU.Build.0 = Release|Any CPU
-		{1461F15C-0C70-45EB-90DF-0DEF741A5168}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
-		{1461F15C-0C70-45EB-90DF-0DEF741A5168}.Debug|Any CPU.Build.0 = Debug|Any CPU
-		{1461F15C-0C70-45EB-90DF-0DEF741A5168}.LamaDebug|Any CPU.ActiveCfg = LamaDebug|Any CPU
-		{1461F15C-0C70-45EB-90DF-0DEF741A5168}.LamaDebug|Any CPU.Build.0 = LamaDebug|Any CPU
-		{1461F15C-0C70-45EB-90DF-0DEF741A5168}.Release|Any CPU.ActiveCfg = Release|Any CPU
-		{1461F15C-0C70-45EB-90DF-0DEF741A5168}.Release|Any CPU.Build.0 = Release|Any CPU
 		{10BD5FAE-A34F-405E-9D7B-2DF4BFFDD872}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
 		{10BD5FAE-A34F-405E-9D7B-2DF4BFFDD872}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{10BD5FAE-A34F-405E-9D7B-2DF4BFFDD872}.LamaDebug|Any CPU.ActiveCfg = Debug|Any CPU
@@ -114,12 +104,6 @@ Global
 		{F71CBC7E-C5F8-4B21-8EF5-4A7A70CEEB0D}.LamaDebug|Any CPU.Build.0 = Debug|Any CPU
 		{F71CBC7E-C5F8-4B21-8EF5-4A7A70CEEB0D}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{F71CBC7E-C5F8-4B21-8EF5-4A7A70CEEB0D}.Release|Any CPU.Build.0 = Release|Any CPU
-		{0E06FE66-DF44-4604-B8A6-2FD84D9A393F}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
-		{0E06FE66-DF44-4604-B8A6-2FD84D9A393F}.Debug|Any CPU.Build.0 = Debug|Any CPU
-		{0E06FE66-DF44-4604-B8A6-2FD84D9A393F}.LamaDebug|Any CPU.ActiveCfg = Debug|Any CPU
-		{0E06FE66-DF44-4604-B8A6-2FD84D9A393F}.LamaDebug|Any CPU.Build.0 = Debug|Any CPU
-		{0E06FE66-DF44-4604-B8A6-2FD84D9A393F}.Release|Any CPU.ActiveCfg = Release|Any CPU
-		{0E06FE66-DF44-4604-B8A6-2FD84D9A393F}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE
@@ -128,7 +112,6 @@ Global
 		{CD2992C4-2571-4059-B19C-7842B04371A5} = {96EE3146-2058-4CFC-8994-57CA1C38728F}
 		{B9DCB45D-5A34-4022-9C6A-11C6A77AFF07} = {96EE3146-2058-4CFC-8994-57CA1C38728F}
 		{3D16CBC8-5309-49D1-BEA6-B4BC4A4E833F} = {96EE3146-2058-4CFC-8994-57CA1C38728F}
-		{1461F15C-0C70-45EB-90DF-0DEF741A5168} = {96EE3146-2058-4CFC-8994-57CA1C38728F}
 		{10BD5FAE-A34F-405E-9D7B-2DF4BFFDD872} = {1F055572-A1A5-4004-9BA5-4182BD32B916}
 		{92CA657F-EF53-4ACA-A1AC-B421619CA136} = {1F055572-A1A5-4004-9BA5-4182BD32B916}
 		{37C19557-78C7-4AD8-A584-180413D26FA0} = {1F055572-A1A5-4004-9BA5-4182BD32B916}
@@ -137,7 +120,6 @@ Global
 		{4ED6BE2C-AF70-4FDE-95C8-77D666E227BF} = {06618868-B7D1-432C-A6DB-51C68B522479}
 		{3ED44E31-6ED5-4AF8-98CF-572AFD0091B7} = {06618868-B7D1-432C-A6DB-51C68B522479}
 		{F71CBC7E-C5F8-4B21-8EF5-4A7A70CEEB0D} = {06618868-B7D1-432C-A6DB-51C68B522479}
-		{0E06FE66-DF44-4604-B8A6-2FD84D9A393F} = {06618868-B7D1-432C-A6DB-51C68B522479}
 	EndGlobalSection
 	GlobalSection(ExtensibilityGlobals) = postSolution
 		SolutionGuid = {BE08B6D3-0B12-42E9-B375-8295E0E3301C}
