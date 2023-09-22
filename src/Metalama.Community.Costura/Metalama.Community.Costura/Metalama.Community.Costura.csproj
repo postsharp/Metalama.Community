@@ -10,6 +10,7 @@
   </PropertyGroup>
 
   <ItemGroup>
+    <PackageReference Include="JetBrains.Annotations" Version="2023.2.0" />
     <PackageReference Include="Metalama.Framework" Version="$(MetalamaVersion)"/>
     <InternalsVisibleTo Include="Metalama.Community.Costura.Weaver"/>
   </ItemGroup>
@@ -19,5 +20,7 @@
     <None Include="README.md" Pack="true" PackagePath="" />
     <None Include="..\LICENSE.md" Visible="false" Pack="true" PackagePath="" />
   </ItemGroup>
+  
+  <Import Project="SystemTypes.props" Sdk="PostSharp.Engineering.Sdk"/>
 
 </Project>

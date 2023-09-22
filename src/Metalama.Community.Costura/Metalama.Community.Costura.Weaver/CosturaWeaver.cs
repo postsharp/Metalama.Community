@@ -1,5 +1,6 @@
 ﻿// Copyright (c) SharpCrafters s.r.o. See the LICENSE.md file in the root directory of this repository root for details.
 
+using JetBrains.Annotations;
 using Metalama.Framework.Engine;
 using Metalama.Framework.Engine.AspectWeavers;
 using Metalama.Framework.Engine.CodeModel;
@@ -13,6 +14,7 @@ using System.Threading.Tasks;
 namespace Metalama.Community.Costura.Weaver;
 
 [MetalamaPlugIn]
+[UsedImplicitly]
 internal class CosturaWeaver : IAspectWeaver
 {
     public Task TransformAsync( AspectWeaverContext context )
@@ -37,7 +39,7 @@ internal class CosturaWeaver : IAspectWeaver
             return Task.CompletedTask;
         }
 
-        var options = context.Project.Extension<CosturaOptions>();
+        var options = context.GetOptions<CosturaOptions>( compilation.Assembly );
 
         var excludedPath = @"Reference Assemblies\Microsoft\Framework\.NETFramework";
 
@@ -60,7 +62,7 @@ internal class CosturaWeaver : IAspectWeaver
 
         // Load references.
         var assemblyLoaderInfo =
-            AssemblyLoaderInfo.LoadAssemblyLoader( options.CreateTemporaryAssemblies, unmanagedFromEmbedder );
+            AssemblyLoaderInfo.LoadAssemblyLoader( options.CreateTemporaryAssemblies.GetValueOrDefault(), unmanagedFromEmbedder );
 
         // Generate code.
         var resourcesHash = ResourceHash.CalculateHash( resourceEmbedder.Resources );
@@ -71,8 +73,8 @@ internal class CosturaWeaver : IAspectWeaver
         var sourceTypeSyntax =
             new ResourceNameFinder( assemblyLoaderInfo, resourceEmbedder.Resources.Select( r => r.Name ) )
                 .FillInStaticConstructor(
-                    options.CreateTemporaryAssemblies,
-                    options.PreloadOrder,
+                    options.CreateTemporaryAssemblies.GetValueOrDefault(),
+                    options.PreloadedLibraries.OrderBy( x => x.Priority ).ThenBy( x => x.Name ).Select( x => x.Name ),
                     resourcesHash,
                     checksums );
 

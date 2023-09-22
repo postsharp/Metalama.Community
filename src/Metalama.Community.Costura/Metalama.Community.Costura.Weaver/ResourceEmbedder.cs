@@ -32,14 +32,14 @@ internal class ResourceEmbedder
 
         var onlyBinaries = referenceCopyLocalPaths;
 
-        var disableCompression = !options.CompressResources;
-        var createTemporaryAssemblies = options.CreateTemporaryAssemblies;
+        var disableCompression = !options.CompressResources.GetValueOrDefault();
+        var createTemporaryAssemblies = options.CreateTemporaryAssemblies.GetValueOrDefault();
 
         foreach ( var dependency in GetFilteredReferences( onlyBinaries, options ) )
         {
             var fullPath = Path.GetFullPath( dependency );
 
-            if ( options.IncludeSatelliteAssemblies )
+            if ( options.IncludeSatelliteAssemblies.GetValueOrDefault() )
             {
                 if ( dependency.EndsWith( ".resources.dll", StringComparison.OrdinalIgnoreCase ) )
                 {
@@ -48,7 +48,7 @@ internal class ResourceEmbedder
                         fullPath,
                         !disableCompression,
                         createTemporaryAssemblies,
-                        options.IsCleanupDisabled,
+                        options.IsCleanupDisabled.GetValueOrDefault(),
                         checksums );
 
                     continue;
@@ -60,10 +60,10 @@ internal class ResourceEmbedder
                 fullPath,
                 !disableCompression,
                 createTemporaryAssemblies,
-                options.IsCleanupDisabled,
+                options.IsCleanupDisabled.GetValueOrDefault(),
                 checksums );
 
-            if ( !options.IncludeDebugSymbols )
+            if ( !options.IncludeDebugSymbols.GetValueOrDefault() )
             {
                 continue;
             }
@@ -77,7 +77,7 @@ internal class ResourceEmbedder
                     pdbFullPath,
                     !disableCompression,
                     createTemporaryAssemblies,
-                    options.IsCleanupDisabled,
+                    options.IsCleanupDisabled.GetValueOrDefault(),
                     checksums );
             }
         }
@@ -95,15 +95,19 @@ internal class ResourceEmbedder
 
             if ( unmanagedAssembly != null )
             {
-                if ( unmanagedAssembly.Platform == UnmanagedAssemblyPlatform.X86 )
+                switch ( unmanagedAssembly.Platform )
                 {
-                    prefix = "Costura32.";
-                    this.HasUnmanaged = true;
-                }
-                else if ( unmanagedAssembly.Platform == UnmanagedAssemblyPlatform.X64 )
-                {
-                    prefix = "Costura64.";
-                    this.HasUnmanaged = true;
+                    case UnmanagedAssemblyPlatform.X86:
+                        prefix = "Costura32.";
+                        this.HasUnmanaged = true;
+
+                        break;
+
+                    case UnmanagedAssemblyPlatform.X64:
+                        prefix = "Costura64.";
+                        this.HasUnmanaged = true;
+
+                        break;
                 }
             }
 
@@ -113,9 +117,9 @@ internal class ResourceEmbedder
             }
 
             var fullPath = Path.GetFullPath( dependency );
-            this.Embed( prefix, fullPath, !disableCompression, true, options.IsCleanupDisabled, checksums );
+            this.Embed( prefix, fullPath, !disableCompression, true, options.IsCleanupDisabled.GetValueOrDefault(), checksums );
 
-            if ( !options.IncludeDebugSymbols )
+            if ( !options.IncludeDebugSymbols.GetValueOrDefault() )
             {
                 continue;
             }
@@ -124,7 +128,7 @@ internal class ResourceEmbedder
 
             if ( File.Exists( pdbFullPath ) )
             {
-                this.Embed( prefix, pdbFullPath, !disableCompression, true, options.IsCleanupDisabled, checksums );
+                this.Embed( prefix, pdbFullPath, !disableCompression, true, options.IsCleanupDisabled.GetValueOrDefault(), checksums );
             }
         }
     }
@@ -145,7 +149,7 @@ internal class ResourceEmbedder
         IEnumerable<string> onlyBinaries,
         CosturaOptions options )
     {
-        if ( !options.IncludedAssemblies.IsDefault )
+        if ( !options.IncludedAssemblies.IsEmpty )
         {
             var skippedAssemblies = new List<string>( options.IncludedAssemblies );
 
@@ -215,7 +219,7 @@ internal class ResourceEmbedder
             yield break;
         }
 
-        if ( options.IncludedAssemblies.IsDefault )
+        if ( options.IncludedAssemblies != null )
         {
             foreach ( var file in onlyBinaries )
             {
