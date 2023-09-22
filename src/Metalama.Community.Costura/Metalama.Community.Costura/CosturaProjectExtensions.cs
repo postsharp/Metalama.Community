@@ -11,11 +11,12 @@ public static class CosturaProjectExtensions
 {
     public static void UseCostura(
         this IProjectAmender projectAmender,
-        Action<CosturaOptions>? configure = null )
+        CosturaOptions? options = null )
     {
-        var options = projectAmender.Project.Extension<CosturaOptions>();
-
-        configure?.Invoke( options );
+        if ( options != null )
+        {
+            projectAmender.Outbound.SetOptions( _ => options );
+        }
 
         projectAmender.Outbound.AddAspect<CosturaAspect>();
     }

@@ -26,13 +26,13 @@ internal class ResourceNameFinder
 
     public CompilationUnitSyntax FillInStaticConstructor(
         bool createTemporaryAssemblies,
-        ImmutableArray<string> preloadOrder,
+        IEnumerable<string> preloadedLibraries,
         string resourcesHash,
         Checksums checksums )
     {
         var statements = new List<StatementSyntax>();
 
-        var orderedResources = preloadOrder
+        var orderedResources = preloadedLibraries
             .Join(
                 this._resourceNames,
                 p => p.ToLowerInvariant(),
