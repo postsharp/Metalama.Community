@@ -3,7 +3,6 @@
 using JetBrains.Annotations;
 using Metalama.Framework.Code;
 using Metalama.Framework.Options;
-using Metalama.Framework.Project;
 using System;
 
 namespace Metalama.Community.Costura;
@@ -108,5 +107,5 @@ public sealed class CosturaOptions : IHierarchicalOptions<ICompilation>
         };
     }
 
-    public IHierarchicalOptions GetDefaultOptions( IProject project ) => new CosturaOptions() { CompressResources = true, IncludeSatelliteAssemblies = true };
+    public IHierarchicalOptions GetDefaultOptions( OptionsInitializationContext context ) => new CosturaOptions() { CompressResources = true, IncludeSatelliteAssemblies = true };
 }
