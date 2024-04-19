@@ -2,7 +2,6 @@
 
 using Metalama.Framework.Aspects;
 using Metalama.Framework.Fabrics;
-using System;
 
 namespace Metalama.Community.Costura;
 
@@ -15,9 +14,9 @@ public static class CosturaProjectExtensions
     {
         if ( options != null )
         {
-            projectAmender.Outbound.SetOptions( _ => options );
+            projectAmender.SetOptions( _ => options );
         }
 
-        projectAmender.Outbound.AddAspect<CosturaAspect>();
+        projectAmender.AddAspect<CosturaAspect>();
     }
 }
