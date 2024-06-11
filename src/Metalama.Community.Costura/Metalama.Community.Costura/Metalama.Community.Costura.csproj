@@ -10,9 +10,9 @@
   </PropertyGroup>
 
   <ItemGroup>
-    <PackageReference Include="JetBrains.Annotations" Version="2023.2.0" />
-    <PackageReference Include="Metalama.Framework" Version="$(MetalamaVersion)"/>
-    <InternalsVisibleTo Include="Metalama.Community.Costura.Weaver"/>
+    <PackageReference Include="JetBrains.Annotations" />
+    <PackageReference Include="Metalama.Framework" />
+    <InternalsVisibleTo Include="Metalama.Community.Costura.Weaver" />
   </ItemGroup>
 
   <!-- Packaging -->
