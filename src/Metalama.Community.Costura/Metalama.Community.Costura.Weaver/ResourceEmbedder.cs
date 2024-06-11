@@ -17,7 +17,7 @@ internal class ResourceEmbedder
 
     public bool HasUnmanaged { get; private set; }
 
-    public List<ManagedResource> Resources { get; } = new();
+    public List<ManagedResource> Resources { get; } = [];
 
     public void EmbedResources(
         CosturaOptions options,
