@@ -12,7 +12,7 @@ namespace Metalama.Community.Costura.Weaver;
 [CompileTime]
 internal class Checksums
 {
-    private readonly Dictionary<string, string> _checksums = new();
+    private readonly Dictionary<string, string> _checksums = [];
 
     public IReadOnlyDictionary<string, string> AllChecksums => this._checksums;
 

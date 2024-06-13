@@ -2,7 +2,6 @@
 
 using Metalama.Framework.Aspects;
 using Metalama.Framework.Fabrics;
-using System;
 
 namespace Metalama.Community.Costura;
 
