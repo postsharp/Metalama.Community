@@ -20,7 +20,7 @@
 
             <!-- to reference the weaver as a package, this one line is mostly enough -->
             <ItemGroup>
-                <PackageReference Include="Metalama.Community.AutoCancellationToken" Version="$(MetalamaCommunityVersion)" />
+                <PackageReference Include="Metalama.Community.AutoCancellationToken" VersionOverride="$(MetalamaCommunityVersion)" />
             </ItemGroup>
             <!-- we also need to add a NuGet source that points to where the weaver package is located -->
             <!-- this is not necessary if the weaver package is on NuGet.org, or another configured package source -->

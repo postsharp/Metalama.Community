@@ -8,8 +8,8 @@
 
   <ItemGroup>
     <ProjectReference Include="..\Metalama.Community.Virtuosity\Metalama.Community.Virtuosity.csproj" />
-    <PackageReference Include="Metalama.Testing.AspectTesting" Version="$(MetalamaVersion)" />
-    <PackageReference Include="Microsoft.NET.Test.Sdk" Version="17.5.0" />
+    <PackageReference Include="Metalama.Testing.AspectTesting" />
+    <PackageReference Include="Microsoft.NET.Test.Sdk" />
   </ItemGroup>
 
 </Project>
