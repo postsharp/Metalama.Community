@@ -9,16 +9,16 @@ using MetalamaDependencies = PostSharp.Engineering.BuildTools.Dependencies.Defin
 
 var product = new Product( MetalamaDependencies.MetalamaCommunity )
 {
-    Solutions = new Solution[]
-    {
+    Solutions =
+    [
         new DotNetSolution( "Metalama.Community.sln" ) { CanFormatCode = true }
-    },
+    ],
     PublicArtifacts = Pattern.Create(
         "Metalama.Community.AutoCancellationToken.$(PackageVersion).nupkg",
         "Metalama.Community.Costura.$(PackageVersion).nupkg",
         "Metalama.Community.Costura.Redist.$(PackageVersion).nupkg",
         "Metalama.Community.Virtuosity.$(PackageVersion).nupkg" ),
-    Dependencies = new[] { DevelopmentDependencies.PostSharpEngineering, MetalamaDependencies.Metalama }
+    Dependencies = [DevelopmentDependencies.PostSharpEngineering, MetalamaDependencies.Metalama]
 };
 
 var commandApp = new CommandApp();
