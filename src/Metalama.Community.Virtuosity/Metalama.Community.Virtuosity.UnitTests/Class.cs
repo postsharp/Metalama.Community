@@ -1,5 +1,7 @@
 ﻿// Copyright (c) SharpCrafters s.r.o. See the LICENSE.md file in the root directory of this repository root for details.
 
+#pragma warning disable VSTHRD200, VSTHRD100
+
 using System;
 using System.Threading.Tasks;
 
