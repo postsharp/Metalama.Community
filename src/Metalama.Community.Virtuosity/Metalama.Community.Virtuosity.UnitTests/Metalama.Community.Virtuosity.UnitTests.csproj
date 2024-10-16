@@ -7,6 +7,7 @@
   </PropertyGroup>
 
   <ItemGroup>
+    <PackageReference Include="xunit.assert" />
     <ProjectReference Include="..\Metalama.Community.Virtuosity\Metalama.Community.Virtuosity.csproj" />
     <PackageReference Include="Metalama.Testing.AspectTesting" />
     <PackageReference Include="Microsoft.NET.Test.Sdk" />
