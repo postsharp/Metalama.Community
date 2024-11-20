@@ -56,6 +56,7 @@ namespace Metalama.Community.AutoCancellationToken
                 {
                     for ( var i = 2; /* Intentionally empty*/; ++i )
                     {
+                        // ReSharper disable once AccessToModifiedClosure
                         if ( methodSymbol.Parameters.Any( p => p.Name == useParameterName ) )
                         {
                             useParameterName = $"{defaultParameterName}{i}";

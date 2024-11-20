@@ -11,7 +11,7 @@ using System.Linq;
 namespace Metalama.Community.Costura.Weaver;
 
 [CompileTime]
-internal class ResourceEmbedder
+internal sealed class ResourceEmbedder
 {
     private string? _cachePath;
 
@@ -219,7 +219,7 @@ internal class ResourceEmbedder
             yield break;
         }
 
-        if ( options.IncludedAssemblies != null )
+        if ( options.IncludedAssemblies != null! )
         {
             foreach ( var file in onlyBinaries )
             {

@@ -7,7 +7,7 @@ using Xunit;
 
 namespace Metalama.Community.Costura.TestApp;
 
-internal class ThenUse
+internal static class ThenUse
 {
     public static void Stuff()
     {

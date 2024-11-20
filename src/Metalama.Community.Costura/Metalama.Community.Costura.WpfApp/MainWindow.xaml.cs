@@ -2,10 +2,7 @@
 
 namespace Metalama.Community.Costura.WpfApp;
 
-/// <summary>
-///     Interaction logic for MainWindow.xaml.
-/// </summary>
-public partial class MainWindow
+internal sealed partial class MainWindow
 {
     public MainWindow()
     {

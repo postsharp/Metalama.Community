@@ -41,7 +41,7 @@ internal class CosturaWeaver : IAspectWeaver
 
         var options = context.GetOptions<CosturaOptions>( compilation.Assembly );
 
-        var excludedPath = @"Reference Assemblies\Microsoft\Framework\.NETFramework";
+        const string excludedPath = @"Reference Assemblies\Microsoft\Framework\.NETFramework";
 
         var paths = compilation.References.Select(
                 r => r switch

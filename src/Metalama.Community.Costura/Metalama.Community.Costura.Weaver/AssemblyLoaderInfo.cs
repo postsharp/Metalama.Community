@@ -8,7 +8,7 @@ using System.Linq;
 namespace Metalama.Community.Costura.Weaver;
 
 [CompileTime]
-internal class AssemblyLoaderInfo
+internal sealed class AssemblyLoaderInfo
 {
     public const string AssemblyNamesField = "assemblyNames";
 
@@ -28,7 +28,7 @@ internal class AssemblyLoaderInfo
 
     public string SourceTypeName { get; }
 
-    public AssemblyLoaderInfo(
+    private AssemblyLoaderInfo(
         string? checksumsField,
         string? md5HashField,
         CompilationUnitSyntax sourceTypeSyntax,
@@ -44,7 +44,7 @@ internal class AssemblyLoaderInfo
         bool createTemporaryAssemblies,
         bool hasUnmanaged )
     {
-        var sourceTypeName = "DependencyExtractor";
+        const string sourceTypeName = "DependencyExtractor";
 
         string sourceTypeCode;
 

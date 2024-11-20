@@ -12,7 +12,7 @@ using static Microsoft.CodeAnalysis.CSharp.SyntaxFactory;
 namespace Metalama.Community.Costura.Weaver;
 
 [CompileTime]
-internal class ResourceNameFinder
+internal sealed class ResourceNameFinder
 {
     private readonly AssemblyLoaderInfo _info;
     private readonly IEnumerable<string> _resourceNames;
@@ -59,14 +59,9 @@ internal class ResourceNameFinder
                 }
                 else
                 {
-                    if ( string.Equals( ext, "pdb", StringComparison.OrdinalIgnoreCase ) )
-                    {
-                        AddToDictionary( statements, AssemblyLoaderInfo.SymbolNamesField, name, resource );
-                    }
-                    else
-                    {
-                        AddToDictionary( statements, AssemblyLoaderInfo.AssemblyNamesField, name, resource );
-                    }
+                    var isPdb = string.Equals( ext, "pdb", StringComparison.OrdinalIgnoreCase );
+
+                    AddToDictionary( statements, isPdb ? AssemblyLoaderInfo.SymbolNamesField : AssemblyLoaderInfo.AssemblyNamesField, name, resource );
                 }
             }
             else if ( string.Equals( parts[0], "Costura32", StringComparison.OrdinalIgnoreCase ) )
@@ -103,14 +98,14 @@ internal class ResourceNameFinder
 
         return this._info.SourceTypeSyntax.InsertNodesAfter(
             this._info.SourceTypeSyntax.DescendantNodes().OfType<ClassDeclarationSyntax>().Single().Members.Last(),
-            new[] { staticConstructor } );
+            [staticConstructor] );
     }
 
     private static void GetNameAndExt( string[] parts, out string name, out string ext )
     {
-        var isCompressed = string.Equals( parts[parts.Length - 1], "compressed", StringComparison.OrdinalIgnoreCase );
+        var isCompressed = string.Equals( parts[^1], "compressed", StringComparison.OrdinalIgnoreCase );
 
-        ext = parts[parts.Length - (isCompressed ? 2 : 1)];
+        ext = parts[^(isCompressed ? 2 : 1)];
 
         name = string.Join( ".", parts.Skip( 1 ).Take( parts.Length - (isCompressed ? 3 : 2) ) );
     }

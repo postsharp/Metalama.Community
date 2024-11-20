@@ -28,7 +28,7 @@ namespace Metalama.Community.AutoCancellationToken
                 where T : TypeDeclarationSyntax;
 
             protected static readonly TypeSyntax CancellationTokenType = SyntaxFactory
-                .ParseTypeName( typeof(CancellationToken).FullName )
+                .ParseTypeName( typeof(CancellationToken).FullName! )
                 .WithSimplifierAnnotation();
 
             protected static bool IsCancellationToken( IParameterSymbol parameter )

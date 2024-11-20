@@ -45,3 +45,4 @@ launchSettings.json
 *.g.props
 *.log
 .idea/
+/.config/dotnet-tools.json
