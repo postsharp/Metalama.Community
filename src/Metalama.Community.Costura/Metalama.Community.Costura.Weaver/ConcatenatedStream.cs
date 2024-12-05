@@ -11,7 +11,7 @@ namespace Metalama.Community.Costura.Weaver;
 ///     Multiple streams rolled into one. Read-only. Comes from https://stackoverflow.com/a/3879231/1580088.
 /// </summary>
 [RunTimeOrCompileTime]
-internal class ConcatenatedStream : Stream
+internal sealed class ConcatenatedStream : Stream
 {
     private readonly Stream[] _allStreams;
     private readonly Queue<Stream> _streams;

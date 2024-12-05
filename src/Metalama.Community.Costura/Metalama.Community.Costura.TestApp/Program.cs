@@ -2,7 +2,7 @@
 
 namespace Metalama.Community.Costura.TestApp;
 
-internal class Program
+internal static class Program
 {
     private static void Main()
     {

@@ -8,7 +8,7 @@ using System.Threading.Tasks;
 namespace Metalama.Community.AutoCancellationToken.TestApp;
 
 [AutoCancellationToken]
-internal class MyClass
+internal static class MyClass
 {
     public static async Task MakeRequests( CancellationToken ct )
     {

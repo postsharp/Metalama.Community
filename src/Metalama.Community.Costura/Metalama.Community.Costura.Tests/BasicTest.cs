@@ -8,7 +8,7 @@ using Xunit;
 
 namespace Metalama.Community.Costura.Tests;
 
-public class BasicTest
+public sealed class BasicTest
 {
 #if DEBUG
     private const string _configuration = "Debug";
@@ -21,8 +21,7 @@ public class BasicTest
     [Fact]
     public void TestTestAssemblyWithReferences()
     {
-        var filename =
-            $@"..\..\..\..\Metalama.Community.Costura.TestApp\bin\{_configuration}\net48\Metalama.Community.Costura.TestApp.exe";
+        const string filename = $@"..\..\..\..\Metalama.Community.Costura.TestApp\bin\{_configuration}\net48\Metalama.Community.Costura.TestApp.exe";
 
         DeleteAllButExes( filename );
         var p = Process.Start( Path.Combine( this._folder, filename ) );
@@ -33,8 +32,7 @@ public class BasicTest
     [Fact]
     public void TestWpf()
     {
-        var filename =
-            $@"..\..\..\..\Metalama.Community.Costura.WpfApp\bin\{_configuration}\net48\Metalama.Community.Costura.WpfApp.exe";
+        const string filename = $@"..\..\..\..\Metalama.Community.Costura.WpfApp\bin\{_configuration}\net48\Metalama.Community.Costura.WpfApp.exe";
 
         DeleteAllButExes( filename );
         var p = Process.Start( Path.Combine( this._folder, filename ) );

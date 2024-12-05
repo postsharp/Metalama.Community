@@ -20,10 +20,10 @@ namespace Metalama.Community.Virtuosity
         private sealed class Rewriter : CSharpSyntaxRewriter
         {
             private static readonly SyntaxKind[] _forbiddenModifiers =
-                new[] { StaticKeyword, SealedKeyword, VirtualKeyword, OverrideKeyword };
+                [StaticKeyword, SealedKeyword, VirtualKeyword, OverrideKeyword];
 
             private static readonly SyntaxKind[] _requiredModifiers =
-                new[] { PublicKeyword, ProtectedKeyword, InternalKeyword };
+                [PublicKeyword, ProtectedKeyword, InternalKeyword];
 
             private static bool CanTransformType( MemberDeclarationSyntax node )
                 => node switch
@@ -58,10 +58,8 @@ namespace Metalama.Community.Virtuosity
                 return modifiers;
             }
 
-            public override SyntaxNode? VisitClassDeclaration( ClassDeclarationSyntax node )
-            {
-                return ((ClassDeclarationSyntax) base.VisitClassDeclaration( node )!).WithModifiers( ModifyModifiers( node.Modifiers, false ) );
-            }
+            public override SyntaxNode VisitClassDeclaration( ClassDeclarationSyntax node )
+                => ((ClassDeclarationSyntax) base.VisitClassDeclaration( node )!).WithModifiers( ModifyModifiers( node.Modifiers, false ) );
 
             public override SyntaxNode? VisitRecordDeclaration( RecordDeclarationSyntax node )
             {
@@ -89,7 +87,7 @@ namespace Metalama.Community.Virtuosity
                 }
             }
 
-            public override SyntaxNode? VisitPropertyDeclaration( PropertyDeclarationSyntax node )
+            public override SyntaxNode VisitPropertyDeclaration( PropertyDeclarationSyntax node )
             {
                 var parent = (MemberDeclarationSyntax) node.Parent!;
 

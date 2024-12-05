@@ -10,7 +10,7 @@ using System.Text;
 namespace Metalama.Community.Costura.Weaver;
 
 [CompileTime]
-internal class Checksums
+internal sealed class Checksums
 {
     private readonly Dictionary<string, string> _checksums = [];
 
@@ -41,13 +41,5 @@ internal class Checksums
         return formatted.ToString();
     }
 
-    public void Add( string resourceName, string checksum )
-    {
-        this._checksums.Add( resourceName, checksum );
-    }
-
-    public bool ContainsKey( string resourceName )
-    {
-        return this._checksums.ContainsKey( resourceName );
-    }
+    public void Add( string resourceName, string checksum ) => this._checksums.Add( resourceName, checksum );
 }

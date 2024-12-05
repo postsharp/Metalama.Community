@@ -9,7 +9,7 @@ using System.Linq;
 
 namespace Metalama.Community.AutoCancellationToken
 {
-    internal partial class AutoCancellationTokenWeaver
+    internal sealed partial class AutoCancellationTokenWeaver
     {
         [CompileTime]
         private sealed class AddCancellationTokenArgumentRewriter : RewriterBase
