@@ -2,8 +2,8 @@
 <Project>
 
     <PropertyGroup>
-        <MetalamaCompilerVersion>2025.1.4</MetalamaCompilerVersion>
-        <MetalamaVersion>2025.1.6</MetalamaVersion>
+        <MetalamaCompilerVersion>2025.1.5</MetalamaCompilerVersion>
+        <MetalamaVersion>2025.1.7</MetalamaVersion>
     </PropertyGroup>
 
 </Project>
