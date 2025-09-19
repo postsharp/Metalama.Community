@@ -3,7 +3,7 @@
 
     <PropertyGroup>
         <MetalamaCompilerVersion>2025.2.1-preview</MetalamaCompilerVersion>
-        <MetalamaVersion>2025.2.1-preview</MetalamaVersion>
+        <MetalamaVersion>2025.2.2-preview</MetalamaVersion>
     </PropertyGroup>
 
 </Project>
