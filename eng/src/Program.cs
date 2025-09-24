@@ -5,7 +5,6 @@ using PostSharp.Engineering.BuildTools.Build.Model;
 using PostSharp.Engineering.BuildTools.Build.Solutions;
 using PostSharp.Engineering.BuildTools.Dependencies.Definitions;
 using PostSharp.Engineering.BuildTools.Docker;
-using System;
 using MetalamaDependencies = PostSharp.Engineering.BuildTools.Dependencies.Definitions.MetalamaDependencies.V2025_2;
 
 const string dotNetSdkVersion = "9.0.205";
@@ -21,7 +20,6 @@ var product = new Product( MetalamaDependencies.MetalamaCommunity )
     },
     GenerateNuGetConfig = true,
     DotNetSdkVersion = new DotNetSdkVersion( dotNetSdkVersion ),
-    MSBuildVersion = new Version( 17, 14 ),
     
     Solutions =
     [
