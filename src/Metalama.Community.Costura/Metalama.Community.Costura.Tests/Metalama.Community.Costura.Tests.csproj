@@ -2,7 +2,7 @@
 
   <PropertyGroup>
     <!-- Must be .NET Framework because Costura does not make sense for .NET Core -->
-    <TargetFramework>net6.0</TargetFramework>
+    <TargetFramework>net9.0</TargetFramework>
     <IsPackable>false</IsPackable>
   </PropertyGroup>
 

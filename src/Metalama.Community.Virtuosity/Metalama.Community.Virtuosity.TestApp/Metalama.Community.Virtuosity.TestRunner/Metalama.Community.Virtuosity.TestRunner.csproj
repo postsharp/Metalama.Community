@@ -5,7 +5,7 @@
 	<Import Project="Sdk.props" Sdk="Microsoft.NET.Sdk" />
 
 	<PropertyGroup>
-		<TargetFramework>net6.0</TargetFramework>
+		<TargetFramework>net9.0</TargetFramework>
 		<EnableDefaultItems>false</EnableDefaultItems>
 	</PropertyGroup>
 
