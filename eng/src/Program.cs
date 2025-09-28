@@ -32,7 +32,6 @@ var product = new Product( MetalamaDependencies.MetalamaCommunity )
         "Metalama.Community.Costura.$(PackageVersion).nupkg",
         "Metalama.Community.Costura.Redist.$(PackageVersion).nupkg",
         "Metalama.Community.Virtuosity.$(PackageVersion).nupkg" ),
-    Dependencies = [DevelopmentDependencies.PostSharpEngineering, MetalamaDependencies.Metalama]
 };
 
 return new EngineeringApp( product ).Run( args );
