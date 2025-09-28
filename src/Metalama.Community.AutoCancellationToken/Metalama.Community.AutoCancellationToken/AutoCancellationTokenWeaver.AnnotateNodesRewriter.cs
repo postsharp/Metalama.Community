@@ -16,7 +16,7 @@ namespace Metalama.Community.AutoCancellationToken
 
             public AnnotateNodesRewriter( IEnumerable<SyntaxNode> instancesNodes )
             {
-                this._instancesNodes = new HashSet<SyntaxNode>( instancesNodes );
+                this._instancesNodes = [..instancesNodes];
             }
 
             public static SyntaxAnnotation Annotation { get; } = new();
