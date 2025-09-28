@@ -73,6 +73,14 @@ object DebugBuild : BuildType({
             lockingProcesses = Swabra.LockingProcessPolicy.KILL
             verbose = true
         }
+commitStatusPublisher {
+    vcsRootExtId = "Metalama_Metalama20251_MetalamaCommunity"
+    publisher = github {
+        githubUrl = "https://api.github.com"
+        authType = personalToken {
+            token = $"%env.GITHUB_TOKEN%"
+        }
+    }
     }
 
     triggers {
@@ -159,6 +167,14 @@ object ReleaseBuild : BuildType({
             lockingProcesses = Swabra.LockingProcessPolicy.KILL
             verbose = true
         }
+commitStatusPublisher {
+    vcsRootExtId = "Metalama_Metalama20251_MetalamaCommunity"
+    publisher = github {
+        githubUrl = "https://api.github.com"
+        authType = personalToken {
+            token = $"%env.GITHUB_TOKEN%"
+        }
+    }
     }
 
     dependencies {
@@ -236,6 +252,14 @@ object PublicBuild : BuildType({
             lockingProcesses = Swabra.LockingProcessPolicy.KILL
             verbose = true
         }
+commitStatusPublisher {
+    vcsRootExtId = "Metalama_Metalama20251_MetalamaCommunity"
+    publisher = github {
+        githubUrl = "https://api.github.com"
+        authType = personalToken {
+            token = $"%env.GITHUB_TOKEN%"
+        }
+    }
     }
 
     dependencies {
