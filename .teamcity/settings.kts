@@ -81,9 +81,8 @@ object DebugBuild : BuildType({
     }
 pullRequests {
        vcsRootExtId = "Metalama_Metalama20251_MetalamaCommunity"
-        publisher = github {
-            githubUrl = "https://api.github.com"
-            authType = personalToken {
+        provider = github {
+            authType = token {
                 token = "%env.GITHUB_TOKEN%"
             }
            filterTargetBranch = "+:refs/heads/develop/2025.1"
@@ -189,9 +188,8 @@ object ReleaseBuild : BuildType({
     }
 pullRequests {
        vcsRootExtId = "Metalama_Metalama20251_MetalamaCommunity"
-        publisher = github {
-            githubUrl = "https://api.github.com"
-            authType = personalToken {
+        provider = github {
+            authType = token {
                 token = "%env.GITHUB_TOKEN%"
             }
            filterTargetBranch = "+:refs/heads/develop/2025.1"
@@ -288,9 +286,8 @@ object PublicBuild : BuildType({
     }
 pullRequests {
        vcsRootExtId = "Metalama_Metalama20251_MetalamaCommunity"
-        publisher = github {
-            githubUrl = "https://api.github.com"
-            authType = personalToken {
+        provider = github {
+            authType = token {
                 token = "%env.GITHUB_TOKEN%"
             }
            filterTargetBranch = "+:refs/heads/develop/2025.1"
