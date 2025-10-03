@@ -46,3 +46,8 @@ launchSettings.json
 *.log
 .idea/
 /.config/dotnet-tools.json
+global.json
+nuget.config
+*.g.ps1
+*.g.json
+*.g.props

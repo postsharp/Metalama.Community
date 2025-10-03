@@ -5,6 +5,6 @@ namespace Metalama.Community.Virtuosity.Tests.Interface
     [Virtualize]
     internal interface I
     {
-        public void M() { }
+        void M() { }
     }
 }

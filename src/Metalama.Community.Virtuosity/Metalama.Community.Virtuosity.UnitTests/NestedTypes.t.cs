@@ -20,9 +20,9 @@ namespace Metalama.Community.Virtuosity.TestApp
     internal interface INestedInterface
     {
       // Not transformed.
-      public void M()
+      void M()
       {
       }
-    }    
+    }
   }
 }
