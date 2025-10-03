@@ -32,34 +32,24 @@ object DebugBuild : BuildType({
 """
 
     params {
-<<<<<<< HEAD
-        text("BuildArguments", "", label = "Build Arguments", description = "Arguments to append to the 'Build' build step.", allowEmpty = true)
-        text("DefaultBranch", "develop/2026.0", label = "Default Branch", description = "The default branch of this build configuration.")
-        text("TimeOut", "300", label = "Time-Out Threshold", description = "Seconds after the duration of the last successful build.", regex = """\d+""", validationMessage = "The timeout has to be an integer number.")
-    }
-
-    vcs {
-        root(AbsoluteId("Metalama_Metalama20260_MetalamaCommunity"))
-=======
         text("Build.Arguments", "", label = "DockerBuild.ps1 Arguments", description = "Arguments to append to the 'Build' build step.", allowEmpty = true)
         param("Build.Timeout", "30")
     }
 
     vcs {
-        root(AbsoluteId("Metalama_Metalama20252_MetalamaCommunity"))
+        root(AbsoluteId("Metalama_Metalama20260_MetalamaCommunity"))
      checkoutMode = CheckoutMode.ON_AGENT
->>>>>>> origin/develop/2025.2
     }
 
     steps {
         powerShell {
-            name = "Prepare Docker image metalamacommunity-2025.2"
+            name = "Prepare Docker image metalamacommunity-2026.0"
             id = "PrepareImage"
             scriptMode = file {
                 path = "DockerBuild.ps1"
             }
             noProfile = false
-            scriptArgs = "-BuildImage -ImageName metalamacommunity-2025.2"
+            scriptArgs = "-BuildImage -ImageName metalamacommunity-2026.0"
         }
         powerShell {
             name = "Build"
@@ -68,7 +58,7 @@ object DebugBuild : BuildType({
                 path = "DockerBuild.ps1"
             }
             noProfile = false
-            scriptArgs = "-Script Build.ps1 -ImageName metalamacommunity-2025.2 -NoBuildImage test --configuration Debug --buildNumber %build.number% --buildType %system.teamcity.buildType.id% %Build.Arguments% --timeout %Build.Timeout%"
+            scriptArgs = "-Script Build.ps1 -ImageName metalamacommunity-2026.0 -NoBuildImage test --configuration Debug --buildNumber %build.number% --buildType %system.teamcity.buildType.id% %Build.Arguments% --timeout %Build.Timeout%"
         }
     }
 
@@ -82,7 +72,7 @@ object DebugBuild : BuildType({
             verbose = true
         }
     commitStatusPublisher {
-        vcsRootExtId = "Metalama_Metalama20252_MetalamaCommunity"
+        vcsRootExtId = "Metalama_Metalama20260_MetalamaCommunity"
         publisher = github {
             githubUrl = "https://api.github.com"
             authType = personalToken {
@@ -91,12 +81,12 @@ object DebugBuild : BuildType({
         }
     }
 pullRequests {
-       vcsRootExtId = "Metalama_Metalama20252_MetalamaCommunity"
+       vcsRootExtId = "Metalama_Metalama20260_MetalamaCommunity"
         provider = github {
             authType = token {
                 token = "%env.GITHUB_TOKEN%"
             }
-           filterTargetBranch = "+:refs/heads/develop/2025.2"
+           filterTargetBranch = "+:refs/heads/develop/2026.0"
            filterAuthorRole = PullRequests.GitHubRoleFilter.EVERYBODY
        }
    }
@@ -107,13 +97,9 @@ pullRequests {
     triggers {
         vcs {
             watchChangesInDependencies = true
-<<<<<<< HEAD
             branchFilter = "+:develop/2026.0"
-=======
-            branchFilter = "+:develop/2025.2"
              quietPeriodMode = VcsTrigger.QuietPeriodMode.USE_CUSTOM
              quietPeriod = 7200
->>>>>>> origin/develop/2025.2
             // Build will not trigger automatically if the commit message contains comment value.
             triggerRules = "-:comment=<<VERSION_BUMP>>|<<DEPENDENCIES_UPDATED>>:**"
         }
@@ -156,34 +142,24 @@ object ReleaseBuild : BuildType({
 """
 
     params {
-<<<<<<< HEAD
-        text("BuildArguments", "", label = "Build Arguments", description = "Arguments to append to the 'Build' build step.", allowEmpty = true)
-        text("DefaultBranch", "develop/2026.0", label = "Default Branch", description = "The default branch of this build configuration.")
-        text("TimeOut", "300", label = "Time-Out Threshold", description = "Seconds after the duration of the last successful build.", regex = """\d+""", validationMessage = "The timeout has to be an integer number.")
-    }
-
-    vcs {
-        root(AbsoluteId("Metalama_Metalama20260_MetalamaCommunity"))
-=======
         text("Build.Arguments", "", label = "DockerBuild.ps1 Arguments", description = "Arguments to append to the 'Build' build step.", allowEmpty = true)
         param("Build.Timeout", "30")
     }
 
     vcs {
-        root(AbsoluteId("Metalama_Metalama20252_MetalamaCommunity"))
+        root(AbsoluteId("Metalama_Metalama20260_MetalamaCommunity"))
      checkoutMode = CheckoutMode.ON_AGENT
->>>>>>> origin/develop/2025.2
     }
 
     steps {
         powerShell {
-            name = "Prepare Docker image metalamacommunity-2025.2"
+            name = "Prepare Docker image metalamacommunity-2026.0"
             id = "PrepareImage"
             scriptMode = file {
                 path = "DockerBuild.ps1"
             }
             noProfile = false
-            scriptArgs = "-BuildImage -ImageName metalamacommunity-2025.2"
+            scriptArgs = "-BuildImage -ImageName metalamacommunity-2026.0"
         }
         powerShell {
             name = "Build"
@@ -192,7 +168,7 @@ object ReleaseBuild : BuildType({
                 path = "DockerBuild.ps1"
             }
             noProfile = false
-            scriptArgs = "-Script Build.ps1 -ImageName metalamacommunity-2025.2 -NoBuildImage test --configuration Release --buildNumber %build.number% --buildType %system.teamcity.buildType.id% %Build.Arguments% --timeout %Build.Timeout%"
+            scriptArgs = "-Script Build.ps1 -ImageName metalamacommunity-2026.0 -NoBuildImage test --configuration Release --buildNumber %build.number% --buildType %system.teamcity.buildType.id% %Build.Arguments% --timeout %Build.Timeout%"
         }
     }
 
@@ -206,7 +182,7 @@ object ReleaseBuild : BuildType({
             verbose = true
         }
     commitStatusPublisher {
-        vcsRootExtId = "Metalama_Metalama20252_MetalamaCommunity"
+        vcsRootExtId = "Metalama_Metalama20260_MetalamaCommunity"
         publisher = github {
             githubUrl = "https://api.github.com"
             authType = personalToken {
@@ -215,12 +191,12 @@ object ReleaseBuild : BuildType({
         }
     }
 pullRequests {
-       vcsRootExtId = "Metalama_Metalama20252_MetalamaCommunity"
+       vcsRootExtId = "Metalama_Metalama20260_MetalamaCommunity"
         provider = github {
             authType = token {
                 token = "%env.GITHUB_TOKEN%"
             }
-           filterTargetBranch = "+:refs/heads/develop/2025.2"
+           filterTargetBranch = "+:refs/heads/develop/2026.0"
            filterAuthorRole = PullRequests.GitHubRoleFilter.EVERYBODY
        }
    }
@@ -265,34 +241,24 @@ object PublicBuild : BuildType({
 """
 
     params {
-<<<<<<< HEAD
-        text("BuildArguments", "", label = "Build Arguments", description = "Arguments to append to the 'Build' build step.", allowEmpty = true)
-        text("DefaultBranch", "develop/2026.0", label = "Default Branch", description = "The default branch of this build configuration.")
-        text("TimeOut", "300", label = "Time-Out Threshold", description = "Seconds after the duration of the last successful build.", regex = """\d+""", validationMessage = "The timeout has to be an integer number.")
-    }
-
-    vcs {
-        root(AbsoluteId("Metalama_Metalama20260_MetalamaCommunity"))
-=======
         text("Build.Arguments", "", label = "DockerBuild.ps1 Arguments", description = "Arguments to append to the 'Build' build step.", allowEmpty = true)
         param("Build.Timeout", "30")
     }
 
     vcs {
-        root(AbsoluteId("Metalama_Metalama20252_MetalamaCommunity"))
+        root(AbsoluteId("Metalama_Metalama20260_MetalamaCommunity"))
      checkoutMode = CheckoutMode.ON_AGENT
->>>>>>> origin/develop/2025.2
     }
 
     steps {
         powerShell {
-            name = "Prepare Docker image metalamacommunity-2025.2"
+            name = "Prepare Docker image metalamacommunity-2026.0"
             id = "PrepareImage"
             scriptMode = file {
                 path = "DockerBuild.ps1"
             }
             noProfile = false
-            scriptArgs = "-BuildImage -ImageName metalamacommunity-2025.2"
+            scriptArgs = "-BuildImage -ImageName metalamacommunity-2026.0"
         }
         powerShell {
             name = "Build"
@@ -301,7 +267,7 @@ object PublicBuild : BuildType({
                 path = "DockerBuild.ps1"
             }
             noProfile = false
-            scriptArgs = "-Script Build.ps1 -ImageName metalamacommunity-2025.2 -NoBuildImage test --configuration Public --buildNumber %build.number% --buildType %system.teamcity.buildType.id% %Build.Arguments% --timeout %Build.Timeout%"
+            scriptArgs = "-Script Build.ps1 -ImageName metalamacommunity-2026.0 -NoBuildImage test --configuration Public --buildNumber %build.number% --buildType %system.teamcity.buildType.id% %Build.Arguments% --timeout %Build.Timeout%"
         }
     }
 
@@ -315,7 +281,7 @@ object PublicBuild : BuildType({
             verbose = true
         }
     commitStatusPublisher {
-        vcsRootExtId = "Metalama_Metalama20252_MetalamaCommunity"
+        vcsRootExtId = "Metalama_Metalama20260_MetalamaCommunity"
         publisher = github {
             githubUrl = "https://api.github.com"
             authType = personalToken {
@@ -324,12 +290,12 @@ object PublicBuild : BuildType({
         }
     }
 pullRequests {
-       vcsRootExtId = "Metalama_Metalama20252_MetalamaCommunity"
+       vcsRootExtId = "Metalama_Metalama20260_MetalamaCommunity"
         provider = github {
             authType = token {
                 token = "%env.GITHUB_TOKEN%"
             }
-           filterTargetBranch = "+:refs/heads/develop/2025.2"
+           filterTargetBranch = "+:refs/heads/develop/2026.0"
            filterAuthorRole = PullRequests.GitHubRoleFilter.EVERYBODY
        }
    }
@@ -369,34 +335,24 @@ object PublicDeployment : BuildType({
     type = Type.DEPLOYMENT
 
     params {
-<<<<<<< HEAD
-        text("PublishArguments", "", label = "Publish Arguments", description = "Arguments to append to the 'Publish' build step.", allowEmpty = true)
-        text("DefaultBranch", "release/2026.0", label = "Default Branch", description = "The default branch of this build configuration.")
-        text("TimeOut", "300", label = "Time-Out Threshold", description = "Seconds after the duration of the last successful build.", regex = """\d+""", validationMessage = "The timeout has to be an integer number.")
-    }
-
-    vcs {
-        root(AbsoluteId("Metalama_Metalama20260_MetalamaCommunity"))
-=======
         text("Publish.Arguments", "", label = "DockerBuild.ps1 Arguments", description = "Arguments to append to the 'Publish' build step.", allowEmpty = true)
         param("Publish.Timeout", "30")
     }
 
     vcs {
-        root(AbsoluteId("Metalama_Metalama20252_MetalamaCommunity"))
+        root(AbsoluteId("Metalama_Metalama20260_MetalamaCommunity"))
      checkoutMode = CheckoutMode.ON_AGENT
->>>>>>> origin/develop/2025.2
     }
 
     steps {
         powerShell {
-            name = "Prepare Docker image metalamacommunity-2025.2"
+            name = "Prepare Docker image metalamacommunity-2026.0"
             id = "PrepareImage"
             scriptMode = file {
                 path = "DockerBuild.ps1"
             }
             noProfile = false
-            scriptArgs = "-BuildImage -ImageName metalamacommunity-2025.2"
+            scriptArgs = "-BuildImage -ImageName metalamacommunity-2026.0"
         }
         powerShell {
             name = "Publish"
@@ -405,7 +361,7 @@ object PublicDeployment : BuildType({
                 path = "DockerBuild.ps1"
             }
             noProfile = false
-            scriptArgs = "-Script Build.ps1 -ImageName metalamacommunity-2025.2 -NoBuildImage publish --configuration Public %Publish.Arguments% --timeout %Publish.Timeout%"
+            scriptArgs = "-Script Build.ps1 -ImageName metalamacommunity-2026.0 -NoBuildImage publish --configuration Public %Publish.Arguments% --timeout %Publish.Timeout%"
         }
     }
 
@@ -460,67 +416,3 @@ object PublicDeployment : BuildType({
 
 })
 
-<<<<<<< HEAD
-=======
-object DownstreamMerge : BuildType({
-
-    name = "Downstream Merge"
-
-    params {
-        text("DownstreamMerge.Arguments", "", label = "DockerBuild.ps1 Arguments", description = "Arguments to append to the 'Merge downstream' build step.", allowEmpty = true)
-        param("DownstreamMerge.Timeout", "15")
-    }
-
-    vcs {
-        root(AbsoluteId("Metalama_Metalama20252_MetalamaCommunity"))
-     checkoutMode = CheckoutMode.ON_AGENT
-    }
-
-    steps {
-        powerShell {
-            name = "Prepare Docker image metalamacommunity-2025.2"
-            id = "PrepareImage"
-            scriptMode = file {
-                path = "DockerBuild.ps1"
-            }
-            noProfile = false
-            scriptArgs = "-BuildImage -ImageName metalamacommunity-2025.2"
-        }
-        powerShell {
-            name = "Merge downstream"
-            id = "DownstreamMerge"
-            scriptMode = file {
-                path = "DockerBuild.ps1"
-            }
-            noProfile = false
-            scriptArgs = "-Script Build.ps1 -ImageName metalamacommunity-2025.2 -NoBuildImage tools git merge-downstream %DownstreamMerge.Arguments% --timeout %DownstreamMerge.Timeout%"
-        }
-    }
-
-    requirements {
-        equals("env.BuildAgentType", "docker-win-x64-md")
-    }
-
-    features {
-        swabra {
-            lockingProcesses = Swabra.LockingProcessPolicy.KILL
-            verbose = true
-        }
-    }
-
-    dependencies {
-        dependency(DebugBuild) {
-            snapshot {
-                     onDependencyFailure = FailureAction.FAIL_TO_START
-            }
-        }
-        dependency(AbsoluteId("Metalama_Metalama20252_Metalama_DownstreamMerge")) {
-            snapshot {
-                     onDependencyFailure = FailureAction.ADD_PROBLEM
-            }
-        }
-     }
-
-})
-
->>>>>>> origin/develop/2025.2
