@@ -14,7 +14,7 @@ public sealed class VirtualizeAttribute : TypeAspect
         base.BuildEligibility( builder );
 
         builder.MustSatisfy(
-            t => t.TypeKind is TypeKind.Class or TypeKind.RecordClass,
-            t => $"{t} must be class or a record class" );
+            t => t.TypeKind is TypeKind.Class,
+            t => $"{t} must be class" );
     }
 }
