@@ -3,7 +3,7 @@
 
     <PropertyGroup>
         <MetalamaCompilerVersion>2026.0.6-rc</MetalamaCompilerVersion>
-        <MetalamaVersion>2026.0.8-rc</MetalamaVersion>
-    <MetalamaCommunityReleaseVersion>2026.0.8-rc</MetalamaCommunityReleaseVersion><MetalamaCommunityReleaseMainVersion>2026.0.8</MetalamaCommunityReleaseMainVersion></PropertyGroup>
+        <MetalamaVersion>2026.0.9-rc</MetalamaVersion>
+    <MetalamaCommunityReleaseVersion>2026.0.9-rc</MetalamaCommunityReleaseVersion><MetalamaCommunityReleaseMainVersion>2026.0.9</MetalamaCommunityReleaseMainVersion></PropertyGroup>
 
 </Project>
