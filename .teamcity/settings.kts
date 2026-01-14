@@ -15,9 +15,8 @@ project {
     buildType(ReleaseBuild)
     buildType(PublicBuild)
     buildType(PublicDeployment)
-    buildType(DownstreamMerge)
 
-    buildTypesOrder = arrayListOf(DebugBuild,ReleaseBuild,PublicBuild,PublicDeployment,DownstreamMerge)
+    buildTypesOrder = arrayListOf(DebugBuild,ReleaseBuild,PublicBuild,PublicDeployment)
 
 }
 
@@ -38,19 +37,19 @@ object DebugBuild : BuildType({
     }
 
     vcs {
-        root(AbsoluteId("Metalama_Metalama20260_MetalamaCommunity"))
+        root(AbsoluteId("Metalama_Metalama20261_MetalamaCommunity"))
      checkoutMode = CheckoutMode.ON_AGENT
     }
 
     steps {
         powerShell {
-            name = "Prepare Docker image metalamacommunity-2026.0"
+            name = "Prepare Docker image metalamacommunity-2026.1"
             id = "PrepareImage"
             scriptMode = file {
                 path = "DockerBuild.ps1"
             }
             noProfile = false
-            scriptArgs = "-BuildImage -ImageName metalamacommunity-2026.0 "
+            scriptArgs = "-BuildImage -ImageName metalamacommunity-2026.1 "
         }
         powerShell {
             name = "Build"
@@ -59,7 +58,7 @@ object DebugBuild : BuildType({
                 path = "DockerBuild.ps1"
             }
             noProfile = false
-            scriptArgs = "-Script Build.ps1 -ImageName metalamacommunity-2026.0 -NoBuildImage test --configuration Debug --buildNumber %build.number% --buildType %system.teamcity.buildType.id% --timeout %Build.Timeout% %Build.Arguments%"
+            scriptArgs = "-Script Build.ps1 -ImageName metalamacommunity-2026.1 -NoBuildImage test --configuration Debug --buildNumber %build.number% --buildType %system.teamcity.buildType.id% --timeout %Build.Timeout% %Build.Arguments%"
         }
     }
 
@@ -73,7 +72,7 @@ object DebugBuild : BuildType({
             verbose = true
         }
     commitStatusPublisher {
-        vcsRootExtId = "Metalama_Metalama20260_MetalamaCommunity"
+        vcsRootExtId = "Metalama_Metalama20261_MetalamaCommunity"
         publisher = github {
             githubUrl = "https://api.github.com"
             authType = personalToken {
@@ -82,12 +81,12 @@ object DebugBuild : BuildType({
         }
     }
 pullRequests {
-       vcsRootExtId = "Metalama_Metalama20260_MetalamaCommunity"
+       vcsRootExtId = "Metalama_Metalama20261_MetalamaCommunity"
         provider = github {
             authType = token {
                 token = "%env.GITHUB_TOKEN%"
             }
-           filterTargetBranch = "+:refs/heads/develop/2026.0"
+           filterTargetBranch = "+:refs/heads/develop/2026.1"
            filterAuthorRole = PullRequests.GitHubRoleFilter.EVERYBODY
        }
    }
@@ -98,7 +97,7 @@ pullRequests {
     triggers {
         vcs {
             watchChangesInDependencies = true
-            branchFilter = "+:develop/2026.0"
+            branchFilter = "+:develop/2026.1"
              quietPeriodMode = VcsTrigger.QuietPeriodMode.USE_CUSTOM
              quietPeriod = 7200
             // Build will not trigger automatically if the commit message contains comment value.
@@ -107,7 +106,7 @@ pullRequests {
     }
 
     dependencies {
-        dependency(AbsoluteId("Metalama_Metalama20260_Metalama_DebugBuild")) {
+        dependency(AbsoluteId("Metalama_Metalama20261_Metalama_DebugBuild")) {
             snapshot {
                      onDependencyFailure = FailureAction.FAIL_TO_START
             }
@@ -117,7 +116,7 @@ pullRequests {
                 artifactRules = "+:artifacts/publish/private/**/*=>dependencies/Metalama"
             }
         }
-        dependency(AbsoluteId("Metalama_Metalama20260_MetalamaCompiler_ReleaseBuild")) {
+        dependency(AbsoluteId("Metalama_Metalama20261_MetalamaCompiler_ReleaseBuild")) {
             snapshot {
                      onDependencyFailure = FailureAction.FAIL_TO_START
             }
@@ -148,19 +147,19 @@ object ReleaseBuild : BuildType({
     }
 
     vcs {
-        root(AbsoluteId("Metalama_Metalama20260_MetalamaCommunity"))
+        root(AbsoluteId("Metalama_Metalama20261_MetalamaCommunity"))
      checkoutMode = CheckoutMode.ON_AGENT
     }
 
     steps {
         powerShell {
-            name = "Prepare Docker image metalamacommunity-2026.0"
+            name = "Prepare Docker image metalamacommunity-2026.1"
             id = "PrepareImage"
             scriptMode = file {
                 path = "DockerBuild.ps1"
             }
             noProfile = false
-            scriptArgs = "-BuildImage -ImageName metalamacommunity-2026.0 "
+            scriptArgs = "-BuildImage -ImageName metalamacommunity-2026.1 "
         }
         powerShell {
             name = "Build"
@@ -169,7 +168,7 @@ object ReleaseBuild : BuildType({
                 path = "DockerBuild.ps1"
             }
             noProfile = false
-            scriptArgs = "-Script Build.ps1 -ImageName metalamacommunity-2026.0 -NoBuildImage test --configuration Release --buildNumber %build.number% --buildType %system.teamcity.buildType.id% --timeout %Build.Timeout% %Build.Arguments%"
+            scriptArgs = "-Script Build.ps1 -ImageName metalamacommunity-2026.1 -NoBuildImage test --configuration Release --buildNumber %build.number% --buildType %system.teamcity.buildType.id% --timeout %Build.Timeout% %Build.Arguments%"
         }
     }
 
@@ -183,7 +182,7 @@ object ReleaseBuild : BuildType({
             verbose = true
         }
     commitStatusPublisher {
-        vcsRootExtId = "Metalama_Metalama20260_MetalamaCommunity"
+        vcsRootExtId = "Metalama_Metalama20261_MetalamaCommunity"
         publisher = github {
             githubUrl = "https://api.github.com"
             authType = personalToken {
@@ -192,12 +191,12 @@ object ReleaseBuild : BuildType({
         }
     }
 pullRequests {
-       vcsRootExtId = "Metalama_Metalama20260_MetalamaCommunity"
+       vcsRootExtId = "Metalama_Metalama20261_MetalamaCommunity"
         provider = github {
             authType = token {
                 token = "%env.GITHUB_TOKEN%"
             }
-           filterTargetBranch = "+:refs/heads/develop/2026.0"
+           filterTargetBranch = "+:refs/heads/develop/2026.1"
            filterAuthorRole = PullRequests.GitHubRoleFilter.EVERYBODY
        }
    }
@@ -206,7 +205,7 @@ pullRequests {
     }
 
     dependencies {
-        dependency(AbsoluteId("Metalama_Metalama20260_Metalama_ReleaseBuild")) {
+        dependency(AbsoluteId("Metalama_Metalama20261_Metalama_ReleaseBuild")) {
             snapshot {
                      onDependencyFailure = FailureAction.FAIL_TO_START
             }
@@ -216,7 +215,7 @@ pullRequests {
                 artifactRules = "+:artifacts/publish/private/**/*=>dependencies/Metalama"
             }
         }
-        dependency(AbsoluteId("Metalama_Metalama20260_MetalamaCompiler_ReleaseBuild")) {
+        dependency(AbsoluteId("Metalama_Metalama20261_MetalamaCompiler_ReleaseBuild")) {
             snapshot {
                      onDependencyFailure = FailureAction.FAIL_TO_START
             }
@@ -247,19 +246,19 @@ object PublicBuild : BuildType({
     }
 
     vcs {
-        root(AbsoluteId("Metalama_Metalama20260_MetalamaCommunity"))
+        root(AbsoluteId("Metalama_Metalama20261_MetalamaCommunity"))
      checkoutMode = CheckoutMode.ON_AGENT
     }
 
     steps {
         powerShell {
-            name = "Prepare Docker image metalamacommunity-2026.0"
+            name = "Prepare Docker image metalamacommunity-2026.1"
             id = "PrepareImage"
             scriptMode = file {
                 path = "DockerBuild.ps1"
             }
             noProfile = false
-            scriptArgs = "-BuildImage -ImageName metalamacommunity-2026.0 "
+            scriptArgs = "-BuildImage -ImageName metalamacommunity-2026.1 "
         }
         powerShell {
             name = "Build"
@@ -268,7 +267,7 @@ object PublicBuild : BuildType({
                 path = "DockerBuild.ps1"
             }
             noProfile = false
-            scriptArgs = "-Script Build.ps1 -ImageName metalamacommunity-2026.0 -NoBuildImage test --configuration Public --buildNumber %build.number% --buildType %system.teamcity.buildType.id% --timeout %Build.Timeout% %Build.Arguments%"
+            scriptArgs = "-Script Build.ps1 -ImageName metalamacommunity-2026.1 -NoBuildImage test --configuration Public --buildNumber %build.number% --buildType %system.teamcity.buildType.id% --timeout %Build.Timeout% %Build.Arguments%"
         }
     }
 
@@ -282,7 +281,7 @@ object PublicBuild : BuildType({
             verbose = true
         }
     commitStatusPublisher {
-        vcsRootExtId = "Metalama_Metalama20260_MetalamaCommunity"
+        vcsRootExtId = "Metalama_Metalama20261_MetalamaCommunity"
         publisher = github {
             githubUrl = "https://api.github.com"
             authType = personalToken {
@@ -291,12 +290,12 @@ object PublicBuild : BuildType({
         }
     }
 pullRequests {
-       vcsRootExtId = "Metalama_Metalama20260_MetalamaCommunity"
+       vcsRootExtId = "Metalama_Metalama20261_MetalamaCommunity"
         provider = github {
             authType = token {
                 token = "%env.GITHUB_TOKEN%"
             }
-           filterTargetBranch = "+:refs/heads/develop/2026.0"
+           filterTargetBranch = "+:refs/heads/develop/2026.1"
            filterAuthorRole = PullRequests.GitHubRoleFilter.EVERYBODY
        }
    }
@@ -305,7 +304,7 @@ pullRequests {
     }
 
     dependencies {
-        dependency(AbsoluteId("Metalama_Metalama20260_Metalama_PublicBuild")) {
+        dependency(AbsoluteId("Metalama_Metalama20261_Metalama_PublicBuild")) {
             snapshot {
                      onDependencyFailure = FailureAction.FAIL_TO_START
             }
@@ -315,7 +314,7 @@ pullRequests {
                 artifactRules = "+:artifacts/publish/private/**/*=>dependencies/Metalama"
             }
         }
-        dependency(AbsoluteId("Metalama_Metalama20260_MetalamaCompiler_PublicBuild")) {
+        dependency(AbsoluteId("Metalama_Metalama20261_MetalamaCompiler_PublicBuild")) {
             snapshot {
                      onDependencyFailure = FailureAction.FAIL_TO_START
             }
@@ -341,19 +340,19 @@ object PublicDeployment : BuildType({
     }
 
     vcs {
-        root(AbsoluteId("Metalama_Metalama20260_MetalamaCommunity"))
+        root(AbsoluteId("Metalama_Metalama20261_MetalamaCommunity"))
      checkoutMode = CheckoutMode.ON_AGENT
     }
 
     steps {
         powerShell {
-            name = "Prepare Docker image metalamacommunity-2026.0"
+            name = "Prepare Docker image metalamacommunity-2026.1"
             id = "PrepareImage"
             scriptMode = file {
                 path = "DockerBuild.ps1"
             }
             noProfile = false
-            scriptArgs = "-BuildImage -ImageName metalamacommunity-2026.0 "
+            scriptArgs = "-BuildImage -ImageName metalamacommunity-2026.1 "
         }
         powerShell {
             name = "Publish"
@@ -362,7 +361,7 @@ object PublicDeployment : BuildType({
                 path = "DockerBuild.ps1"
             }
             noProfile = false
-            scriptArgs = "-Script Build.ps1 -ImageName metalamacommunity-2026.0 -NoBuildImage publish --configuration Public --timeout %Publish.Timeout% %Publish.Arguments%"
+            scriptArgs = "-Script Build.ps1 -ImageName metalamacommunity-2026.1 -NoBuildImage publish --configuration Public --timeout %Publish.Timeout% %Publish.Arguments%"
         }
     }
 
@@ -378,7 +377,7 @@ object PublicDeployment : BuildType({
     }
 
     dependencies {
-        dependency(AbsoluteId("Metalama_Metalama20260_Metalama_PublicBuild")) {
+        dependency(AbsoluteId("Metalama_Metalama20261_Metalama_PublicBuild")) {
             snapshot {
                      onDependencyFailure = FailureAction.FAIL_TO_START
             }
@@ -388,12 +387,12 @@ object PublicDeployment : BuildType({
                 artifactRules = "+:artifacts/publish/private/**/*=>dependencies/Metalama"
             }
         }
-        dependency(AbsoluteId("Metalama_Metalama20260_Metalama_PublicDeployment")) {
+        dependency(AbsoluteId("Metalama_Metalama20261_Metalama_PublicDeployment")) {
             snapshot {
                      onDependencyFailure = FailureAction.FAIL_TO_START
             }
         }
-        dependency(AbsoluteId("Metalama_Metalama20260_MetalamaCompiler_PublicBuild")) {
+        dependency(AbsoluteId("Metalama_Metalama20261_MetalamaCompiler_PublicBuild")) {
             snapshot {
                      onDependencyFailure = FailureAction.FAIL_TO_START
             }
@@ -411,67 +410,6 @@ object PublicDeployment : BuildType({
             artifacts {
                 cleanDestination = true
                 artifactRules = "+:artifacts/publish/public/**/*=>artifacts/publish/public\n+:artifacts/publish/private/**/*=>artifacts/publish/private"
-            }
-        }
-     }
-
-})
-
-object DownstreamMerge : BuildType({
-
-    name = "Downstream Merge"
-
-    params {
-        text("DownstreamMerge.Arguments", "", label = "DockerBuild.ps1 Arguments", description = "Arguments to append to the 'Merge downstream' build step.", allowEmpty = true)
-        param("DownstreamMerge.Timeout", "15")
-    }
-
-    vcs {
-        root(AbsoluteId("Metalama_Metalama20260_MetalamaCommunity"))
-     checkoutMode = CheckoutMode.ON_AGENT
-    }
-
-    steps {
-        powerShell {
-            name = "Prepare Docker image metalamacommunity-2026.0"
-            id = "PrepareImage"
-            scriptMode = file {
-                path = "DockerBuild.ps1"
-            }
-            noProfile = false
-            scriptArgs = "-BuildImage -ImageName metalamacommunity-2026.0 "
-        }
-        powerShell {
-            name = "Merge downstream"
-            id = "DownstreamMerge"
-            scriptMode = file {
-                path = "DockerBuild.ps1"
-            }
-            noProfile = false
-            scriptArgs = "-Script Build.ps1 -ImageName metalamacommunity-2026.0 -NoBuildImage tools git merge-downstream --timeout %DownstreamMerge.Timeout% %DownstreamMerge.Arguments%"
-        }
-    }
-
-    requirements {
-        equals("env.BuildAgentType", "docker-win-x64-md")
-    }
-
-    features {
-        swabra {
-            lockingProcesses = Swabra.LockingProcessPolicy.KILL
-            verbose = true
-        }
-    }
-
-    dependencies {
-        dependency(DebugBuild) {
-            snapshot {
-                     onDependencyFailure = FailureAction.FAIL_TO_START
-            }
-        }
-        dependency(AbsoluteId("Metalama_Metalama20260_Metalama_DownstreamMerge")) {
-            snapshot {
-                     onDependencyFailure = FailureAction.ADD_PROBLEM
             }
         }
      }
