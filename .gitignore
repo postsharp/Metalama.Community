@@ -51,3 +51,4 @@ nuget.config
 *.g.ps1
 *.g.json
 *.g.props
+eng/docker-context/.g
