@@ -98,7 +98,7 @@ namespace Metalama.Community.AutoCancellationToken
                         .WithAdditionalAnnotations( this._generatedCodeAnnotation ) );
 
                 node = node.WithParameterList(
-                    SyntaxFactory.ParameterList( SyntaxFactory.SeparatedList<ParameterSyntax>( new SyntaxNodeOrTokenList( parameters ) ) ) );
+                    SyntaxFactory.ParameterList( SyntaxFactory.SeparatedList<ParameterSyntax>( [..parameters] ) ) );
 
                 return node;
             }

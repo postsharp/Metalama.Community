@@ -149,7 +149,7 @@ namespace Metalama.Community.AutoCancellationToken
                             .WithTrailingTrivia( SyntaxFactory.ElasticSpace ) );
 
                     node = node.WithArgumentList(
-                        SyntaxFactory.ArgumentList( SyntaxFactory.SeparatedList<ArgumentSyntax>( new SyntaxNodeOrTokenList( arguments ) ) ) );
+                        SyntaxFactory.ArgumentList( SyntaxFactory.SeparatedList<ArgumentSyntax>( [..arguments] ) ) );
                 }
 
                 return node;
