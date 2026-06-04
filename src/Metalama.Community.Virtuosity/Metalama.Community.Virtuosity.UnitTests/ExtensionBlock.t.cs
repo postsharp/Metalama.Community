@@ -19,6 +19,17 @@ namespace Metalama.Community.Virtuosity.TestApp
         }
         return new ValueTask(valueTask.AsTask());
       }
+      // Not transformed (extension members cannot be virtual).
+      public bool IsDone => valueTask.IsCompleted;
+    }
+  }
+  // A regular class is still virtualized normally even when the project contains extension blocks.
+  [Virtualize]
+  internal class RegularClass
+  {
+    // Transformed.
+    public virtual void Public()
+    {
     }
   }
 }

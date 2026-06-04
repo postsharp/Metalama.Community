@@ -5,7 +5,6 @@ using Metalama.Framework.Engine.AspectWeavers;
 using Microsoft.CodeAnalysis;
 using Microsoft.CodeAnalysis.CSharp;
 using Microsoft.CodeAnalysis.CSharp.Syntax;
-using System;
 using System.Linq;
 using System.Threading.Tasks;
 using static Microsoft.CodeAnalysis.CSharp.SyntaxKind;
@@ -33,7 +32,13 @@ namespace Metalama.Community.Virtuosity
                     StructDeclarationSyntax => false,
                     RecordDeclarationSyntax record when record.ClassOrStructKeyword.IsKind( StructKeyword ) => false,
                     RecordDeclarationSyntax => true,
-                    _ => throw new ArgumentOutOfRangeException()
+
+                    // Members of any other declaration kind cannot be virtualized and must be left
+                    // unchanged. In particular, a C# 14 extension block (ExtensionBlockDeclarationSyntax)
+                    // is a MemberDeclarationSyntax that previously fell through here and crashed the
+                    // weaver with an ArgumentOutOfRangeException (#94). The type cannot be matched by
+                    // name because the weaver compiles against an older Roslyn that predates it.
+                    _ => false
                 };
 
             private static SyntaxTokenList ModifyModifiers( SyntaxTokenList modifiers, bool addVirtual = true )
