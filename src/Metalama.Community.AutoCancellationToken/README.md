@@ -53,7 +53,7 @@ Add `[AutoCancellationToken]` to the types where you want it to apply.
 By annotating a type with `[AutoCancellationToken]`, you add cancellation to all its `async` methods. Specifically:
 
 * A `CancellationToken` parameter is added to all `async` methods that don't have it.
-* A `CancelltionToken` argument is added to calls within `async` methods where:
+* A `CancellationToken` argument is added to calls within `async` methods where:
     * `CancellationToken` can be added as a last argument and the added argument corresponds to a `CancellationToken`
       parameter (e.g. it's not a `params object[]` parameter or a generic parameter). The added argument can result in
       calling a different overload of the method, or specifying a value for an optional parameter.

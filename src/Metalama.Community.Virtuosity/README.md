@@ -30,7 +30,7 @@ class A
 
 #### Installation
 1. Install the NuGet package: `dotnet add package Metalama.Community.Virtuosity --prerelease`.
-2. Apply the aspect to the relavant types by adding the `[Virtualize]` attribute to them.
+2. Apply the aspect to the relevant types by adding the `[Virtualize]` attribute to them.
 
 #### How to use
 
