@@ -1,7 +1,7 @@
 ## Metalama.Community.AutoCancellationToken 
 Automatically propagates `CancellationToken` parameter to `async` methods and method calls within them.
 
-*This is a [Metalama](https://github.com/postsharp/Metalama) aspect. It modifies your code during compilation by using source weaving.*
+*This is a [Metalama](https://github.com/metalama/Metalama) aspect. It transforms your source code during compilation.*
 
 <!-- You can also [try this aspect on try.metalama.net](https://try.metalama.net/#autocancellationtoken). -->
 

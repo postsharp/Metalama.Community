@@ -6,10 +6,7 @@ This source transformer only works under .NET Framework. In .NET Core, we recomm
 and using [the single file executable feature](https://docs.microsoft.com/en-us/dotnet/core/deploying/single-file)
 instead.
 
-*This is a [Metalama](https://github.com/postsharp/Metalama) aspect. It modifies your code during compilation by using
-source weaving.*
-
-[![CI badge](https://github.com/postsharp/Metalama.Community.Costura/workflows/Full%20Pipeline/badge.svg)](https://github.com/postsharp/Metalama.Community.Costura/actions?query=workflow%3A%22Full+Pipeline%22)
+*This is a [Metalama](https://github.com/metalama/Metalama) aspect. It transforms your source code during compilation.*
 
 #### Example
 

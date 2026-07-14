@@ -1,7 +1,7 @@
 ## Metalama.Community.Virtuosity 
 Allows you to make all target methods virtual without adding the virtual keyword to every one of them.
 
-*This is a [Metalama](https://github.com/postsharp/Metalama) aspect. It modifies your code during compilation by using source weaving.*
+*This is a [Metalama](https://github.com/metalama/Metalama) aspect. It transforms your source code during compilation.*
  
 <!-- [![CI badge](https://github.com/postsharp/Metalama.Community.Virtuosity/workflows/Full%20Pipeline/badge.svg)](https://github.com/postsharp/Metalama.Community.Virtuosity/actions?query=workflow%3A%22Full+Pipeline%22) -->
 
