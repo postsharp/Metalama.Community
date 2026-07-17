@@ -18,8 +18,9 @@ namespace Metalama.Community.Virtuosity
 
         private sealed class Rewriter : CSharpSyntaxRewriter
         {
+            // An abstract member is implicitly virtual, so adding the virtual modifier to it is illegal (CS0503).
             private static readonly SyntaxKind[] _forbiddenModifiers =
-                [StaticKeyword, SealedKeyword, VirtualKeyword, OverrideKeyword];
+                [StaticKeyword, SealedKeyword, VirtualKeyword, OverrideKeyword, AbstractKeyword];
 
             private static readonly SyntaxKind[] _requiredModifiers =
                 [PublicKeyword, ProtectedKeyword, InternalKeyword];

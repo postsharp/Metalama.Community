@@ -3,6 +3,7 @@
 The following members are excluded because they can't be virtual:
 * static members
 * private members
+* abstract members, which are already implicitly virtual
 * members in nested structs and interfaces
 
 ## Why is this useful
