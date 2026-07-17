@@ -1,8 +1,9 @@
 ## How Virtuosity works
 
-The following members are excluded because they can't be virtual:
-* static members
-* private members
+The following members are not virtualized:
+* static members. Since C# 11, `static virtual` members are possible in interfaces, but they serve a different use case, so they are not virtualized either.
+* private members, which can't be virtual
+* abstract members, which are already implicitly virtual
 * members in nested structs and interfaces
 
 ## Why is this useful
