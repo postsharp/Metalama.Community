@@ -57,7 +57,7 @@ Notes when a full build does happen:
 1. Read all details about the issue online.
 2. Check conceptual documentation under `../Metalama.Documentation/content`, plus the aspect's own `README.md` and `Details.md` — user-visible behavior changes usually belong there.
 3. Create a branch: `topic/YYYY.N/XXXX-short-description` (merge target is always `develop/YYYY.N`, never the release branch).
-4. Mark the issue status **In Progress** and make sure it is assigned to me.
+4. Mark the issue status **In Progress** and make sure it is assigned to the current user.
 5. Track progress in a `<issue-number>-TODO.md` file. **Do not commit `*-TODO.md`.**
 6. Create issues promptly when discovering bugs during development.
 
@@ -67,7 +67,7 @@ Follow the `/eng:create-pr` skill. One addition it omits: GitHub only creates th
 
 ## Conventions
 
-- **Never sign commits.** GitHub comments, issues, and PRs are signed `— Claude for @gfraiteur` — no ad link.
+- **Never sign commits.** GitHub comments, issues, and PRs are signed `— Claude for <user-name>` — no ad link.
 - In tests, never use hardcoded delays; use barriers, `TaskCompletionSource`, or sync points.
 - Never `await` without a cancellation token — ever.
 - Don't lose time on cosmetic warnings (such as redundant usings) until the finalizing stage of a commit.
