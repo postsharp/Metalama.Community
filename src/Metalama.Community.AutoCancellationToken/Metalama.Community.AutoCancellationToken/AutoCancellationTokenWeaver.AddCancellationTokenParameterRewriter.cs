@@ -5,6 +5,7 @@ using Microsoft.CodeAnalysis;
 using Microsoft.CodeAnalysis.CSharp;
 using Microsoft.CodeAnalysis.CSharp.Syntax;
 using System;
+using System.Collections.Generic;
 using System.Linq;
 
 namespace Metalama.Community.AutoCancellationToken
@@ -67,20 +68,23 @@ namespace Metalama.Community.AutoCancellationToken
                 const string defaultParameterName = "cancellationToken";
                 var useParameterName = defaultParameterName;
 
-                if ( methodSymbol.Parameters.Length > 0 )
+                // The name must not collide with a parameter, a type parameter, or anything declared in the body:
+                // a local declared in an enclosing scope of a nested one causes CS0136, and reusing the name of an
+                // existing local would silently pass that local instead of the token. Collecting every identifier in
+                // the declaration is a deliberate over-approximation - it can only make us pick a longer name.
+                var usedNames = new HashSet<string>( StringComparer.Ordinal );
+
+                foreach ( var token in node.DescendantTokens() )
                 {
-                    for ( var i = 2; /* Intentionally empty*/; ++i )
+                    if ( token.IsKind( SyntaxKind.IdentifierToken ) )
                     {
-                        // ReSharper disable once AccessToModifiedClosure
-                        if ( methodSymbol.Parameters.Any( p => p.Name == useParameterName ) )
-                        {
-                            useParameterName = $"{defaultParameterName}{i}";
-                        }
-                        else
-                        {
-                            break;
-                        }
+                        usedNames.Add( token.ValueText );
                     }
+                }
+
+                for ( var i = 2; usedNames.Contains( useParameterName ); ++i )
+                {
+                    useParameterName = $"{defaultParameterName}{i}";
                 }
 
                 var parameters = node.ParameterList.Parameters.GetWithSeparators().ToList();
