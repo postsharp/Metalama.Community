@@ -48,6 +48,21 @@ namespace Metalama.Community.AutoCancellationToken
                     return node;
                 }
 
+                // Widening the signature of a method that overrides or implements another member would sever that
+                // relationship and produce code that does not compile.
+                if ( methodSymbol.IsOverride ||
+                     !methodSymbol.ExplicitInterfaceImplementations.IsDefaultOrEmpty ||
+                     ImplementsInterfaceMember( methodSymbol ) )
+                {
+                    return node;
+                }
+
+                // Adding the parameter must not produce a duplicate of a method that already exists in the type.
+                if ( WouldCollideWithExistingMember( methodSymbol ) )
+                {
+                    return node;
+                }
+
                 // TODO: Review: finding a unique name is a common pattern. Is there a common library implementation?
                 const string defaultParameterName = "cancellationToken";
                 var useParameterName = defaultParameterName;
@@ -101,6 +116,88 @@ namespace Metalama.Community.AutoCancellationToken
                     SyntaxFactory.ParameterList( SyntaxFactory.SeparatedList<ParameterSyntax>( [..parameters] ) ) );
 
                 return node;
+            }
+
+            /// <summary>
+            /// Determines whether <paramref name="method"/> implicitly implements a member of an interface implemented
+            /// by its containing type. Explicit implementations are reported by <see cref="ISymbol.ExplicitInterfaceImplementations"/>
+            /// and are checked separately.
+            /// </summary>
+            private static bool ImplementsInterfaceMember( IMethodSymbol method )
+            {
+                var containingType = method.ContainingType;
+
+                if ( containingType == null )
+                {
+                    return false;
+                }
+
+                foreach ( var interfaceType in containingType.AllInterfaces )
+                {
+                    foreach ( var interfaceMember in interfaceType.GetMembers( method.Name ) )
+                    {
+                        if ( interfaceMember is IMethodSymbol &&
+                             SymbolEqualityComparer.Default.Equals(
+                                 containingType.FindImplementationForInterfaceMember( interfaceMember ),
+                                 method ) )
+                        {
+                            return true;
+                        }
+                    }
+                }
+
+                return false;
+            }
+
+            /// <summary>
+            /// Determines whether adding a trailing <see cref="System.Threading.CancellationToken"/> parameter to
+            /// <paramref name="method"/> would produce a signature that another member of the same type already has.
+            /// </summary>
+            private static bool WouldCollideWithExistingMember( IMethodSymbol method )
+            {
+                var containingType = method.ContainingType;
+
+                if ( containingType == null )
+                {
+                    return false;
+                }
+
+                foreach ( var member in containingType.GetMembers( method.Name ) )
+                {
+                    if ( member is not IMethodSymbol otherMethod ||
+                         SymbolEqualityComparer.Default.Equals( otherMethod, method ) ||
+                         otherMethod.Parameters.Length != method.Parameters.Length + 1 ||
+                         otherMethod.TypeParameters.Length != method.TypeParameters.Length )
+                    {
+                        continue;
+                    }
+
+                    if ( !IsCancellationToken( otherMethod.Parameters[otherMethod.Parameters.Length - 1] ) )
+                    {
+                        continue;
+                    }
+
+                    var parametersMatch = true;
+
+                    for ( var i = 0; i < method.Parameters.Length; i++ )
+                    {
+                        if ( !SymbolEqualityComparer.Default.Equals(
+                                otherMethod.Parameters[i].Type,
+                                method.Parameters[i].Type ) )
+                        {
+                            parametersMatch = false;
+
+                            break;
+                        }
+                    }
+
+                    if ( parametersMatch )
+                    {
+                        return true;
+                    }
+                }
+
+                return false;
             }
         }
     }

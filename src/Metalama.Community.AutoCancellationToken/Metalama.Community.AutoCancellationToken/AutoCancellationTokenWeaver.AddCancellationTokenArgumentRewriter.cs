@@ -68,7 +68,10 @@ namespace Metalama.Community.AutoCancellationToken
             }
 
             public override SyntaxNode VisitAnonymousMethodExpression( AnonymousMethodExpressionSyntax node )
-                => VisitFunction( node, false, base.VisitAnonymousMethodExpression );
+                => VisitFunction(
+                    node,
+                    node.Modifiers.Any( SyntaxKind.StaticKeyword ),
+                    base.VisitAnonymousMethodExpression );
 
             public override SyntaxNode VisitParenthesizedLambdaExpression( ParenthesizedLambdaExpressionSyntax node )
                 => VisitFunction(
@@ -101,6 +104,14 @@ namespace Metalama.Community.AutoCancellationToken
 
             public override SyntaxNode VisitInvocationExpression( InvocationExpressionSyntax node )
             {
+                // There is no enclosing method to take the CancellationToken from. This happens for invocations in
+                // members that VisitMethodDeclaration never sees. RewriterBase blocks the member kinds we know of,
+                // but this guard makes an unanticipated one a no-op instead of a crash.
+                if ( this._cancellationTokenParameterName == null )
+                {
+                    return node;
+                }
+
                 var mustAddArgument = false;
 
                 var semanticModel = this._compilation.GetSemanticModel( node.SyntaxTree );
