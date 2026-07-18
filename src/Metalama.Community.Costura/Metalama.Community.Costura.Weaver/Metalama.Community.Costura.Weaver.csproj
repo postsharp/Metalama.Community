@@ -64,10 +64,12 @@ foreach ( var path in paths )
 {
     var content = System.IO.File.ReadAllText( path );
 
-    // A raw string literal cannot contain a line consisting of its own delimiter.
+    // Conservative: a template containing the delimiter anywhere is rejected rather than embedded with a longer
+    // one. No template needs it, and getting this wrong would produce a generated file that does not parse.
     if ( content.Contains( "\"\"\"" ) )
     {
-        Log.LogError( "The template '" + path + "' contains a raw string delimiter and cannot be embedded." );
+        Log.LogError(
+            "The template '" + path + "' contains the raw string delimiter \"\"\" and cannot be embedded." );
 
         return false;
     }
@@ -97,7 +99,7 @@ if ( !System.IO.File.Exists( OutputPath ) || System.IO.File.ReadAllText( OutputP
 
   <Target Name="GenerateCosturaResourcesFile"
           BeforeTargets="BeforeCompile"
-          Inputs="@(CosturaTemplate)"
+          Inputs="@(CosturaTemplate);$(MSBuildProjectFullPath)"
           Outputs="$(MSBuildProjectDirectory)\Resources.cs">
     <GenerateCosturaResources Templates="@(CosturaTemplate)" OutputPath="$(MSBuildProjectDirectory)\Resources.cs" />
   </Target>

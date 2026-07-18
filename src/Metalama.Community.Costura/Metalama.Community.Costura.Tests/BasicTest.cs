@@ -36,12 +36,14 @@ public sealed class BasicTest
         const string filename =
             $@"..\..\..\..\Metalama.Community.Costura.TestApp\bin\{_configuration}\net48\Metalama.Community.Costura.TestApp.exe";
 
+        var path = this.ResolveExecutable( filename );
+
         // The app references Newtonsoft.Json and Soothsilver.Random. Deleting everything but the executable means a
         // missing or broken embed shows up as a failure to resolve those assemblies at start-up.
-        var deleted = DeleteAllButExes( filename );
+        var deleted = DeleteAllButExes( path );
         Assert.NotEmpty( deleted );
 
-        this.RunToCompletion( filename, TimeSpan.FromSeconds( 30 ) );
+        RunToCompletion( path, TimeSpan.FromSeconds( 30 ), this._logger );
     }
 
     [Fact]
@@ -50,9 +52,26 @@ public sealed class BasicTest
         const string filename =
             $@"..\..\..\..\Metalama.Community.Costura.WpfApp\bin\{_configuration}\net48\Metalama.Community.Costura.WpfApp.exe";
 
-        DeleteAllButExes( filename );
+        var path = this.ResolveExecutable( filename );
 
-        this.RunToCompletion( filename, TimeSpan.FromSeconds( 60 ) );
+        DeleteAllButExes( path );
+
+        RunToCompletion( path, TimeSpan.FromSeconds( 60 ), this._logger );
+    }
+
+    /// <summary>
+    /// Resolves <paramref name="filename" /> against the test directory and asserts that it exists, so that a
+    /// missing build output fails with a clear message rather than as an incidental IO exception later on.
+    /// </summary>
+    private string ResolveExecutable( string filename )
+    {
+        var path = Path.GetFullPath( Path.Combine( this._folder, filename ) );
+
+        Assert.True(
+            File.Exists( path ),
+            $"The executable '{path}' does not exist. Build the solution before running these tests." );
+
+        return path;
     }
 
     /// <summary>
@@ -62,12 +81,8 @@ public sealed class BasicTest
     /// The process is always disposed, and killed if it does not exit in time. Leaving it running would keep a lock
     /// on the executable in the build tree and make every subsequent build and test run fail.
     /// </remarks>
-    private void RunToCompletion( string filename, TimeSpan timeout )
+    private static void RunToCompletion( string path, TimeSpan timeout, ITestOutputHelper logger )
     {
-        var path = Path.Combine( this._folder, filename );
-
-        Assert.True( File.Exists( path ), $"The executable '{path}' does not exist. Build the solution first." );
-
         var startInfo = new ProcessStartInfo( path )
         {
             UseShellExecute = false,
@@ -121,7 +136,7 @@ public sealed class BasicTest
         // Let the asynchronous readers drain before reading the buffer.
         process.WaitForExit();
 
-        this._logger.WriteLine( FormatOutput( output ) );
+        logger.WriteLine( FormatOutput( output ) );
 
         Assert.True(
             process.ExitCode == 0,
@@ -139,9 +154,10 @@ public sealed class BasicTest
     /// <summary>
     /// Deletes every file next to the executable except executables themselves, and returns what was deleted.
     /// </summary>
-    private static string[] DeleteAllButExes( string file )
+    /// <param name="path">A full path to an existing executable, as returned by <see cref="ResolveExecutable" />.</param>
+    private static string[] DeleteAllButExes( string path )
     {
-        var directory = Path.GetDirectoryName( file )!;
+        var directory = Path.GetDirectoryName( path )!;
         var deleted = new System.Collections.Generic.List<string>();
 
         foreach ( var filename in Directory.EnumerateFiles( directory ).ToList() )
