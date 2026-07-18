@@ -10,7 +10,7 @@ using System;
 namespace Metalama.Community.Virtuosity.Tests.MemberKinds
 {
     // Pins which member kinds the weaver virtualizes. Only methods and properties are visited, so indexers and
-    // events are left alone - a limitation that Details.md does not currently mention.
+    // events are left alone. See Details.md.
     [Virtualize]
     internal class MemberKinds
     {
@@ -49,7 +49,7 @@ namespace Metalama.Community.Virtuosity.Tests.MemberKinds
         public MemberKinds() { }
 
         // The sealed modifier is removed even from a member that is not virtualized, so a member the author
-        // deliberately sealed becomes overridable again. Details.md does not mention this.
+        // deliberately sealed becomes overridable again. See Details.md.
         public sealed override string ToString() => string.Empty;
     }
 

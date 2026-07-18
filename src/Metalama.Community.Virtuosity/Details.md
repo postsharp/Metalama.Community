@@ -7,8 +7,9 @@ The following members are not virtualized:
 * members in nested structs and interfaces
 * indexers and events, which are not visited by the aspect
 
-The `sealed` modifier is removed, both from the type and from its members, so that they can be virtualized. A member
-that was explicitly declared `sealed override` therefore becomes overridable again.
+The `sealed` modifier is removed, both from the type and from its members. It is removed unconditionally, including
+from members that are then not virtualized: a member explicitly declared `sealed override` keeps its `override` but
+loses its `sealed`, and so becomes overridable again.
 
 ## Why is this useful
 
