@@ -7,6 +7,18 @@ Automatically propagates `CancellationToken` parameter to `async` methods and me
 
 <!-- [![CI badge](https://github.com/postsharp/Metalama.Community.AutoCancellationToken/workflows/Full%20Pipeline/badge.svg)](https://github.com/postsharp/Metalama.Community.AutoCancellationToken/actions?query=workflow%3A%22Full+Pipeline%22) -->
 
+> ### ⚠️ Proof of concept
+>
+> **This aspect is a proof of concept, not a production-ready tool. Do not rely on it to make an application
+> correctly cancellable.**
+>
+> Cancellation is a semantic decision, but this aspect works purely syntactically: it passes a token to a call
+> because an overload happens to accept one. It has no way to know which calls *should* honour cancellation and
+> which must always run to completion — cleanup, disposal, compensating writes, audit logging. Cancelling those
+> causes resource leaks and partially applied state.
+>
+> Read the [limitations](#limitations) below before using it. Several of them fail silently.
+
 #### Example
 
 Your code:
@@ -36,12 +48,17 @@ class C
         await MakeRequest(client, ct);
     }
 
-    private static async Task MakeRequest(HttpClient client, CancellationToken cancellationToken = default) => await client.GetAsync("https://example.org", cancellationToken);
+    // The original signature is kept, so existing callers still compile.
+    private static Task MakeRequest(HttpClient client) => MakeRequest(client, default);
+
+    // The body moves to a new overload that takes the token.
+    private static async Task MakeRequest(HttpClient client, CancellationToken cancellationToken)
+        => await client.GetAsync("https://example.org", cancellationToken);
 }
 ```
 
-Notice that `CancellationToken` parameter was added to the declaration of `MakeRequest` and that `CancellationToken`
-argument was added to the calls of `MakeRequest` and `HttpClient.GetAsync`.
+Notice that the call to `MakeRequest` now passes `ct`, that `MakeRequest` gained an overload taking a
+`CancellationToken`, and that the call to `HttpClient.GetAsync` passes it on.
 
 #### Installation
 Install the NuGet package: `dotnet add package Metalama.Community.AutoCancellationToken`.
@@ -50,13 +67,46 @@ Install the NuGet package: `dotnet add package Metalama.Community.AutoCancellati
 
 Add `[AutoCancellationToken]` to the types where you want it to apply.
 
-By annotating a type with `[AutoCancellationToken]`, you add cancellation to all its `async` methods. Specifically:
+By annotating a type with `[AutoCancellationToken]`, you add cancellation to its `async` methods. Specifically:
 
-* A `CancellationToken` parameter is added to all `async` methods that don't have it.
+* For each `async` method that has no `CancellationToken` parameter, the original method is kept as a forwarder and
+  an overload taking a `CancellationToken` is added. The original signature is never changed, so existing callers
+  keep compiling.
 * A `CancellationToken` argument is added to calls within `async` methods where:
-    * `CancellationToken` can be added as a last argument and the added argument corresponds to a `CancellationToken`
-      parameter (e.g. it's not a `params object[]` parameter or a generic parameter). The added argument can result in
-      calling a different overload of the method, or specifying a value for an optional parameter.
-    * The call is not in a `static` local function.
-    * The containing method doesn't have two or more `CancellationToken` parameters, since it wouldn't be clear which
-      one to use.
+    * `CancellationToken` can be added as a last argument and the added argument corresponds to a
+      `CancellationToken` parameter (e.g. it's not a `params object[]` parameter or a generic parameter). The added
+      argument can result in calling a different overload of the method, or specifying a value for an optional
+      parameter.
+    * The call is not in a `static` local function or a `static` lambda, which cannot capture the enclosing token.
+    * The containing method doesn't have two or more `CancellationToken` parameters, since it wouldn't be clear
+      which one to use.
+
+#### Limitations
+
+**The aspect decides what to cancel from syntax alone.** It cannot tell a cancellable operation from one that must
+complete. If a method in an annotated type performs cleanup, disposal or logging through a call that offers a
+`CancellationToken` overload, the aspect will pass the token and that work becomes cancellable. Review the
+generated code before depending on it.
+
+**Callers of the original signature never cancel.** The forwarder passes `default`, i.e. `CancellationToken.None`.
+Code outside the aspect's reach keeps compiling, but gains no cancellation at all — silently. Only callers within
+annotated types have the token propagated to them.
+
+**Members involved in virtual dispatch are not transformed.** `virtual`, `abstract` and `override` methods, and
+explicit interface implementations, are skipped entirely and receive no cancellation support. A method's signature
+is its dispatch contract: adding an overload would let a derived class the aspect cannot see override only the
+original signature, so calling the token-taking overload would run the base body and silently ignore the override.
+Making only the overload virtual would instead break existing `override` declarations.
+
+**The aspect only sees the current compilation.** It cannot add tokens to methods in referenced assemblies, and it
+cannot know whether a type deriving from yours will be transformed.
+
+**Several constructs are skipped rather than reported.** A method whose last parameter is a `params` array, a
+method that already declares two or more `CancellationToken` parameters, and a call whose candidate overload takes
+a generic final parameter are all left untouched without a diagnostic. Nothing tells you the aspect did nothing.
+
+**Async iterators are not given `[EnumeratorCancellation]`.** The token added to an `async IAsyncEnumerable<T>`
+method is not wired up to the enumerator, so a token passed to `WithCancellation` is unconsumed. This is the one
+limitation the compiler does warn about, as `CS8425`.
+
+If you need cancellation you can rely on, thread `CancellationToken` through explicitly.
