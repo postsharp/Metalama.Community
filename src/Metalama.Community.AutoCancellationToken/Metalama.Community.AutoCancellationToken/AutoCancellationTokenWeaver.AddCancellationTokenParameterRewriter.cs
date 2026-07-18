@@ -26,18 +26,123 @@ namespace Metalama.Community.AutoCancellationToken
                 this._generatedCodeAnnotation = generatedCodeAnnotation;
             }
 
+            /// <summary>
+            /// Kind of the annotation that marks a method to be split into a forwarder and an overload. Its data is
+            /// the name chosen for the <see cref="System.Threading.CancellationToken"/> parameter.
+            /// </summary>
+            private const string _expandAnnotationKind = "Metalama.Community.AutoCancellationToken.Expand";
+
             protected override T VisitTypeDeclaration<T>( T node, Func<T, SyntaxNode?> baseVisit )
             {
-                if ( !node.HasAnnotation( AnnotateNodesRewriter.Annotation ) )
+                var visited = this.VisitTypeDeclarationCore( node, baseVisit );
+
+                // A method cannot replace itself with two members, so VisitMethodDeclaration only marks the methods
+                // to expand and the expansion happens here, where the member list is available.
+                return (T) this.ExpandMarkedMethods( visited );
+            }
+
+            private TypeDeclarationSyntax ExpandMarkedMethods( TypeDeclarationSyntax type )
+            {
+                if ( !type.Members.Any( m => m.GetAnnotations( _expandAnnotationKind ).Any() ) )
                 {
-                    return node;
+                    return type;
                 }
 
-                return (T) baseVisit( node )!;
+                var members = new List<MemberDeclarationSyntax>( type.Members.Count + 1 );
+
+                foreach ( var member in type.Members )
+                {
+                    if ( member is MethodDeclarationSyntax method &&
+                         method.GetAnnotations( _expandAnnotationKind ).FirstOrDefault() is { } annotation )
+                    {
+                        var parameterName = annotation.Data!;
+                        var original = method.WithoutAnnotations( _expandAnnotationKind );
+
+                        members.Add( CreateForwarder( original, this._generatedCodeAnnotation ) );
+                        members.Add( this.CreateOverload( original, parameterName ) );
+                    }
+                    else
+                    {
+                        members.Add( member );
+                    }
+                }
+
+                return type.WithMembers( SyntaxFactory.List( members ) );
+            }
+
+            /// <summary>
+            /// Builds the method that keeps the original signature and simply calls the new overload. Keeping it means
+            /// existing callers, overrides and interface implementations are unaffected (#81).
+            /// </summary>
+            private static MethodDeclarationSyntax CreateForwarder(
+                MethodDeclarationSyntax method,
+                SyntaxAnnotation generatedCodeAnnotation )
+            {
+                SimpleNameSyntax name = method.TypeParameterList is { Parameters.Count: > 0 } typeParameters
+                    ? SyntaxFactory.GenericName(
+                        method.Identifier,
+                        SyntaxFactory.TypeArgumentList(
+                            SyntaxFactory.SeparatedList<TypeSyntax>(
+                                typeParameters.Parameters.Select( p => SyntaxFactory.IdentifierName( p.Identifier ) ) ) ) )
+                    : SyntaxFactory.IdentifierName( method.Identifier );
+
+                var arguments = method.ParameterList.Parameters
+                    .Select( p => SyntaxFactory.Argument( SyntaxFactory.IdentifierName( p.Identifier ) ) )
+                    .Append( SyntaxFactory.Argument( SyntaxFactory.LiteralExpression( SyntaxKind.DefaultLiteralExpression ) ) );
+
+                var invocation = SyntaxFactory.InvocationExpression(
+                    name,
+                    SyntaxFactory.ArgumentList( SyntaxFactory.SeparatedList( arguments ) ) );
+
+                // The forwarder is not async: it returns the overload's task directly. That avoids CS1998, keeps
+                // async iterators working, and is correct for an async void method too.
+                return method
+                    .WithModifiers(
+                        SyntaxFactory.TokenList( method.Modifiers.Where( m => !m.IsKind( SyntaxKind.AsyncKeyword ) ) ) )
+                    .WithBody( null )
+                    .WithExpressionBody( SyntaxFactory.ArrowExpressionClause( invocation ) )
+                    .WithSemicolonToken( SyntaxFactory.Token( SyntaxKind.SemicolonToken ) )
+                    .WithAdditionalAnnotations( generatedCodeAnnotation );
+            }
+
+            /// <summary>
+            /// Builds the overload that carries the original body and takes the token. The parameter deliberately has
+            /// no default value: with one, a call using the original argument list would be ambiguous (CS0121).
+            /// </summary>
+            private MethodDeclarationSyntax CreateOverload( MethodDeclarationSyntax method, string parameterName )
+            {
+                var parameters = method.ParameterList.Parameters.GetWithSeparators().ToList();
+
+                if ( parameters.Count > 0 )
+                {
+                    parameters[parameters.Count - 1] = parameters[parameters.Count - 1].AsNode()!.WithoutTrailingTrivia();
+
+                    parameters.Add(
+                        SyntaxFactory.Token( SyntaxKind.CommaToken )
+                            .WithTrailingTrivia( SyntaxFactory.ElasticSpace )
+                            .WithAdditionalAnnotations( this._generatedCodeAnnotation ) );
+                }
+
+                parameters.Add(
+                    SyntaxFactory.Parameter(
+                            default,
+                            default,
+                            CancellationTokenType.WithTrailingTrivia( SyntaxFactory.ElasticSpace ),
+                            SyntaxFactory.Identifier( parameterName ),
+                            null )
+                        .WithAdditionalAnnotations( this._generatedCodeAnnotation ) );
+
+                return method.WithParameterList(
+                    SyntaxFactory.ParameterList( SyntaxFactory.SeparatedList<ParameterSyntax>( [..parameters] ) ) );
             }
 
             public override SyntaxNode VisitMethodDeclaration( MethodDeclarationSyntax node )
             {
+                if ( !this.IsInAnnotatedType )
+                {
+                    return node;
+                }
+
                 var semanticModel = this._compilation.GetSemanticModel( node.SyntaxTree );
 
                 var methodSymbol = semanticModel.GetDeclaredSymbol( node );
@@ -49,16 +154,26 @@ namespace Metalama.Community.AutoCancellationToken
                     return node;
                 }
 
-                // Widening the signature of a method that overrides or implements another member would sever that
-                // relationship and produce code that does not compile.
-                if ( methodSymbol.IsOverride ||
-                     !methodSymbol.ExplicitInterfaceImplementations.IsDefaultOrEmpty ||
-                     ImplementsInterfaceMember( methodSymbol ) )
+                // A member that takes part in virtual dispatch cannot be split into a forwarder plus an overload,
+                // because the signature is the dispatch contract:
+                //
+                //   - If both members are virtual, a derived class the aspect cannot see overrides only the original
+                //     signature. Calling the token-taking overload then runs the base body and silently ignores the
+                //     override. That code compiles, which makes the breakage worse.
+                //   - If only the token-taking overload is virtual, an existing 'override M()' no longer compiles
+                //     (CS0506) - the very breaking change #81 asks us to avoid.
+                //
+                // Transforming an override is only sound when the base type was transformed too, which we cannot rely
+                // on across an assembly boundary. So every member involved in virtual dispatch is left alone.
+                if ( methodSymbol.IsVirtual ||
+                     methodSymbol.IsAbstract ||
+                     methodSymbol.IsOverride ||
+                     !methodSymbol.ExplicitInterfaceImplementations.IsDefaultOrEmpty )
                 {
                     return node;
                 }
 
-                // Adding the parameter must not produce a duplicate of a method that already exists in the type.
+                // The overload must not duplicate a method that already exists in the type.
                 if ( WouldCollideWithExistingMember( methodSymbol ) )
                 {
                     return node;
@@ -87,70 +202,9 @@ namespace Metalama.Community.AutoCancellationToken
                     useParameterName = $"{defaultParameterName}{i}";
                 }
 
-                var parameters = node.ParameterList.Parameters.GetWithSeparators().ToList();
-
-                if ( parameters.Count > 0 )
-                {
-                    // Remove the trivia after the last argument.
-                    parameters[parameters.Count - 1] =
-                        parameters[parameters.Count - 1].AsNode()!.WithoutTrailingTrivia();
-
-                    parameters.Add(
-                        SyntaxFactory.Token( SyntaxKind.CommaToken )
-                            .WithTrailingTrivia( SyntaxFactory.ElasticSpace )
-                            .WithAdditionalAnnotations( this._generatedCodeAnnotation ) );
-                }
-
-                parameters.Add(
-                    SyntaxFactory.Parameter(
-                            default,
-                            default,
-                            CancellationTokenType.WithTrailingTrivia( SyntaxFactory.ElasticSpace ),
-                            SyntaxFactory.Identifier( useParameterName )
-                                .WithTrailingTrivia( SyntaxFactory.ElasticSpace ),
-                            SyntaxFactory.EqualsValueClause(
-                                    SyntaxFactory.Token( SyntaxKind.EqualsToken )
-                                        .WithTrailingTrivia( SyntaxFactory.ElasticSpace ),
-                                    SyntaxFactory.LiteralExpression( SyntaxKind.DefaultLiteralExpression ) )
-                                .WithTrailingTrivia( SyntaxFactory.ElasticSpace ) )
-                        .WithTrailingTrivia( SyntaxFactory.ElasticSpace )
-                        .WithAdditionalAnnotations( this._generatedCodeAnnotation ) );
-
-                node = node.WithParameterList(
-                    SyntaxFactory.ParameterList( SyntaxFactory.SeparatedList<ParameterSyntax>( [..parameters] ) ) );
-
-                return node;
-            }
-
-            /// <summary>
-            /// Determines whether <paramref name="method"/> implicitly implements a member of an interface implemented
-            /// by its containing type. Explicit implementations are reported by <see cref="ISymbol.ExplicitInterfaceImplementations"/>
-            /// and are checked separately.
-            /// </summary>
-            private static bool ImplementsInterfaceMember( IMethodSymbol method )
-            {
-                var containingType = method.ContainingType;
-
-                if ( containingType == null )
-                {
-                    return false;
-                }
-
-                foreach ( var interfaceType in containingType.AllInterfaces )
-                {
-                    foreach ( var interfaceMember in interfaceType.GetMembers( method.Name ) )
-                    {
-                        if ( interfaceMember is IMethodSymbol &&
-                             SymbolEqualityComparer.Default.Equals(
-                                 containingType.FindImplementationForInterfaceMember( interfaceMember ),
-                                 method ) )
-                        {
-                            return true;
-                        }
-                    }
-                }
-
-                return false;
+                // Only mark the method here. The expansion into a forwarder plus an overload happens in
+                // VisitTypeDeclaration, where the member list can be replaced.
+                return node.WithAdditionalAnnotations( new SyntaxAnnotation( _expandAnnotationKind, useParameterName ) );
             }
 
             /// <summary>

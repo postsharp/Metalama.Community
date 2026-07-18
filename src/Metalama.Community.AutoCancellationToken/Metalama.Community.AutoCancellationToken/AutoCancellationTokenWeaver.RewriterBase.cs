@@ -27,6 +27,37 @@ namespace Metalama.Community.AutoCancellationToken
             protected abstract T VisitTypeDeclaration<T>( T node, Func<T, SyntaxNode?> baseVisit )
                 where T : TypeDeclarationSyntax;
 
+            /// <summary>
+            /// Gets a value indicating whether the type currently being visited carries the aspect.
+            /// </summary>
+            protected bool IsInAnnotatedType { get; private set; }
+
+            /// <summary>
+            /// Descends into <paramref name="node"/> while recording whether it carries the aspect, so that members
+            /// are transformed only when their own containing type is annotated.
+            /// </summary>
+            /// <remarks>
+            /// Descending unconditionally is what makes the aspect work on a nested type (#109). The previous
+            /// implementation returned early for a type without the annotation, so a nested annotated type was never
+            /// reached. Because <see cref="CSharpSyntaxRewriter.VisitMethodDeclaration"/> does not itself know which
+            /// type it is in, the flag has to be saved and restored around the recursion.
+            /// </remarks>
+            protected T VisitTypeDeclarationCore<T>( T node, Func<T, SyntaxNode?> baseVisit )
+                where T : TypeDeclarationSyntax
+            {
+                var previous = this.IsInAnnotatedType;
+                this.IsInAnnotatedType = node.HasAnnotation( AnnotateNodesRewriter.Annotation );
+
+                try
+                {
+                    return (T) baseVisit( node )!;
+                }
+                finally
+                {
+                    this.IsInAnnotatedType = previous;
+                }
+            }
+
             protected static readonly TypeSyntax CancellationTokenType = SyntaxFactory
                 .ParseTypeName( typeof(CancellationToken).FullName! )
                 .WithSimplifierAnnotation();

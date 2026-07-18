@@ -27,17 +27,15 @@ namespace Metalama.Community.AutoCancellationToken
             }
 
             protected override T VisitTypeDeclaration<T>( T node, Func<T, SyntaxNode?> baseVisit )
+                => this.VisitTypeDeclarationCore( node, baseVisit );
+
+            public override SyntaxNode? VisitMethodDeclaration( MethodDeclarationSyntax node )
             {
-                if ( !node.HasAnnotation( AnnotateNodesRewriter.Annotation ) )
+                if ( !this.IsInAnnotatedType )
                 {
                     return node;
                 }
 
-                return (T) baseVisit( node )!;
-            }
-
-            public override SyntaxNode? VisitMethodDeclaration( MethodDeclarationSyntax node )
-            {
                 var semanticModel = this._compilation.GetSemanticModel( node.SyntaxTree );
 
                 var methodSymbol = semanticModel.GetDeclaredSymbol( node );

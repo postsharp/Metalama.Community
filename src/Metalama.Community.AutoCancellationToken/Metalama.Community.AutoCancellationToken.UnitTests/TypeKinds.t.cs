@@ -3,22 +3,25 @@ namespace Metalama.Community.AutoCancellationToken.UnitTests.TypeKinds;
 [AutoCancellationToken]
 internal struct Struct
 {
-  public async Task RunAsync(System.Threading.CancellationToken cancellationToken = default) => await Helpers.Helper(cancellationToken);
+  public Task RunAsync() => RunAsync(default);
+  public async Task RunAsync(System.Threading.CancellationToken cancellationToken) => await Helpers.Helper(cancellationToken);
 }
 [AutoCancellationToken]
 internal record Record
 {
-  public async Task RunAsync(System.Threading.CancellationToken cancellationToken = default) => await Helpers.Helper(cancellationToken);
+  public Task RunAsync() => RunAsync(default);
+  public async Task RunAsync(System.Threading.CancellationToken cancellationToken) => await Helpers.Helper(cancellationToken);
 }
 [AutoCancellationToken]
 internal record struct RecordStruct
 {
-  public async Task RunAsync(System.Threading.CancellationToken cancellationToken = default) => await Helpers.Helper(cancellationToken);
+  public Task RunAsync() => RunAsync(default);
+  public async Task RunAsync(System.Threading.CancellationToken cancellationToken) => await Helpers.Helper(cancellationToken);
 }
 [AutoCancellationToken]
 internal interface IInterface
 {
-  async Task RunAsync(System.Threading.CancellationToken cancellationToken = default) => await Helpers.Helper(cancellationToken);
+  async Task RunAsync() => await Helpers.Helper();
 }
 internal static class Helpers
 {

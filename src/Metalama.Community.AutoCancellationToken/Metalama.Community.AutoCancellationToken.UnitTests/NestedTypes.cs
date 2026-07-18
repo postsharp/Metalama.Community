@@ -4,9 +4,8 @@
 
 namespace Metalama.Community.AutoCancellationToken.UnitTests.NestedTypes;
 
-// This test pins CURRENT behaviour, which is known to be wrong for nested types: the aspect is silently ignored on
-// a nested type even when the nested type carries the attribute itself. See the linked issue. The baseline below
-// will change when that is fixed, which is the point of pinning it here.
+// The aspect used to be silently ignored on nested types (#109), because the rewriters returned early for a type
+// without the annotation and so never reached a nested type that carried it.
 [AutoCancellationToken]
 internal class Outer
 {
@@ -19,7 +18,7 @@ internal class Outer
         public async Task NestedAsync() => await Helper();
     }
 
-    // Not transformed, although it should be: the aspect is silently ignored on nested types.
+    // Transformed: a nested type that carries the attribute is now handled (#109).
     [AutoCancellationToken]
     internal class NestedAnnotated
     {

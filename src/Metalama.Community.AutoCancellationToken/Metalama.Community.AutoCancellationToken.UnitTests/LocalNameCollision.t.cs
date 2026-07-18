@@ -3,14 +3,17 @@ namespace Metalama.Community.AutoCancellationToken.UnitTests.LocalNameCollision;
 internal class LocalNameCollision
 {
   // The added parameter must not collide with a local declared in the body (CS0136).
-  public async Task LocalVariable(System.Threading.CancellationToken cancellationToken2 = default)
+  public Task LocalVariable() => LocalVariable(default); // The added parameter must not collide with a local declared in the body (CS0136).
+  public async Task LocalVariable(System.Threading.CancellationToken cancellationToken2)
   {
     var cancellationToken = 0;
     await Helper(cancellationToken2);
     _ = cancellationToken;
   }
   // ... nor with a local function's name.
-  public async Task LocalFunctionName(System.Threading.CancellationToken cancellationToken2 = default)
+  public Task LocalFunctionName() => LocalFunctionName(default);
+  // ... nor with a local function's name.
+  public async Task LocalFunctionName(System.Threading.CancellationToken cancellationToken2)
   {
     await Helper(cancellationToken2);
     void cancellationToken()

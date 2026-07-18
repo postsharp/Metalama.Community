@@ -16,18 +16,19 @@ internal abstract class RunnerBase
     public virtual Task VirtualAsync() => Task.CompletedTask;
 }
 
-// Regression test for #105: adding a parameter to a member that overrides or implements another member severs that
-// relationship, and adding one that duplicates an existing overload is a duplicate member.
+// Since #81 the original signature is kept and an overload is added, so implicitly implementing an interface
+// member is no longer a problem. Members involved in virtual dispatch are still skipped entirely - see
+// VirtualMembers for why the forwarder-plus-overload approach cannot work for them.
 [AutoCancellationToken]
 internal class Runner : RunnerBase, IRunner
 {
-    // Not transformed: overrides an abstract member.
+    // Not transformed: takes part in virtual dispatch.
     public override async Task ExecuteAsync() => await Task.Yield();
 
-    // Not transformed: overrides a virtual member.
+    // Not transformed: takes part in virtual dispatch.
     public override async Task VirtualAsync() => await Task.Yield();
 
-    // Not transformed: implicitly implements IRunner.RunAsync.
+    // Transformed: the original signature is kept, so IRunner.RunAsync is still implemented.
     public async Task RunAsync() => await Task.Yield();
 
     // Not transformed: the type already declares ExistingOverloadAsync(CancellationToken).
@@ -35,7 +36,7 @@ internal class Runner : RunnerBase, IRunner
 
     public async Task ExistingOverloadAsync( CancellationToken cancellationToken ) => await Task.Yield();
 
-    // Transformed: an ordinary async method is unaffected by the new guards.
+    // Transformed: kept as a forwarder, with the body moved to the new overload.
     public async Task PlainAsync() => await Task.Yield();
 }
 
