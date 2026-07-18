@@ -5,7 +5,7 @@ namespace Metalama.Community.AutoCancellationToken.UnitTests.NestedTypes;
 internal class Outer
 {
   // Transformed.
-  public Task OuterAsync() => OuterAsync(default); // Transformed.
+  public Task OuterAsync() => OuterAsync(default);
   public async Task OuterAsync(System.Threading.CancellationToken cancellationToken) => await Helper(cancellationToken);
   // Not transformed, as expected: the attribute applies to the members of the type it is applied to.
   internal class NestedNotAnnotated

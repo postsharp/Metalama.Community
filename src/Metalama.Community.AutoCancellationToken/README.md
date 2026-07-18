@@ -98,6 +98,40 @@ is its dispatch contract: adding an overload would let a derived class the aspec
 original signature, so calling the token-taking overload would run the base body and silently ignore the override.
 Making only the overload virtual would instead break existing `override` declarations.
 
+**Propagation is not transitive, so a chain breaks at the first method the aspect does not own.** The aspect adds a
+token to the `async` methods of annotated types and then passes it to calls that already accept one. It never adds a
+parameter to a method merely because doing so is what would let the token travel further:
+
+```csharp
+[AutoCancellationToken]
+class Caller
+{
+    // WorkAsync is in a type the aspect was not applied to, so it never gains a CancellationToken parameter and
+    // there is no overload to pass the token to. The chain stops here, even though the cancellable call is one
+    // hop away.
+    async Task RunAsync() => await Helper.WorkAsync();
+}
+
+static class Helper
+{
+    public static async Task WorkAsync() => await Cancellable();
+}
+```
+
+Closing that gap means deciding, for every method, whether it transitively reaches a call that can be cancelled —
+and adding a parameter to one method changes the answer for all of its callers, so the analysis has to be iterated
+to a fix point. That is possible, but generally out of scope for a build-time transformation because of its cost,
+and impossible across an assembly boundary. Annotating every type involved in a call chain is the practical
+workaround.
+
+**Conversely, within an annotated type the aspect over-approximates.** Because it does not analyse which methods
+need a token, *every* `async` method gets one, including methods that never use it:
+
+```csharp
+public Task DoNothingAsync() => DoNothingAsync(default);
+public async Task DoNothingAsync(CancellationToken cancellationToken) => await Task.Yield(); // unused
+```
+
 **The aspect only sees the current compilation.** It cannot add tokens to methods in referenced assemblies, and it
 cannot know whether a type deriving from yours will be transformed.
 

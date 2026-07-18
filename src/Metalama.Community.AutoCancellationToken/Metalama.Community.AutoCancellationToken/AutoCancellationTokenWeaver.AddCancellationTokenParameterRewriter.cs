@@ -132,8 +132,13 @@ namespace Metalama.Community.AutoCancellationToken
                             null )
                         .WithAdditionalAnnotations( this._generatedCodeAnnotation ) );
 
-                return method.WithParameterList(
-                    SyntaxFactory.ParameterList( SyntaxFactory.SeparatedList<ParameterSyntax>( [..parameters] ) ) );
+                return method
+                    .WithParameterList(
+                        SyntaxFactory.ParameterList( SyntaxFactory.SeparatedList<ParameterSyntax>( [..parameters] ) ) )
+
+                    // Both members are built from the same declaration, so without this the original's comments and
+                    // documentation would appear twice: once above the forwarder and again above the overload.
+                    .WithLeadingTrivia( SyntaxFactory.ElasticCarriageReturnLineFeed );
             }
 
             public override SyntaxNode VisitMethodDeclaration( MethodDeclarationSyntax node )

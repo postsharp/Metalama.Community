@@ -38,8 +38,6 @@ internal class MyClass
   // After transformation, MakeRequest should contain a CancellationToken parameter, and the call to client.GetAsync
   // should include this argument.
   private static Task MakeRequest(HttpClient client) => MakeRequest(client, default);
-  // After transformation, MakeRequest should contain a CancellationToken parameter, and the call to client.GetAsync
-  // should include this argument.
   private static async Task MakeRequest(HttpClient client, System.Threading.CancellationToken cancellationToken)
   {
     await client.GetAsync("https://httpbin.org/delay/5", cancellationToken);
@@ -83,8 +81,6 @@ internal class MyClass
   // After transformation, MakeRequest should contain a CancellationToken parameter, and the call to client.GetAsync
   // should include this argument. The weaver must choose a name other than "cancellationToken" for the added parameter.
   public static Task MakeRequest_ParameterNameCollision(HttpClient client, int cancellationToken) => MakeRequest_ParameterNameCollision(client, cancellationToken, default);
-  // After transformation, MakeRequest should contain a CancellationToken parameter, and the call to client.GetAsync
-  // should include this argument. The weaver must choose a name other than "cancellationToken" for the added parameter.
   public static async Task MakeRequest_ParameterNameCollision(HttpClient client, int cancellationToken, System.Threading.CancellationToken cancellationToken2)
   {
     await client.GetAsync("https://httpbin.org/delay/5", cancellationToken2);

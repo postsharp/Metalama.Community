@@ -20,14 +20,12 @@ internal class Runner : RunnerBase, IRunner
   public override async Task VirtualAsync() => await Task.Yield();
   // Transformed: the original signature is kept, so IRunner.RunAsync is still implemented.
   public Task RunAsync() => RunAsync(default);
-  // Transformed: the original signature is kept, so IRunner.RunAsync is still implemented.
   public async Task RunAsync(System.Threading.CancellationToken cancellationToken) => await Task.Yield();
   // Not transformed: the type already declares ExistingOverloadAsync(CancellationToken).
   public async Task ExistingOverloadAsync() => await Task.Yield();
   public async Task ExistingOverloadAsync(CancellationToken cancellationToken) => await Task.Yield();
   // Transformed: kept as a forwarder, with the body moved to the new overload.
   public Task PlainAsync() => PlainAsync(default);
-  // Transformed: kept as a forwarder, with the body moved to the new overload.
   public async Task PlainAsync(System.Threading.CancellationToken cancellationToken) => await Task.Yield();
 }
 // Not transformed: explicit interface implementation.

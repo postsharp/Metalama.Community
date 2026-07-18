@@ -12,11 +12,9 @@ internal class Base
   public virtual async Task VirtualAsync() => await Helper();
   // Transformed: an ordinary method takes no part in dispatch.
   public Task PlainAsync() => PlainAsync(default);
-  // Transformed: an ordinary method takes no part in dispatch.
   public async Task PlainAsync(System.Threading.CancellationToken cancellationToken) => await Helper(cancellationToken);
   // Transformed: a sealed class' method cannot be overridden either way, but this one is simply not virtual.
   private Task PrivateAsync() => PrivateAsync(default);
-  // Transformed: a sealed class' method cannot be overridden either way, but this one is simply not virtual.
   private async Task PrivateAsync(System.Threading.CancellationToken cancellationToken) => await Helper(cancellationToken);
   private static async Task Helper() => await Task.Yield();
   private static async Task Helper(CancellationToken cancellationToken) => await Task.Yield();

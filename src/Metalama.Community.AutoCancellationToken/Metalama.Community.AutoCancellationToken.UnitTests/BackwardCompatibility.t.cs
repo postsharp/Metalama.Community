@@ -8,11 +8,9 @@ internal class Service
   public async Task DoWorkAsync(int value, System.Threading.CancellationToken cancellationToken) => await Task.Yield();
   // A generic method: the forwarder must pass the type arguments through.
   public Task DoGenericAsync<T>(T value) => DoGenericAsync<T>(value, default);
-  // A generic method: the forwarder must pass the type arguments through.
   public async Task DoGenericAsync<T>(T value, System.Threading.CancellationToken cancellationToken) => await Task.Yield();
   // A method with no parameters at all.
   public Task DoNothingAsync() => DoNothingAsync(default);
-  // A method with no parameters at all.
   public async Task DoNothingAsync(System.Threading.CancellationToken cancellationToken) => await Task.Yield();
 }
 // This type is NOT annotated, so it stands in for code outside the aspect's reach - an existing caller. It must
