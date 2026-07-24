@@ -16,14 +16,17 @@ namespace Metalama.Community.AutoCancellationToken
         {
             private readonly Compilation _compilation;
             private readonly SyntaxAnnotation _generatedCodeAnnotation;
+            private readonly Action<Diagnostic> _reportDiagnostic;
             private string? _cancellationTokenParameterName;
 
             public AddCancellationTokenArgumentRewriter(
                 Compilation compilation,
-                SyntaxAnnotation generatedCodeAnnotation )
+                SyntaxAnnotation generatedCodeAnnotation,
+                Action<Diagnostic> reportDiagnostic )
             {
                 this._compilation = compilation;
                 this._generatedCodeAnnotation = generatedCodeAnnotation;
+                this._reportDiagnostic = reportDiagnostic;
             }
 
             protected override T VisitTypeDeclaration<T>( T node, Func<T, SyntaxNode?> baseVisit )
@@ -50,6 +53,11 @@ namespace Metalama.Community.AutoCancellationToken
                 if ( cancellationTokenParameter == null ||
                      methodSymbol.Parameters.Where( IsCancellationToken ).Count() > 1 )
                 {
+                    if ( cancellationTokenParameter == null )
+                    {
+                        this.ReportIfCancellationIsSilentlyLost( node, methodSymbol, semanticModel );
+                    }
+
                     return node;
                 }
 
@@ -100,6 +108,92 @@ namespace Metalama.Community.AutoCancellationToken
                 return (T) baseVisit( node )!;
             }
 
+            /// <summary>
+            /// Determines whether appending a <see cref="System.Threading.CancellationToken"/> argument to <paramref name="invocation"/>
+            /// would bind to a method whose corresponding parameter is a <see cref="System.Threading.CancellationToken"/>.
+            /// </summary>
+            private static bool WouldAcceptCancellationToken(
+                SemanticModel semanticModel,
+                InvocationExpressionSyntax invocation,
+                out IMethodSymbol? candidate )
+            {
+                var invocationWithCt = invocation.AddArgumentListArguments(
+                    SyntaxFactory.Argument( SyntaxFactory.DefaultExpression( CancellationTokenType ) ) );
+
+                var newInvocationArgumentsCount = invocationWithCt.ArgumentList.Arguments.Count;
+
+                if (
+
+                    // the code compiles
+                    semanticModel.GetSpeculativeSymbolInfo( invocation.SpanStart, invocationWithCt, default ).Symbol is
+                        IMethodSymbol speculativeSymbol &&
+
+                    // the added parameter corresponds to its own argument
+                    speculativeSymbol.Parameters.Length >= newInvocationArgumentsCount &&
+
+                    // that argument is CancellationToken
+                    IsCancellationToken( speculativeSymbol.Parameters[newInvocationArgumentsCount - 1] ) )
+                {
+                    candidate = speculativeSymbol;
+
+                    return true;
+                }
+
+                candidate = null;
+
+                return false;
+            }
+
+            /// <summary>
+            /// Reports <c>ACT001</c> when a member that takes part in virtual dispatch was left without a
+            /// <see cref="System.Threading.CancellationToken"/> parameter although its body calls something that would have accepted
+            /// one. Such a member is deliberately never transformed, because its signature is the dispatch contract,
+            /// but the resulting loss of cancellation would otherwise be entirely silent.
+            /// </summary>
+            private void ReportIfCancellationIsSilentlyLost(
+                MethodDeclarationSyntax node,
+                IMethodSymbol methodSymbol,
+                SemanticModel semanticModel )
+            {
+                if ( !methodSymbol.IsVirtual &&
+                     !methodSymbol.IsAbstract &&
+                     !methodSymbol.IsOverride &&
+                     methodSymbol.ExplicitInterfaceImplementations.IsDefaultOrEmpty )
+                {
+                    return;
+                }
+
+                // Do not descend into static anonymous functions: they cannot capture a token, so a call inside one
+                // would not have benefited even if the containing method had a parameter.
+                foreach ( var invocation in node
+                             .DescendantNodes( descendIntoChildren: n => !IsStaticAnonymousFunction( n ) )
+                             .OfType<InvocationExpressionSyntax>() )
+                {
+                    if ( WouldAcceptCancellationToken( semanticModel, invocation, out var candidate ) )
+                    {
+                        this._reportDiagnostic(
+                            Diagnostic.Create(
+                                _cancellationNotPropagated,
+                                node.Identifier.GetLocation(),
+                                methodSymbol.Name,
+                                candidate!.Name ) );
+
+                        // One diagnostic per member is enough to make the point.
+                        return;
+                    }
+                }
+            }
+
+            private static bool IsStaticAnonymousFunction( SyntaxNode node )
+                => node switch
+                {
+                    AnonymousMethodExpressionSyntax anonymousMethod => anonymousMethod.Modifiers.Any( SyntaxKind.StaticKeyword ),
+                    ParenthesizedLambdaExpressionSyntax lambda => lambda.Modifiers.Any( SyntaxKind.StaticKeyword ),
+                    SimpleLambdaExpressionSyntax lambda => lambda.Modifiers.Any( SyntaxKind.StaticKeyword ),
+                    LocalFunctionStatementSyntax localFunction => localFunction.Modifiers.Any( SyntaxKind.StaticKeyword ),
+                    _ => false
+                };
+
             public override SyntaxNode VisitInvocationExpression( InvocationExpressionSyntax node )
             {
                 // There is no enclosing method to take the CancellationToken from. This happens for invocations in
@@ -110,29 +204,9 @@ namespace Metalama.Community.AutoCancellationToken
                     return node;
                 }
 
-                var mustAddArgument = false;
-
                 var semanticModel = this._compilation.GetSemanticModel( node.SyntaxTree );
 
-                var invocationWithCt =
-                    node.AddArgumentListArguments( SyntaxFactory.Argument( SyntaxFactory.DefaultExpression( CancellationTokenType ) ) );
-
-                var newInvocationArgumentsCount = invocationWithCt.ArgumentList.Arguments.Count;
-
-                if (
-
-                    // the code compiles
-                    semanticModel.GetSpeculativeSymbolInfo( node.SpanStart, invocationWithCt, default ).Symbol is
-                        IMethodSymbol speculativeSymbol &&
-
-                    // the added parameter corresponds to its own argument
-                    speculativeSymbol.Parameters.Length >= newInvocationArgumentsCount &&
-
-                    // that argument is CancellationToken
-                    IsCancellationToken( speculativeSymbol.Parameters[newInvocationArgumentsCount - 1] ) )
-                {
-                    mustAddArgument = true;
-                }
+                var mustAddArgument = WouldAcceptCancellationToken( semanticModel, node, out _ );
 
                 node = (InvocationExpressionSyntax?) base.VisitInvocationExpression( node )!;
 

@@ -1,3 +1,4 @@
+// Warning ACT001 on `VirtualAsync`: `'VirtualAsync' is not given a CancellationToken parameter because it is virtual, abstract, an override or an explicit interface implementation, and changing such a signature would break the dispatch contract. Its call to 'Helper' therefore runs without cancellation. Declare a CancellationToken parameter on 'VirtualAsync' explicitly to propagate cancellation.`
 namespace Metalama.Community.AutoCancellationToken.UnitTests.VirtualMembers;
 // Members that take part in virtual dispatch are not transformed. The signature is the dispatch contract, so the
 // forwarder-plus-overload approach of #81 cannot be applied to them:
@@ -8,7 +9,7 @@ namespace Metalama.Community.AutoCancellationToken.UnitTests.VirtualMembers;
 [AutoCancellationToken]
 internal class Base
 {
-  // Not transformed: virtual.
+  // Not transformed: virtual. ACT001 is reported because the call to Helper would have taken the token.
   public virtual async Task VirtualAsync() => await Helper();
   // Transformed: an ordinary method takes no part in dispatch.
   public Task PlainAsync() => PlainAsync(default);

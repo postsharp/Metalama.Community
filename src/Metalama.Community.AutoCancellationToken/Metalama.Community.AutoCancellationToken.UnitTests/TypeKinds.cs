@@ -26,6 +26,7 @@ internal record struct RecordStruct
 [AutoCancellationToken]
 internal interface IInterface
 {
+    // A default interface member is implicitly virtual, so it is not transformed and ACT001 is reported.
     async Task RunAsync() => await Helpers.Helper();
 }
 

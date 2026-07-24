@@ -98,6 +98,18 @@ is its dispatch contract: adding an overload would let a derived class the aspec
 original signature, so calling the token-taking overload would run the base body and silently ignore the override.
 Making only the overload virtual would instead break existing `override` declarations.
 
+This one is *not* silent. When such a member calls something that would have accepted a token, the aspect reports
+the warning `ACT001`, so you can see where cancellation was dropped and add a `CancellationToken` parameter by hand:
+
+```
+warning ACT001: 'RunAsync' is not given a CancellationToken parameter because it is virtual, abstract, an override
+or an explicit interface implementation, and changing such a signature would break the dispatch contract. Its call
+to 'GetAsync' therefore runs without cancellation. Declare a CancellationToken parameter on 'RunAsync' explicitly
+to propagate cancellation.
+```
+
+Declaring the parameter yourself resolves it: the aspect then propagates that token through the body as usual.
+
 **Propagation is not transitive, so a chain breaks at the first method the aspect does not own.** The aspect adds a
 token to the `async` methods of annotated types and then passes it to calls that already accept one. It never adds a
 parameter to a method merely because doing so is what would let the token travel further:
@@ -135,9 +147,10 @@ public async Task DoNothingAsync(CancellationToken cancellationToken) => await T
 **The aspect only sees the current compilation.** It cannot add tokens to methods in referenced assemblies, and it
 cannot know whether a type deriving from yours will be transformed.
 
-**Several constructs are skipped rather than reported.** A method whose last parameter is a `params` array, a
-method that already declares two or more `CancellationToken` parameters, and a call whose candidate overload takes
-a generic final parameter are all left untouched without a diagnostic. Nothing tells you the aspect did nothing.
+**Several constructs are still skipped without being reported.** A method whose last parameter is a `params` array,
+a method that already declares two or more `CancellationToken` parameters, and a call whose candidate overload takes
+a generic final parameter are all left untouched with no diagnostic. Only the virtual-dispatch case above reports
+`ACT001`; for these, nothing tells you the aspect did nothing.
 
 **Async iterators are not given `[EnumeratorCancellation]`.** The token added to an `async IAsyncEnumerable<T>`
 method is not wired up to the enumerator, so a token passed to `WithCancellation` is unconsumed. This is the one

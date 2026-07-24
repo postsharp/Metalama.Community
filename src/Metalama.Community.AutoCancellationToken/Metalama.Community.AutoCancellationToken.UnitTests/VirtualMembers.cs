@@ -13,7 +13,7 @@ namespace Metalama.Community.AutoCancellationToken.UnitTests.VirtualMembers;
 [AutoCancellationToken]
 internal class Base
 {
-    // Not transformed: virtual.
+    // Not transformed: virtual. ACT001 is reported because the call to Helper would have taken the token.
     public virtual async Task VirtualAsync() => await Helper();
 
     // Transformed: an ordinary method takes no part in dispatch.
