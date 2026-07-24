@@ -28,7 +28,7 @@ namespace Metalama.Community.AutoCancellationToken
                 var visited = (T) baseVisit( node )!;
 
                 return this._instancesNodes.Contains( node )
-                    ? (T) visited.WithAdditionalAnnotations( Annotation )
+                    ? visited.WithAdditionalAnnotations( Annotation )
                     : visited;
             }
         }
