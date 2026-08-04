@@ -15,7 +15,7 @@
 
   <!-- Versions of dependencies -->
   <Target Name="ValidateVersion">
-    <Error Text="The MetalamaVersion property is not defined. Check that 'Build.ps1 prepare' have been properly executed." Condition="'$(MetalamaVersion)'=='5'"/>
+    <Error Text="The MetalamaCommunityVersion property is not defined. Check that 'Build.ps1 prepare' has been properly executed." Condition="'$(MetalamaCommunityVersion)'==''"/>
   </Target>
 
 </Project>

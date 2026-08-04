@@ -25,7 +25,15 @@ var product = new Product( MetalamaDependencies.MetalamaCommunity )
     
     Solutions =
     [
-        new DotNetSolution( "Metalama.Community.sln" ) { CanFormatCode = true }
+        new DotNetSolution( "Metalama.Community.sln" ) { CanFormatCode = true },
+
+        // A standalone test: it consumes the produced NuGet package instead of a project reference, so it covers
+        // the packaging itself - analyzer wiring, dependencies, .props/.targets - which the main solution cannot.
+        new DotNetSolution(
+            @"src\Metalama.Community.Virtuosity\Metalama.Community.Virtuosity.TestApp\Metalama.Community.Virtuosity.TestApp.sln" )
+        {
+            IsTestOnly = true
+        }
     ],
     PublicArtifacts = Pattern.Create(
         "Metalama.Community.AutoCancellationToken.$(PackageVersion).nupkg",

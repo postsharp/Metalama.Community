@@ -94,18 +94,19 @@ public sealed class CosturaOptions : IHierarchicalOptions<ICompilation>
         return new CosturaOptions()
         {
             CompressResources = otherOptions.CompressResources ?? this.CompressResources,
-            IncludedAssemblies = otherOptions.IncludedAssemblies.ApplyChangesSafe( this.IncludedAssemblies, context )!,
+            IncludedAssemblies = this.IncludedAssemblies.ApplyChangesSafe( otherOptions.IncludedAssemblies, context )!,
             IncludeSatelliteAssemblies = otherOptions.IncludeSatelliteAssemblies ?? this.IncludeSatelliteAssemblies,
-            UnmanagedAssemblies = otherOptions.UnmanagedAssemblies.ApplyChangesSafe( this.UnmanagedAssemblies, context )!,
-            ExcludedAssemblies = otherOptions.ExcludedAssemblies.ApplyChangesSafe( this.ExcludedAssemblies, context )!,
-            PreloadedLibraries = otherOptions.PreloadedLibraries.ApplyChangesSafe( this.PreloadedLibraries, context )!,
+            UnmanagedAssemblies = this.UnmanagedAssemblies.ApplyChangesSafe( otherOptions.UnmanagedAssemblies, context )!,
+            ExcludedAssemblies = this.ExcludedAssemblies.ApplyChangesSafe( otherOptions.ExcludedAssemblies, context )!,
+            PreloadedLibraries = this.PreloadedLibraries.ApplyChangesSafe( otherOptions.PreloadedLibraries, context )!,
             CreateTemporaryAssemblies = otherOptions.CreateTemporaryAssemblies ?? this.CreateTemporaryAssemblies,
-            IncludeDebugSymbols = otherOptions.IncludeSatelliteAssemblies ?? this.IncludeSatelliteAssemblies,
+            IncludeDebugSymbols = otherOptions.IncludeDebugSymbols ?? this.IncludeDebugSymbols,
 #pragma warning disable CS0618 // Type or member is obsolete
             IsCleanupDisabled = otherOptions.IsCleanupDisabled ?? this.IsCleanupDisabled
 #pragma warning restore CS0618 // Type or member is obsolete
         };
     }
 
-    public IHierarchicalOptions GetDefaultOptions( OptionsInitializationContext context ) => new CosturaOptions() { CompressResources = true, IncludeSatelliteAssemblies = true };
+    public IHierarchicalOptions GetDefaultOptions( OptionsInitializationContext context )
+        => new CosturaOptions() { CompressResources = true, IncludeSatelliteAssemblies = true, IncludeDebugSymbols = true };
 }

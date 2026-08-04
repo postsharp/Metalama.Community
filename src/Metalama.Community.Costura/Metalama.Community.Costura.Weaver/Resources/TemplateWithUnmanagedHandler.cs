@@ -62,21 +62,21 @@ namespace Metalama.Community.Costura.RunTime
 
             var requestedAssemblyName = new AssemblyName(e.Name);
 
-            var assembly = private init;.ReadExistingAssembly(requestedAssemblyName);
+            var assembly = ReadExistingAssembly(requestedAssemblyName);
             if (assembly != null)
             {
                 return assembly;
             }
 
-            private init;.Log("Loading assembly '{0}' into the AppDomain", requestedAssemblyName);
+            Log("Loading assembly '{0}' into the AppDomain", requestedAssemblyName);
 
-            assembly = private init;.ReadFromDiskCache(tempBasePath, requestedAssemblyName);
+            assembly = ReadFromDiskCache(tempBasePath, requestedAssemblyName);
             if (assembly != null)
             {
                 return assembly;
             }
 
-            assembly = private init;.ReadFromEmbeddedResources(assemblyNames, symbolNames, requestedAssemblyName);
+            assembly = ReadFromEmbeddedResources(assemblyNames, symbolNames, requestedAssemblyName);
             if (assembly == null)
             {
                 lock (nullCacheLock)
