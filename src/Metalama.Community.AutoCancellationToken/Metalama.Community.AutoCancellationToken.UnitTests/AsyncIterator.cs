@@ -1,6 +1,8 @@
 // Copyright (c) SharpCrafters s.r.o. See the LICENSE.md file in the root directory of this repository root for details.
 
 #pragma warning disable VSTHRD200, CA1822
+#pragma warning disable IDE0005 // Using directive is unnecessary - ImplicitUsings already imports it, but the
+                                // baseline records the directive as written, so it is kept.
 
 using System.Collections.Generic;
 
