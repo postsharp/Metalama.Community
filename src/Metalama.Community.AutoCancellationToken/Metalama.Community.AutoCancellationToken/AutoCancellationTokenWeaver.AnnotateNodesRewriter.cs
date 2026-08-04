@@ -23,12 +23,13 @@ namespace Metalama.Community.AutoCancellationToken
 
             protected override T VisitTypeDeclaration<T>( T node, Func<T, SyntaxNode?> baseVisit )
             {
-                if ( !this._instancesNodes.Contains( node ) )
-                {
-                    return node;
-                }
+                // Always descend, even into a type that does not carry the aspect: a nested type may carry it itself,
+                // and returning early here made the aspect a silent no-op on nested types (#109).
+                var visited = (T) baseVisit( node )!;
 
-                return node.WithAdditionalAnnotations( Annotation );
+                return this._instancesNodes.Contains( node )
+                    ? visited.WithAdditionalAnnotations( Annotation )
+                    : visited;
             }
         }
     }
