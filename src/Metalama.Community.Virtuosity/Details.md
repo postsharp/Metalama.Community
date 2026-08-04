@@ -5,6 +5,11 @@ The following members are not virtualized:
 * private members, which can't be virtual
 * abstract members, which are already implicitly virtual
 * members in nested structs and interfaces
+* indexers and events, which are not visited by the aspect
+
+The `sealed` modifier is removed, both from the type and from its members. It is removed unconditionally, including
+from members that are then not virtualized: a member explicitly declared `sealed override` keeps its `override` but
+loses its `sealed`, and so becomes overridable again.
 
 ## Why is this useful
 
