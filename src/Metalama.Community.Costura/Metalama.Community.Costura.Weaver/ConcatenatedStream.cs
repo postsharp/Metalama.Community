@@ -1,4 +1,4 @@
-// Copyright (c) SharpCrafters s.r.o. See the LICENSE.md file in the root directory of this repository root for details.
+﻿// Copyright (c) SharpCrafters s.r.o. See the LICENSE.md file in the root directory of this repository root for details.
 
 using Metalama.Framework.Aspects;
 using System;
@@ -28,12 +28,12 @@ internal sealed class ConcatenatedStream : Stream
 
     public override bool CanWrite => false;
 
-    public override long Length => throw new NotImplementedException();
+    public override long Length => throw new NotSupportedException();
 
     public override long Position
     {
-        get => throw new NotImplementedException();
-        set => throw new NotImplementedException();
+        get => throw new NotSupportedException();
+        set => throw new NotSupportedException();
     }
 
     public void ResetAllToZero()
@@ -69,21 +69,21 @@ internal sealed class ConcatenatedStream : Stream
 
     public override void Flush()
     {
-        throw new NotImplementedException();
+        throw new NotSupportedException();
     }
 
     public override long Seek( long offset, SeekOrigin origin )
     {
-        throw new NotImplementedException();
+        throw new NotSupportedException();
     }
 
     public override void SetLength( long value )
     {
-        throw new NotImplementedException();
+        throw new NotSupportedException();
     }
 
     public override void Write( byte[] buffer, int offset, int count )
     {
-        throw new NotImplementedException();
+        throw new NotSupportedException();
     }
 }
