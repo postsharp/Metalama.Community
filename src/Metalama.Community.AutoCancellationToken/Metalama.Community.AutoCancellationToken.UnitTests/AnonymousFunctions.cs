@@ -1,6 +1,9 @@
 // Copyright (c) SharpCrafters s.r.o. See the LICENSE.md file in the root directory of this repository root for details.
 
 #pragma warning disable VSTHRD200, CA1822, VSTHRD101
+#pragma warning disable IDE0039 // Use local function - the lambdas are what this test exercises.
+#pragma warning disable IDE0051 // Remove unused private members - the token overload exists so that the
+                                // transformed code has something to bind to.
 
 namespace Metalama.Community.AutoCancellationToken.UnitTests.AnonymousFunctions;
 

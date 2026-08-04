@@ -1,6 +1,8 @@
 // Copyright (c) SharpCrafters s.r.o. See the LICENSE.md file in the root directory of this repository root for details.
 
 #pragma warning disable VSTHRD200, CA1822
+#pragma warning disable IDE0051 // Remove unused private members - PrivateAsync shows that a non-virtual
+                                // member is still transformed, and the token overload is a binding target.
 
 namespace Metalama.Community.AutoCancellationToken.UnitTests.VirtualMembers;
 
