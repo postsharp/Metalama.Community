@@ -9,18 +9,21 @@ using PostSharp.Engineering.BuildTools.Docker;
 using System;
 using MetalamaDependencies = PostSharp.Engineering.BuildTools.Dependencies.Definitions.MetalamaDependencies.V2027_0;
 
+// The only .NET SDK of the build agent, and the one pinned in global.json. The version comes from the product
+// family, so that it matches the feature band that the Visual Studio version of the family installs.
+var dotNetSdkVersion = MetalamaDependencies.Family.PreferredVersions.DotNetSdk.V_10_0;
+
 var product = new Product( MetalamaDependencies.MetalamaCommunity )
 {
     OverriddenBuildAgentRequirements = new ContainerRequirements( ContainerHostKind.Windows )
     {
         Components =
         [
-            new DotNetComponent( PreferredVersions.DotNetSdk.V_10_0, DotNetComponentKind.Sdk ),
-            new DotNetComponent( PreferredVersions.DotNetSdk.V_9_0, DotNetComponentKind.Sdk ),
+            new DotNetComponent( dotNetSdkVersion, DotNetComponentKind.Sdk ),
         ]
     },
     GenerateNuGetConfig = true,
-    DotNetSdkVersion = new DotNetSdkVersion( PreferredVersions.DotNetSdk.V_10_0 ),
+    DotNetSdkVersion = new DotNetSdkVersion( dotNetSdkVersion ),
     MSBuildVersion = new Version( 17, 14 ),
     
     Solutions =
