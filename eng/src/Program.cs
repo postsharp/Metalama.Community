@@ -1,5 +1,6 @@
 // Copyright (c) SharpCrafters s.r.o. See the LICENSE.md file in the root directory of this repository root for details.
 
+using BuildMetalamaCommunity;
 using PostSharp.Engineering.BuildTools;
 using PostSharp.Engineering.BuildTools.Build;
 using PostSharp.Engineering.BuildTools.Build.Model;
@@ -27,6 +28,10 @@ var product = new Product( MetalamaDependencies.MetalamaCommunity )
     {
         Components =
         [
+            // Must precede every DotNetComponent: it decides the archive form that dotnet-install.ps1
+            // downloads.
+            new DotNetInstallZipComponent(),
+
             new DotNetComponent( dotNet11SdkVersion, DotNetComponentKind.Sdk ),
             new DotNetComponent( dotNet10SdkVersion, DotNetComponentKind.Sdk ),
         ]
