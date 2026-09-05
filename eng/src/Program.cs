@@ -9,18 +9,20 @@ using PostSharp.Engineering.BuildTools.Docker;
 using System;
 using MetalamaDependencies = PostSharp.Engineering.BuildTools.Dependencies.Definitions.MetalamaDependencies.V2026_1;
 
+var preferredVersions = MetalamaDependencies.Family.PreferredVersions;
+
 var product = new Product( MetalamaDependencies.MetalamaCommunity )
 {
     OverriddenBuildAgentRequirements = new ContainerRequirements( ContainerHostKind.Windows )
     {
         Components =
         [
-            new DotNetComponent( PreferredVersions.DotNetSdk.V_10_0, DotNetComponentKind.Sdk ),
-            new DotNetComponent( PreferredVersions.DotNetSdk.V_9_0, DotNetComponentKind.Sdk ),
+            new DotNetComponent( preferredVersions.DotNetSdk.V_10_0, DotNetComponentKind.Sdk ),
+            new DotNetComponent( preferredVersions.DotNetSdk.V_9_0, DotNetComponentKind.Sdk ),
         ]
     },
     GenerateNuGetConfig = true,
-    DotNetSdkVersion = new DotNetSdkVersion( PreferredVersions.DotNetSdk.V_10_0 ),
+    DotNetSdkVersion = new DotNetSdkVersion( preferredVersions.DotNetSdk.V_10_0 ),
     MSBuildVersion = new Version( 17, 14 ),
     
     Solutions =
